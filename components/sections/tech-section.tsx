@@ -17,36 +17,36 @@ export function TechSection() {
   return (
     <section
       id="tecnologia"
-      className="relative flex min-h-full w-full flex-col items-center justify-center bg-zinc-50 px-6 py-20 lg:px-24 overflow-hidden"
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-zinc-50 px-6 py-[clamp(0.75rem,2dvh,1.5rem)] lg:px-24"
     >
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
       
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-12">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-5xl flex-col items-center justify-center gap-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col gap-4 items-center"
+          className="flex flex-col items-center gap-3"
         >
           <div className="flex items-center gap-3">
-            <span className="h-[1px] w-8 bg-zinc-400" />
+            <span className="h-px w-8 bg-zinc-400" />
             <span className="text-xs font-semibold tracking-widest uppercase text-zinc-500">
               Stack
             </span>
-            <span className="h-[1px] w-8 bg-zinc-400" />
+            <span className="h-px w-8 bg-zinc-400" />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900">
-            Tecnologie per l'eccellenza.
+          <h2 className="text-[clamp(1.9rem,5.3vh,3.2rem)] font-bold tracking-tight text-zinc-900">
+            Tecnologie per l&apos;eccellenza.
           </h2>
-          <p className="text-zinc-600 max-w-lg mt-2 text-lg">
+          <p className="mt-1 max-w-2xl text-[clamp(0.92rem,2vh,1.08rem)] text-zinc-600">
             Utilizzo i framework più moderni e robusti per garantire velocità,
             sicurezza e scalabilità ad ogni applicazione.
           </p>
         </motion.div>
 
         {/* Floating tech pills */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4">
+        <div className="mt-1 flex max-w-4xl flex-wrap items-center justify-center gap-2 md:gap-3">
           {technologies.map((tech, i) => (
             <motion.div
               key={tech.name}
@@ -59,9 +59,9 @@ export function TechSection() {
                 delay: i * 0.05,
                 type: "spring", stiffness: 300
               }}
-              className={`px-6 py-3 md:px-8 md:py-4 rounded-2xl flex items-center justify-center cursor-default shadow-sm border border-zinc-100 ${tech.bg}`}
+              className={`flex cursor-default items-center justify-center rounded-2xl border border-zinc-100 px-4 py-2 shadow-sm md:px-5 md:py-2.5 ${tech.bg}`}
             >
-              <span className={`text-lg md:text-xl font-bold tracking-tight ${tech.color}`}>
+              <span className={`text-sm font-bold tracking-tight md:text-base ${tech.color}`}>
                 {tech.name}
               </span>
             </motion.div>

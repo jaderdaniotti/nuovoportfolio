@@ -6,14 +6,14 @@ import type { Swiper as SwiperType } from "swiper";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { AboutSection } from "@/components/sections/about-section";
-import { CollabsSection } from "@/components/sections/collabs-section";
+// import { CollabsSection } from "@/components/sections/collabs-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSection } from "@/components/sections/hero-section";
-import { ProjectsSection } from "@/components/sections/projects-section";
+// import { ProjectsSection } from "@/components/sections/projects-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { TechSection } from "@/components/sections/tech-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import type { HomeProject } from "@/lib/home-content";
+// import type { HomeProject } from "@/lib/home-content";
 import { cn } from "@/lib/utils";
 
 import "swiper/css";
@@ -46,11 +46,13 @@ function parseHashIndex(): number {
   return HASH_TO_INDEX[raw] ?? HASH_TO_INDEX[raw.slice(1)] ?? 0;
 }
 
-type HomeFullpageSwiperProps = {
-  projects: HomeProject[];
-};
+// type HomeFullpageSwiperProps = {
+  // projects: HomeProject[];
+// };
 
-export function HomeFullpageSwiper({ projects }: HomeFullpageSwiperProps) {
+export function HomeFullpageSwiper(
+  // { projects }: HomeFullpageSwiperProps
+  ) {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const applyHashToSwiper = useCallback(() => {
@@ -111,11 +113,11 @@ export function HomeFullpageSwiper({ projects }: HomeFullpageSwiperProps) {
               <AboutSection />
             </SlideChrome>
           </SwiperSlide>
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <SlideChrome>
               <ProjectsSection projects={projects} />
             </SlideChrome>
-          </SwiperSlide>
+          </SwiperSlide> */}
           <SwiperSlide>
             <SlideChrome>
               <TechSection />
@@ -154,7 +156,7 @@ function SlideChrome({
   return (
     <div
       className={cn(
-        "h-full w-full min-w-0 overflow-x-hidden overflow-y-auto",
+        "h-full w-full min-w-0 overflow-hidden",
         className,
       )}
     >

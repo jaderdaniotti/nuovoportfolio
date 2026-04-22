@@ -50,6 +50,10 @@
   font-family: var(--font-horizon), ui-sans-serif, system-ui, sans-serif;
 }
 
+.brexon {
+  font-family: var(--font-brexon), ui-sans-serif, system-ui, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: clip;

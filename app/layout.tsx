@@ -63,6 +63,23 @@ const horizon = localFont({
   weight: "700",
 });
 
+const brexon = localFont({
+  src: [
+    {
+      path: "../src/fonts/brexon/Brexon-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../src/fonts/brexon/Brexon-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  display: "swap",
+  variable: "--font-brexon",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -104,11 +121,25 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${sfPro.variable} ${horizon.variable} h-full antialiased`}
+      className={`${sfPro.variable} ${horizon.variable} ${brexon.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background text-foreground" style={{ fontFamily: 'var(--font-sf-pro)' }} suppressHydrationWarning>
+      <body
+        className="relative min-h-full overflow-hidden bg-background text-foreground"
+        style={{ fontFamily: "var(--font-sf-pro)" }}
+        suppressHydrationWarning
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 -z-10 select-none overflow-hidden"
+        >
+          <div className="absolute inset-x-0 -bottom-[12dvh] flex justify-center">
+            <span className="horizon text-[clamp(4rem,24vw,22rem)] font-bold leading-none tracking-tight text-zinc-900/6">
+              JADER
+            </span>
+          </div>
+        </div>
         <JsonLd />
-        {children}
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
