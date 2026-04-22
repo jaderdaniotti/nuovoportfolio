@@ -20,7 +20,7 @@ export const siteConfig = {
     url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jaderdaniotti.vercel.app",
   },
   links: {
-    email: "mailto:info@jaderdaniotti.it",
+    email: "mailto:jaderdaniotti.lavoro@gmail.com",
     calendar: "https://calendar.google.com",
     linkedin: "https://www.linkedin.com",
     github: "https://github.com",

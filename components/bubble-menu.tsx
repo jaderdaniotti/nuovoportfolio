@@ -4,10 +4,11 @@ import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-type MenuItem = {
+export type MenuItem = {
   label: string;
   href: string;
   ariaLabel?: string;
+  target?: "_self" | "_blank";
   rotation?: number;
   hoverStyles?: {
     bgColor?: string;
@@ -386,6 +387,8 @@ export default function BubbleMenu({
                   role="menuitem"
                   href={item.href}
                   aria-label={item.ariaLabel || item.label}
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noreferrer noopener" : undefined}
                   className={[
                     "pill-link",
                     "w-full",

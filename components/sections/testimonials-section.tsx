@@ -70,7 +70,7 @@ export function TestimonialsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.2 }}
-                    className="flex min-h-0 min-w-full snap-start flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 text-left shadow-sm dark:border-zinc-800 dark:bg-zinc-900 md:gap-4 md:p-5"
+                    className="flex min-h-0 min-w-full snap-start flex-col gap-3 rounded-2xl  bg-white p-4 text-left shadow-sm dark:border-zinc-800 dark:bg-zinc-900 md:gap-4 md:p-5"
                   >
                     <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.25em] text-zinc-900 dark:text-zinc-100">
                       {Array.from({ length: review.valutazione }, (_, index) => (

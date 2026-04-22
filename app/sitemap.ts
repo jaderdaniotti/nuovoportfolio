@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/content/blog-posts";
+import { BLOG_ARTICLES } from "@/lib/blog-articles";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   const lastModified = new Date();
+  const blogPosts = BLOG_ARTICLES;
 
   const posts = blogPosts.map((p) => ({
     url: `${base}/blog/${p.slug}`,

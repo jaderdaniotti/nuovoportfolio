@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/site-config";
+import logopurple from "@/src/images/logopurple.png";
 import "./globals.css";
 
 const sfPro = localFont({
@@ -110,6 +111,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteConfig.url,
+  },
+  icons: {
+    icon: [{ url: logopurple.src, type: "image/png" }],
+    shortcut: [{ url: logopurple.src, type: "image/png" }],
+    apple: [{ url: logopurple.src, type: "image/png" }],
   },
 };
 

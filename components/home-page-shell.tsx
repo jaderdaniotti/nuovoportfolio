@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import BubbleMenu from "@/components/bubble-menu";
+import type { MenuItem } from "@/components/bubble-menu";
 import { FloatingQuickActions } from "@/components/floating-quick-actions";
 import SplashCursor from "@/components/splash-cursor";
 import type { HomeProject } from "@/lib/home-content";
@@ -24,7 +25,7 @@ type HomePageShellProps = {
 };
 
 export function HomePageShell({ projects }: HomePageShellProps) {
-  const navItems = [
+  const navItems: MenuItem[] = [
     {
       label: "hero",
       href: "/#hero",
@@ -71,6 +72,7 @@ export function HomePageShell({ projects }: HomePageShellProps) {
       label: "blog",
       href: "/blog",
       ariaLabel: "Vai al blog",
+      target: "_blank",
       rotation: -8,
       hoverStyles: { bgColor: "#111827", textColor: "#ffffff" },
     },

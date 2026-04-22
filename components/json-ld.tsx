@@ -1,7 +1,11 @@
 import { siteConfig } from "@/lib/site-config";
 
-export function JsonLd() {
-  const data = {
+type JsonLdProps = {
+  data?: Record<string, unknown>;
+};
+
+export function JsonLd({ data }: JsonLdProps) {
+  const defaultData = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.name,
@@ -26,7 +30,7 @@ export function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data ?? defaultData) }}
     />
   );
 }
