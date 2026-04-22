@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import BubbleMenu from "@/components/bubble-menu";
+import { FloatingQuickActions } from "@/components/floating-quick-actions";
 import SplashCursor from "@/components/splash-cursor";
 import type { HomeProject } from "@/lib/home-content";
 
@@ -89,6 +90,7 @@ export function HomePageShell({ projects }: HomePageShellProps) {
         animationDuration={0.5}
         staggerDelay={0.12}
       />
+      <FloatingQuickActions />
       <div className="relative z-10 flex min-h-0 flex-1">
         <HomeFullpageSwiper projects={projects} />
       </div>

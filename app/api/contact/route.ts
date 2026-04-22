@@ -6,7 +6,6 @@ export const runtime = "nodejs";
 
 type ContactPayload = {
   fullName?: string;
-  businessName?: string;
   phone?: string;
   email?: string;
   message?: string;
@@ -30,7 +29,6 @@ export async function POST(request: Request) {
     const payload = (await request.json()) as ContactPayload;
 
     const fullName = payload.fullName?.trim() ?? "";
-    const businessName = payload.businessName?.trim() ?? "";
     const phone = payload.phone?.trim() ?? "";
     const email = payload.email?.trim() ?? "";
     const message = payload.message?.trim() ?? "";
@@ -71,7 +69,6 @@ export async function POST(request: Request) {
       subject: `Nuovo contatto dal sito - ${fullName}`,
       text: [
         `Nome e cognome: ${fullName}`,
-        `Nome attivita: ${businessName || "Non indicato"}`,
         `Telefono: ${phone}`,
         `Email: ${email}`,
         "",
@@ -81,7 +78,6 @@ export async function POST(request: Request) {
       html: `
         <h2>Nuova richiesta dal form contatti</h2>
         <p><strong>Nome e cognome:</strong> ${fullName}</p>
-        <p><strong>Nome attivita:</strong> ${businessName || "Non indicato"}</p>
         <p><strong>Telefono:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Privacy accettata:</strong> Si</p>

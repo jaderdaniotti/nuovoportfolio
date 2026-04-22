@@ -133,7 +133,7 @@ export default function RootLayout({
           className="pointer-events-none fixed inset-0 -z-10 select-none overflow-hidden"
         >
           <div className="absolute inset-x-0 -bottom-[12dvh] flex justify-center">
-            <span className="horizon text-[clamp(4rem,24vw,22rem)] font-bold leading-none tracking-tight text-zinc-900/6">
+            <span className="horizon text-[clamp(4rem,24vw,22rem)] font-bold leading-none tracking-tight text-zinc-900/6 dark:text-zinc-100/10">
               JADER
             </span>
           </div>
