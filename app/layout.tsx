@@ -104,6 +104,9 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
   },
+  verification: {
+    google: "LCRO2Ks7k6upuaXz0GLCvUSuVvdOFX1G_ZLDfSnSeHg",
+  },
   robots: {
     index: true,
     follow: true,
