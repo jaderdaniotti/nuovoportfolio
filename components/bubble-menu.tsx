@@ -240,9 +240,9 @@ export default function BubbleMenu({
             overflow: visible;
           }
           .bubble-menu-items .pill-link {
-            font-size: clamp(1.2rem, 3vw, 4rem);
-            padding: clamp(1rem, 2vw, 2rem) 0;
-            min-height: 80px !important;
+            font-size: clamp(1.05rem, 2.6vw, 1.35rem) !important;
+            padding: clamp(0.75rem, 1.6vw, 1rem) 0 !important;
+            min-height: 68px !important;
           }
           .bubble-menu-items .pill-link:hover {
             transform: scale(1.06);

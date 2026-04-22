@@ -65,7 +65,7 @@ export function ContactSection() {
       id="contatti"
       className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-white px-6 py-[clamp(0.75rem,2dvh,1.5rem)] transition-colors dark:bg-zinc-950 lg:px-24"
     >
-      <div className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-6 lg:flex-row lg:gap-8">
+      <div className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-0 lg:flex-row lg:gap-8">
         
         {/* Left Side: Call to Action */}
         <motion.div
@@ -73,7 +73,7 @@ export function ContactSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="flex w-full flex-1 flex-col gap-4"
+          className="flex w-full flex-col gap-3 lg:flex-1 lg:gap-4 mb-5 md:mb-0"
         >
           <div className="flex items-center gap-3">
             <span className="h-px w-8 bg-zinc-300 dark:bg-zinc-600" />
@@ -87,7 +87,7 @@ export function ContactSection() {
             <span className="text-zinc-400 dark:text-zinc-500">rinnovarti?</span>
           </h2>
 
-          <p className="max-w-md text-[clamp(0.9rem,1.9vh,1rem)] leading-tight text-zinc-600 dark:text-zinc-300">
+          <p className="hidden max-w-md text-[clamp(0.9rem,1.9vh,1rem)] leading-tight text-zinc-600 dark:text-zinc-300 lg:block">
             Parliamo del tuo prossimo progetto. Che sia un restyling o una nuova piattaforma, ti guiderò verso la soluzione migliore.
           </p>
 
@@ -110,7 +110,7 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full flex-1"
+          className="w-full lg:flex-1"
         >
           <div className="rounded-3xl border border-zinc-100 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900 md:p-6">
             <form onSubmit={onSubmit} className="flex flex-col gap-4">

@@ -31,6 +31,17 @@ export function getArticleMetadata(slug: string): Metadata {
     title: `${article.title} | ${siteConfig.name}`,
     description: article.description,
     keywords: article.keywords,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
       canonical: canonicalUrl,
     },
@@ -41,6 +52,10 @@ export function getArticleMetadata(slug: string): Metadata {
       url: canonicalUrl,
       siteName: siteConfig.name,
       locale: "it_IT",
+      publishedTime: article.date,
+      modifiedTime: article.date,
+      authors: [siteConfig.name],
+      tags: article.keywords,
       images: [
         {
           url: ogImage,
