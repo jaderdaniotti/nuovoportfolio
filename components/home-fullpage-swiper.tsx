@@ -9,6 +9,7 @@ import { AboutSection } from "@/components/sections/about-section";
 // import { CollabsSection } from "@/components/sections/collabs-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSection } from "@/components/sections/hero-section";
+import { PricingSection } from "@/components/sections/pricing-section";
 // import { ProjectsSection } from "@/components/sections/projects-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { TechSection } from "@/components/sections/tech-section";
@@ -22,11 +23,10 @@ import "swiper/css/pagination";
 const SLIDE_HASHES = [
   "#hero",
   "#chi-sono",
-  "#progetti",
   "#tecnologia",
   "#competenze",
-  "#collaborazioni",
   "#testimonianze",
+  "#costi",
   "#contatti",
 ] as const;
 
@@ -131,6 +131,11 @@ export function HomeFullpageSwiper(
           <SwiperSlide>
             <SlideChrome>
               <TestimonialsSection />
+            </SlideChrome>
+          </SwiperSlide>
+          <SwiperSlide>
+            <SlideChrome>
+              <PricingSection />
             </SlideChrome>
           </SwiperSlide>
           <SwiperSlide>

@@ -62,10 +62,17 @@ export function HomePageShell({ projects }: HomePageShellProps) {
       hoverStyles: { bgColor: "#ef4444", textColor: "#ffffff" },
     },
     {
+      label: "costi",
+      href: "/#costi",
+      ariaLabel: "Vai alla sezione costi",
+      rotation: 8,
+      hoverStyles: { bgColor: "#ca8a04", textColor: "#ffffff" },
+    },
+    {
       label: "contatti",
       href: "/#contatti",
       ariaLabel: "Vai alla sezione contatti",
-      rotation: 8,
+      rotation: -8,
       hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
     },
     {
