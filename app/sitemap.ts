@@ -6,6 +6,7 @@ const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 function getPostPriority(date: string) {
   const publishedAt = new Date(date).getTime();
+  if (Number.isNaN(publishedAt)) return 0.6;
   const ageInDays = Math.max(0, (Date.now() - publishedAt) / DAY_IN_MS);
 
   if (ageInDays <= 14) return 0.9;
@@ -16,15 +17,16 @@ function getPostPriority(date: string) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteConfig.url.replace(/\/$/, "");
+  const base = siteConfig.url;
   const blogPosts = [...BLOG_ARTICLES].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
   const latestPostDate = blogPosts[0]?.date ? new Date(blogPosts[0].date) : new Date();
+  const safeLatestPostDate = Number.isNaN(latestPostDate.getTime()) ? new Date() : latestPostDate;
 
   const posts = blogPosts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: Number.isNaN(new Date(p.date).getTime()) ? new Date() : new Date(p.date),
     changeFrequency: "monthly" as const,
     priority: getPostPriority(p.date),
   }));
@@ -32,13 +34,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: `${base}/`,
-      lastModified: latestPostDate,
+      lastModified: safeLatestPostDate,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${base}/blog`,
-      lastModified: latestPostDate,
+      lastModified: safeLatestPostDate,
       changeFrequency: "daily",
       priority: 0.95,
     },

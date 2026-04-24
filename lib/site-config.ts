@@ -3,7 +3,8 @@ export const siteConfig = {
   title: "Jader Daniotti — Web Designer & Sviluppatore | Udine, Friuli",
   description:
     "Web designer e sviluppatore a Udine: siti web veloci, UX moderna, SEO e integrazioni AI. Progetti su misura per PMI, brand e startup in Friuli Venezia Giulia.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jaderdaniotti.vercel.app",
+  // Keep one canonical host for metadata, robots and sitemap.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://jaderweb.vercel.app").replace(/\/$/, ""),
   locale: "it_IT",
   keywords: [
     "web designer Udine",
@@ -17,7 +18,7 @@ export const siteConfig = {
   ],
   author: {
     name: "Jader Daniotti",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://jaderdaniotti.vercel.app",
+    url: (process.env.NEXT_PUBLIC_SITE_URL || "https://jaderweb.vercel.app").replace(/\/$/, ""),
   },
   links: {
     email: "mailto:jaderdaniotti.lavoro@gmail.com",
