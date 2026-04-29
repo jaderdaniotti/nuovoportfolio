@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog-articles";
+import { comuniItalia } from "@/lib/comuni";
 import { siteConfig } from "@/lib/site-config";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
@@ -31,6 +32,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: getPostPriority(p.date),
   }));
 
+  const comuniPages = comuniItalia
+    .filter((comune) => comune.seo?.indexable)
+    .map((comune) => ({
+    url: `${base}/comuni/${comune.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    }));
+
   return [
     {
       url: `${base}/`,
@@ -44,6 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.95,
     },
+    {
+      url: `${base}/comuni`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
     ...posts,
+    ...comuniPages,
   ];
 }

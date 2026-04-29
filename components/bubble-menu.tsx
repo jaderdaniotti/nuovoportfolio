@@ -419,7 +419,7 @@ export default function BubbleMenu({
                       fontWeight: 400,
                       lineHeight: 0,
                       willChange: "transform",
-                      height: 10,
+                      height:10,
                     } as CSSProperties
                   }
                   onClick={closeMenu}
