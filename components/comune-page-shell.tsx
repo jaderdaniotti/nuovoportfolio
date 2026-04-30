@@ -79,6 +79,13 @@ export function ComunePageShell({ comune }: ComunePageShellProps) {
       rotation: -8,
       hoverStyles: { bgColor: "#111827", textColor: "#ffffff" },
     },
+    {
+      label: "tools",
+      href: "/tools",
+      ariaLabel: "Vai ai tools",
+      rotation: 8,
+      hoverStyles: { bgColor: "#0ea5e9", textColor: "#ffffff" },
+    },
   ];
 
   return (

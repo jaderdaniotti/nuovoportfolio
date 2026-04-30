@@ -83,6 +83,14 @@ export function HomePageShell({ projects }: HomePageShellProps) {
       rotation: -8,
       hoverStyles: { bgColor: "#111827", textColor: "#ffffff" },
     },
+    {
+      label: "tools",
+      href: "/tools",
+      ariaLabel: "Vai ai tools",
+      target: "_blank",
+      rotation: 8,
+      hoverStyles: { bgColor: "#0ea5e9", textColor: "#ffffff" },
+    },
   ];
 
   return (

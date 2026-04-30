@@ -228,21 +228,35 @@ export default function BubbleMenu({
         }
         @media (max-width: 899px) {
           .bubble-menu-items {
-            padding-top: 120px;
             align-items: flex-start;
+            justify-content: center;
+            padding-top: 92px;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+            pointer-events: auto;
           }
           .bubble-menu-items .pill-list {
-            row-gap: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            row-gap: 12px;
+            max-height: none;
+            min-height: max-content;
+            padding-bottom: 12px;
+            scrollbar-width: thin;
           }
           .bubble-menu-items .pill-list .pill-col {
-            flex: 0 0 100% !important;
+            flex: 0 0 auto !important;
             margin-left: 0 !important;
             overflow: visible;
           }
           .bubble-menu-items .pill-link {
             font-size: clamp(1.05rem, 2.6vw, 1.35rem) !important;
-            padding: clamp(0.75rem, 1.6vw, 1rem) 0 !important;
-            min-height: 68px !important;
+            padding: clamp(0.45rem, 1.1vw, 0.65rem) 0 !important;
+            min-height: 56px !important;
           }
           .bubble-menu-items .pill-link:hover {
             transform: scale(1.06);
@@ -417,9 +431,8 @@ export default function BubbleMenu({
                       padding: "clamp(1.5rem, 3vw, 8rem) 0",
                       fontSize: "clamp(1.5rem, 4vw, 4rem)",
                       fontWeight: 400,
-                      lineHeight: 0,
+                      lineHeight: 1,
                       willChange: "transform",
-                      height:10,
                     } as CSSProperties
                   }
                   onClick={closeMenu}

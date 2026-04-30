@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog-articles";
 import { comuniItalia } from "@/lib/comuni";
 import { siteConfig } from "@/lib/site-config";
+import { toolsCatalog } from "@/lib/tools-catalog";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -41,6 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
     }));
 
+  const toolsPages = toolsCatalog.map((tool) => ({
+    url: `${base}/tools/${tool.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
   return [
     {
       url: `${base}/`,
@@ -60,7 +68,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.85,
     },
+    {
+      url: `${base}/tools`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     ...posts,
     ...comuniPages,
+    ...toolsPages,
   ];
 }
