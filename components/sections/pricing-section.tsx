@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { createPortal } from "react-dom";
 
 export function PricingSection() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -15,6 +21,16 @@ export function PricingSection() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, [isOpen]);
 
   return (
@@ -53,70 +69,76 @@ export function PricingSection() {
         </button>
       </motion.div>
 
-      {isOpen ? (
-        <div
-          className="fixed inset-0 z-120 flex h-dvh w-full items-center justify-center bg-zinc-950/75 p-3 md:p-6"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Dettaglio costi sito vetrina"
-        >
-          <div className="relative z-999 flex h-full max-h-dvh w-full max-w-3xl flex-col rounded-2xl bg-white p-5 text-zinc-900 shadow-2xl dark:bg-zinc-950 dark:text-zinc-100 md:p-8">
-            <div className="flex min-h-0 flex-1 flex-col justify-center gap-4 overflow-y-auto">
-              
-
-              <div className="grid gap-3">
-                <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                  <p className="font-semibold">Design unico, non copia-incolla</p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    Ogni pagina e disegnata per il tuo brand, i tuoi obiettivi e il tuo pubblico.
-                  </p>
-                </article>
-
-                <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                  <p className="font-semibold">Contatto umano diretto</p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    Parli con un freelancer, non con un ticket anonimo. Per una modifica non devi fissare
-                    riunioni infinite con un&apos;agenzia.
-                  </p>
-                </article>
-
-                <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                  <p className="font-semibold">Manutenzione molto piu leggera</p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    Nel 99% dei casi, invece di pacchetti da 1000 euro/anno tipici da agenzia, con me la
-                    manutenzione parte da <strong>300 euro</strong>.
-                  </p>
-                </article>
-
-                <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                  <p className="font-semibold">Zero costi nascosti da CMS pesanti</p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    Il sito è sviluppato a codice: meno plugin, meno vincoli, meno costi strutturali
-                    ricorrenti rispetto a setup WordPress tradizionali.
-                  </p>
-                </article>
-
-                <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                  <p className="font-semibold">Prestazioni superiori</p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    Pagine veloci, migliori Core Web Vitals, esperienza utente migliore e base SEO tecnica
-                    piu solida.
-                  </p>
-                </article>
-            <div className="mt-2 flex justify-center">
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-zinc-900 px-8 text-sm font-semibold tracking-wide text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+      {isOpen && isMounted
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-120 flex h-dvh w-full items-center justify-center bg-zinc-950/75 p-3 md:p-6"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Dettaglio costi sito vetrina"
+              onClick={() => setIsOpen(false)}
+            >
+              <div
+                className="relative z-130 flex h-full max-h-dvh w-full max-w-3xl flex-col rounded-2xl bg-white p-5 text-zinc-900 shadow-2xl dark:bg-zinc-950 dark:text-zinc-100 md:p-8"
+                onClick={(event) => event.stopPropagation()}
               >
-                Chiudi
-              </button>
-            </div>
+                <div className="flex min-h-0 flex-1 flex-col justify-center gap-4 overflow-y-auto">
+                  <div className="grid gap-3">
+                    <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-semibold">Design unico, non copia-incolla</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                        Ogni pagina e disegnata per il tuo brand, i tuoi obiettivi e il tuo pubblico.
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-semibold">Contatto umano diretto</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                        Parli con un freelancer, non con un ticket anonimo. Per una modifica non devi fissare
+                        riunioni infinite con un&apos;agenzia.
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-semibold">Manutenzione molto piu leggera</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                        Nel 99% dei casi, invece di pacchetti da 1000 euro/anno tipici da agenzia, con me la
+                        manutenzione parte da <strong>300 euro</strong>.
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-semibold">Zero costi nascosti da CMS pesanti</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                        Il sito è sviluppato a codice: meno plugin, meno vincoli, meno costi strutturali
+                        ricorrenti rispetto a setup WordPress tradizionali.
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-semibold">Prestazioni superiori</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                        Pagine veloci, migliori Core Web Vitals, esperienza utente migliore e base SEO tecnica
+                        piu solida.
+                      </p>
+                    </article>
+                  </div>
+
+                  <div className="mt-2 flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                      className="inline-flex h-11 items-center justify-center rounded-xl bg-zinc-900 px-8 text-sm font-semibold tracking-wide text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                    >
+                      Chiudi
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+            </div>,
+            document.body,
+          )
+        : null}
     </section>
   );
 }

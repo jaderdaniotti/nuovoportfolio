@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
@@ -117,6 +117,30 @@ export default function BubbleMenu({
     setIsMenuOpen(false);
     onMenuClick?.(false);
   }, [onMenuClick]);
+
+  const handleItemClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>, item: MenuItem) => {
+      const href = item.href.trim();
+      const isHashOnly = href.startsWith("#");
+      const isRootHash = href.startsWith("/#");
+      const isSamePageHash = isHashOnly || (isRootHash && window.location.pathname === "/");
+
+      if (isSamePageHash) {
+        event.preventDefault();
+        closeMenu();
+
+        const hash = isHashOnly ? href : href.slice(1);
+        const nextUrl = `${window.location.pathname}${window.location.search}${hash}`;
+
+        window.history.replaceState(null, "", nextUrl);
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        return;
+      }
+
+      closeMenu();
+    },
+    [closeMenu],
+  );
 
   useEffect(() => {
     const overlay = overlayRef.current;
@@ -435,7 +459,7 @@ export default function BubbleMenu({
                       willChange: "transform",
                     } as CSSProperties
                   }
-                  onClick={closeMenu}
+                  onClick={(event) => handleItemClick(event, item)}
                   ref={(el) => {
                     if (el) bubblesRef.current[idx] = el;
                   }}
