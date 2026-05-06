@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { JsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import logopurple from "@/src/images/logopurple.png";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 const sfPro = localFont({
@@ -132,6 +133,7 @@ export default function RootLayout({
       lang="it"
       className={`${sfPro.variable} ${horizon.variable} ${brexon.variable} h-full antialiased`}
     >
+      <Analytics />
       <body
         className="relative min-h-full overflow-hidden bg-background text-foreground"
         style={{ fontFamily: "var(--font-sf-pro)" }}
