@@ -4,16 +4,21 @@ import { comuniItalia } from "@/lib/comuni";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "In che comuni lavoro in Italia",
+  title: "Creazione siti web a: comuni serviti in Italia",
   description:
-    "Scopri in quali comuni italiani lavoro: cerca per comune, provincia o regione e trova la pagina locale dedicata.",
+    "Creazione siti web a livello locale: esplora i comuni italiani serviti, cerca per provincia o regione e trova la pagina dedicata alla tua area.",
+  keywords: [
+    "Creazione siti web a",
+    "creazione siti web a comuni italiani",
+    "creazione siti web locale",
+  ],
   alternates: {
     canonical: `${siteConfig.url}/comuni`,
   },
   openGraph: {
-    title: "In che comuni lavoro in Italia",
+    title: "Creazione siti web a: comuni serviti in Italia",
     description:
-      "Scopri in quali comuni italiani lavoro: cerca per comune, provincia o regione e trova la pagina locale dedicata.",
+      "Creazione siti web a livello locale: esplora i comuni italiani serviti, cerca per provincia o regione e trova la pagina dedicata alla tua area.",
     url: `${siteConfig.url}/comuni`,
   },
 };

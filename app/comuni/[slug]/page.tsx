@@ -26,18 +26,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = comune.seo?.title ?? `Siti web a ${comune.nome} (${comune.sigla})`;
+  const title = comune.seo?.title ?? `Creazione siti web a ${comune.nome} (${comune.sigla})`;
   const description =
     comune.seo?.description ??
-    `Realizzazione siti web e SEO locale a ${comune.nome}, provincia di ${comune.provincia?.nome}, Friuli Venezia Giulia.`;
+    `Creazione siti web a ${comune.nome}: sviluppo su misura e SEO locale per attività in provincia di ${comune.provincia?.nome}.`;
   const canonicalPath = comune.seo?.canonical ?? `/comuni/${comune.slug}`;
   const url = `${siteConfig.url}${canonicalPath}`;
-  const shouldIndex = comune.seo?.indexable ?? false;
+  const shouldIndex = true;
 
   return {
     title,
     description,
-    keywords: comune.seo?.keywords,
+    keywords: comune.seo?.keywords ?? [
+      "Creazione siti web a",
+      `creazione siti web a ${comune.nome}`,
+      `siti web ${comune.nome}`,
+    ],
     alternates: { canonical: url },
     openGraph: { title, description, url },
     robots: { index: shouldIndex, follow: true },
@@ -55,7 +59,7 @@ export default async function ComunePage({ params }: PageProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Realizzazione siti web e SEO locale",
+    serviceType: `Creazione siti web a ${comune.nome} e SEO locale`,
     areaServed: {
       "@type": "AdministrativeArea",
       name: `${comune.nome}, ${comune.provincia?.nome}, ${comune.regione?.nome}`,
@@ -71,10 +75,10 @@ export default async function ComunePage({ params }: PageProps) {
       `Supporto per siti web professionali, restyling e SEO locale per attivita in ${comune.nome}.`,
   };
 
-  const seoTitle = comune.seo?.title ?? `Siti web a ${comune.nome} (${comune.sigla})`;
+  const seoTitle = comune.seo?.title ?? `Creazione siti web a ${comune.nome} (${comune.sigla})`;
   const seoDescription =
     comune.seo?.description ??
-    `Realizzazione siti web e SEO locale a ${comune.nome}, provincia di ${comune.provincia?.nome}, ${comune.regione?.nome}.`;
+    `Creazione siti web a ${comune.nome}: sviluppo su misura e SEO locale per attività in provincia di ${comune.provincia?.nome}, ${comune.regione?.nome}.`;
   const localCta =
     comune.seo?.cta ??
     `Se lavori a ${comune.nome}, possiamo definire una strategia web locale con obiettivi chiari.`;

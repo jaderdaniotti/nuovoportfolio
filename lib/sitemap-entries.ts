@@ -32,9 +32,7 @@ export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
     priority: getPostPriority(p.date),
   }));
 
-  const comuniPages = comuniItalia
-    .filter((comune) => comune.seo?.indexable)
-    .map((comune) => ({
+  const comuniPages = comuniItalia.map((comune) => ({
       url: `${base}/comuni/${comune.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

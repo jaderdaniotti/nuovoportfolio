@@ -349,6 +349,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
+    keywords: [
+      "Creazione siti web a",
+      "tools SEO",
+      tool.name,
+      tool.slug.replaceAll("-", " "),
+    ],
     alternates: { canonical: url },
     openGraph: { title, description, url },
   };

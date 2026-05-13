@@ -85,7 +85,7 @@ export function getComuniItaliaSlugs() {
 }
 
 export function getIndexableComuniItaliaSlugs() {
-  return comuniItalia.filter((comune) => comune.seo?.indexable).map((comune) => comune.slug);
+  return comuniItalia.map((comune) => comune.slug);
 }
 
 export function getPreRenderComuniItaliaSlugs() {

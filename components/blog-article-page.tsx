@@ -30,7 +30,11 @@ export function getArticleMetadata(slug: string): Metadata {
   return {
     title: `${article.title} | ${siteConfig.name}`,
     description: article.description,
-    keywords: article.keywords,
+    keywords: [
+      "Creazione siti web a",
+      "creazione siti web a livello locale",
+      ...article.keywords,
+    ],
     robots: {
       index: true,
       follow: true,

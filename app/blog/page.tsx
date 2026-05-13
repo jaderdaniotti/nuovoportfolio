@@ -4,10 +4,12 @@ import { BLOG_ARTICLES } from "@/lib/blog-articles";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: `Blog — ${siteConfig.name}`,
+  title: `Blog creazione siti web a livello locale — ${siteConfig.name}`,
   description:
-    "Articoli su web design, UX, SEO locale e performance: note di lavoro per PMI e professionisti.",
+    "Articoli su creazione siti web a livello locale, SEO, UX e performance: guide pratiche per PMI e professionisti.",
   keywords: [
+    "Creazione siti web a",
+    "creazione siti web a livello locale",
     "blog web design",
     "SEO Udine",
     "articoli UX",
@@ -15,8 +17,8 @@ export const metadata: Metadata = {
     ...siteConfig.keywords.slice(0, 4),
   ] as string[],
   openGraph: {
-    title: `Blog — ${siteConfig.name}`,
-    description: "Articoli su design, UX e visibilità online.",
+    title: `Blog creazione siti web a livello locale — ${siteConfig.name}`,
+    description: "Articoli su creazione siti web a livello locale, UX e visibilità online.",
     url: `${siteConfig.url}/blog`,
     siteName: siteConfig.name,
     locale: siteConfig.locale,

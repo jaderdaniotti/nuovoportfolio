@@ -4,12 +4,45 @@ import { projects as fallbackProjects, type HomeProject } from "@/lib/home-conte
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
+  title: "Creazione siti web a Udine e in tutta Italia | jaderweb",
+  description:
+    "Creazione siti web a Udine, Milano, Roma e in tutta Italia: sviluppo su misura, SEO tecnica e design orientato alla conversione per professionisti e aziende.",
+  keywords: [
+    "creazione siti web",
+    "Creazione siti web a",
+    "creazione siti web a Udine",
+    "creazione siti web a Milano",
+    "creazione siti web a Roma",
+    ...siteConfig.keywords,
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    siteName: siteConfig.name,
     url: siteConfig.url,
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: "Creazione siti web a Udine e in tutta Italia | jaderweb",
+    description:
+      "Creazione siti web a Udine, Milano, Roma e in tutta Italia: sviluppo su misura, SEO tecnica e design orientato alla conversione per professionisti e aziende.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creazione siti web a Udine e in tutta Italia | jaderweb",
+    description:
+      "Creazione siti web a Udine, Milano, Roma e in tutta Italia: sviluppo su misura, SEO tecnica e design orientato alla conversione.",
   },
 };
 

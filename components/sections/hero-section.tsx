@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import images from "@/src/images";
 
 export function HeroSection() {
@@ -46,14 +47,13 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1 className="text-[clamp(2.2rem,8.2vh,5.6rem)] font-bold leading-[1.02] tracking-tight text-zinc-900 dark:text-zinc-100">
-            Innovazione digitale <br className="hidden md:block" />
-            <span className="text-zinc-500 dark:text-zinc-400">su misura.</span>
+            Creazione siti web <br className="hidden md:block" />
           </h1>
 
           {/* Description */}
           <p className="mt-1 max-w-2xl text-[clamp(0.95rem,2.2vh,1.2rem)] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            Aiuto brand e professionisti a distinguersi online realizzando siti web 
-            altamente performanti, ottimizzati per la SEO e progettati per convertire.
+            Creazione siti web a Udine e in tutta Italia: aiuto brand e professionisti a distinguersi
+            online con progetti performanti, ottimizzati SEO e pensati per convertire.
           </p>
 
           {/* Call To Actions */}
@@ -73,14 +73,12 @@ export function HeroSection() {
             </button>
             
             {/* Secondary CTA */}
-            <button 
-              onClick={() => {
-                window.location.hash = "#progetti";
-              }}
+            <Link
+              href="/comuni"
               className="z-10 inline-flex h-12 w-full items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 px-6 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-zinc-600 dark:hover:bg-zinc-800 sm:w-auto"
             >
-              Esplora i lavori
-            </button>
+              Vedi i comuni serviti
+            </Link>
           </div>
         </motion.div>
       </div>

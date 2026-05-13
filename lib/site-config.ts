@@ -1,13 +1,17 @@
 export const siteConfig = {
   name: "jaderweb",
   personName: "Jader Daniotti",
-  title: "jaderweb — Web Designer & Sviluppatore | Udine, Friuli",
+  title: "Creazione siti web a Udine | jaderweb",
   description:
-    "Web designer e sviluppatore a Udine: siti web veloci, UX moderna, SEO e integrazioni AI. Progetti su misura per PMI, brand e startup in Friuli Venezia Giulia.",
+    "Creazione siti web a Udine e in tutta Italia: sviluppo su misura, UX moderna, SEO tecnica e supporto diretto per PMI, professionisti e brand.",
   // Keep one canonical host for metadata, robots and sitemap.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://jaderweb.com").replace(/\/$/, ""),
   locale: "it_IT",
   keywords: [
+    "Creazione siti web a",
+    "creazione siti web a Udine",
+    "creazione siti web a Milano",
+    "creazione siti web a Roma",
     "web designer Udine",
     "creazione siti web Friuli",
     "sviluppatore web Udine",
