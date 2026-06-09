@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/json-ld";
+import { indexableRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 import logopurple from "@/src/images/logopurple.png";
 import { Analytics } from "@vercel/analytics/next"
@@ -108,11 +109,7 @@ export const metadata: Metadata = {
   verification: {
     google: "UFMvRmPRPO4BAMqYfNQkzZ5_EMb7hxb6fnyfLQNDH0c",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  robots: indexableRobots,
   alternates: {
     canonical: siteConfig.url,
   },

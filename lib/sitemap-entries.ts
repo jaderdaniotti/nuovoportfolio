@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog-articles";
-import { comuniItalia } from "@/lib/comuni";
+import { getIndexableComuniItaliaSlugs } from "@/lib/comuni";
 import { toolsCatalog } from "@/lib/tools-catalog";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
@@ -32,12 +32,12 @@ export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
     priority: getPostPriority(p.date),
   }));
 
-  const comuniPages = comuniItalia.map((comune) => ({
-      url: `${base}/comuni/${comune.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
+  const comuniPages = getIndexableComuniItaliaSlugs().map((slug) => ({
+    url: `${base}/comuni/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   const toolsPages = toolsCatalog.map((tool) => ({
     url: `${base}/tools/${tool.slug}`,

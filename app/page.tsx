@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HomePageShell } from "@/components/home-page-shell";
 import { projects as fallbackProjects, type HomeProject } from "@/lib/home-content";
+import { indexableRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -15,17 +16,7 @@ export const metadata: Metadata = {
     "creazione siti web a Roma",
     ...siteConfig.keywords,
   ],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  robots: indexableRobots,
   alternates: {
     canonical: siteConfig.url,
   },

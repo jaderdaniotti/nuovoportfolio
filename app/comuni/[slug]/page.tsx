@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ComunePageShell } from "@/components/comune-page-shell";
 import { getComuneBySlug, getPreRenderComuniItaliaSlugs } from "@/lib/comuni";
+import { indexableRobots, noindexRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 
 type PageProps = {
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!comune) {
     return {
       title: "Comune non trovato",
-      robots: { index: false, follow: false },
+      robots: noindexRobots,
     };
   }
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     `Creazione siti web a ${comune.nome}: sviluppo su misura e SEO locale per attività in provincia di ${comune.provincia?.nome}.`;
   const canonicalPath = comune.seo?.canonical ?? `/comuni/${comune.slug}`;
   const url = `${siteConfig.url}${canonicalPath}`;
-  const shouldIndex = true;
+  const shouldIndex = comune.seo?.indexable ?? true;
 
   return {
     title,
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ],
     alternates: { canonical: url },
     openGraph: { title, description, url },
-    robots: { index: shouldIndex, follow: true },
+    robots: shouldIndex ? indexableRobots : noindexRobots,
   };
 }
 

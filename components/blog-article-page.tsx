@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { getArticleBySlug } from "@/lib/blog-articles";
+import { indexableRobots, noindexRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 
 type Props = {
@@ -20,6 +21,7 @@ export function getArticleMetadata(slug: string): Metadata {
     return {
       title: "Articolo non trovato",
       description: "L'articolo richiesto non esiste.",
+      robots: noindexRobots,
     };
   }
 
@@ -35,17 +37,7 @@ export function getArticleMetadata(slug: string): Metadata {
       "creazione siti web a livello locale",
       ...article.keywords,
     ],
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
+    robots: indexableRobots,
     alternates: {
       canonical: canonicalUrl,
     },

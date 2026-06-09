@@ -66,6 +66,7 @@ import { ToolCompressoreVideoWeb } from "@/components/tools/tool-compressore-vid
 import { ToolEstimatoreTempoLettura } from "@/components/tools/tool-estimatore-tempo-lettura";
 import { ToolGeneratoreCookieBannerCopy } from "@/components/tools/tool-generatore-cookie-banner-copy";
 import { ToolGeneratorePrivacyPolicyBase } from "@/components/tools/tool-generatore-privacy-policy-base";
+import { indexableRobots, noindexRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 import { toolCategoryLabels, toolsBySlug, toolsCatalog } from "@/lib/tools-catalog";
 
@@ -84,7 +85,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!tool) {
     return {
       title: "Tool non trovato",
-      robots: { index: false, follow: false },
+      robots: noindexRobots,
     };
   }
 
@@ -357,6 +358,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ],
     alternates: { canonical: url },
     openGraph: { title, description, url },
+    robots: indexableRobots,
   };
 }
 

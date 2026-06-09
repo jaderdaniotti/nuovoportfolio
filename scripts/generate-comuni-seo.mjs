@@ -11,7 +11,7 @@ const rootDir = path.resolve(__dirname, "..");
 const sourcePath = path.resolve(rootDir, "src/comuni.json");
 const outputPath = path.resolve(rootDir, "src/comuni-seo.json");
 
-const INDEXABLE_POPULATION_THRESHOLD = 10000;
+const INDEXABLE_POPULATION_THRESHOLD = 0;
 const PRERENDER_POPULATION_THRESHOLD = 20000;
 
 const variants = {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToolsIndex } from "@/components/tools/tools-index";
+import { indexableRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
       "Scopri i tools disponibili per creazione siti web a livello locale: analizzatori SEO, converter immagini/documenti e utility operative.",
     url: `${siteConfig.url}/tools`,
   },
+  robots: indexableRobots,
 };
 
 export default function ToolsPage() {

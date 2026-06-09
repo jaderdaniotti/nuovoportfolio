@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ComuniHubContent } from "@/components/comuni-hub-content";
 import { comuniItalia } from "@/lib/comuni";
+import { indexableRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
       "Creazione siti web a livello locale: esplora i comuni italiani serviti, cerca per provincia o regione e trova la pagina dedicata alla tua area.",
     url: `${siteConfig.url}/comuni`,
   },
+  robots: indexableRobots,
 };
 
 export default function ComuniHubPage() {
