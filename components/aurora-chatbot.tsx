@@ -5,6 +5,9 @@ import { useEffect } from "react";
 
 const EMBED_ID = "cmc0rzztk0005hgiqjatcca2k";
 
+/** Imposta `true` per riattivare il widget Aurora. */
+const AURORA_CHATBOT_ENABLED = false;
+
 const chatWindowStyle: React.CSSProperties = {
   marginRight: "1rem",
   marginBottom: "6rem",
@@ -23,7 +26,7 @@ const chatWindowStyle: React.CSSProperties = {
   zIndex: 2147483639,
 };
 
-export function AuroraChatbot() {
+function AuroraChatbotInner() {
   useEffect(() => {
     function onMessage(event: MessageEvent) {
       const chatIframe = document.getElementById(
@@ -94,4 +97,9 @@ export function AuroraChatbot() {
       />
     </>
   );
+}
+
+export function AuroraChatbot() {
+  if (!AURORA_CHATBOT_ENABLED) return null;
+  return <AuroraChatbotInner />;
 }

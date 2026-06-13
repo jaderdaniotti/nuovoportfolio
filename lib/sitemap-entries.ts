@@ -5,6 +5,9 @@ import { toolsCatalog } from "@/lib/tools-catalog";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
+/** Landing pages commerciali — aggiornare quando cambiano prezzi o copy SEO. */
+const COMMERCIAL_PAGES_LAST_MODIFIED = new Date("2026-06-13");
+
 function getPostPriority(date: string) {
   const publishedAt = new Date(date).getTime();
   if (Number.isNaN(publishedAt)) return 0.6;
@@ -54,6 +57,18 @@ export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${base}/pricing`,
+      lastModified: COMMERCIAL_PAGES_LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.92,
+    },
+    {
+      url: `${base}/contatti`,
+      lastModified: COMMERCIAL_PAGES_LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.92,
+    },
+    {
       url: `${base}/blog`,
       lastModified: safeLatestPostDate,
       changeFrequency: "daily",
@@ -70,18 +85,6 @@ export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    {
-      url: `${base}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/contatti`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
     },
     ...posts,
     ...comuniPages,
