@@ -42,6 +42,7 @@ export const footerHomeLinks: FooterLink[] = [
   { label: "Competenze", href: "/#competenze", title: "Servizi e specializzazioni" },
   { label: "Progetti", href: "/#progetti", title: "Portfolio e case study" },
   { label: "Testimonianze", href: "/#testimonianze", title: "Recensioni dei clienti" },
+  { label: "Tariffe", href: "/#tariffe", title: "Pacchetti siti web e chatbot AI" },
   { label: "Collaborazioni", href: "/#collaborazioni", title: "Partner e collaborazioni" },
   { label: "Contatti", href: "/contatti", title: "Richiedi un preventivo gratuito" },
 ];
