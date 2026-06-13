@@ -8,7 +8,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { AboutSection } from "@/components/sections/about-section";
 import { ComuneHeroSection } from "@/components/sections/comune-hero-section";
 import { ContactSection } from "@/components/sections/contact-section";
-import { PricingSection } from "@/components/sections/pricing-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { TechSection } from "@/components/sections/tech-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
@@ -23,7 +22,6 @@ const SLIDE_HASHES = [
   "#tecnologia",
   "#competenze",
   "#testimonianze",
-  "#costi",
   "#contatti",
 ] as const;
 
@@ -120,11 +118,6 @@ export function ComuneFullpageSwiper({ comune }: ComuneFullpageSwiperProps) {
           <SwiperSlide>
             <SlideChrome>
               <TestimonialsSection />
-            </SlideChrome>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SlideChrome>
-              <PricingSection />
             </SlideChrome>
           </SwiperSlide>
           <SwiperSlide>

@@ -71,6 +71,18 @@ export function buildSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${base}/pricing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/contatti`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     ...posts,
     ...comuniPages,
     ...toolsPages,

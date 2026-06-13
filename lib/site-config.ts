@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "jaderweb",
   personName: "Jader Daniotti",
+  vatNumber: "14494540967",
   title: "Creazione siti web a Udine | jaderweb",
   description:
     "Creazione siti web a Udine e in tutta Italia: sviluppo su misura, UX moderna, SEO tecnica e supporto diretto per PMI, professionisti e brand.",
