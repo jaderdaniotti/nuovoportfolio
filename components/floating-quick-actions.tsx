@@ -2,6 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import { CHATBASE_WIDGET_ENABLED } from "@/lib/chatbase-config";
 
 
 const THEME_STORAGE_KEY = "theme-preference";
@@ -26,6 +27,10 @@ export function FloatingQuickActions() {
     const nextIsDark = !isDark;
     setIsDark(nextIsDark);
   };
+
+  const whatsappPositionClass = CHATBASE_WIDGET_ENABLED
+    ? "bottom-[5.25rem] right-4"
+    : "bottom-4 right-4";
 
   return (
     <>
@@ -61,7 +66,7 @@ export function FloatingQuickActions() {
         rel="noreferrer noopener"
         aria-label="Scrivimi su WhatsApp"
         title="Scrivimi su WhatsApp"
-        className="pointer-events-auto fixed bottom-4 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-white shadow-lg transition hover:scale-105 dark:border-zinc-700 dark:bg-zinc-900"
+        className={`pointer-events-auto fixed z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-white shadow-lg transition hover:scale-105 dark:border-zinc-700 dark:bg-zinc-900 ${whatsappPositionClass}`}
       >
         <svg
           viewBox="0 0 48 48"

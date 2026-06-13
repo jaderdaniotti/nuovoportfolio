@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { AuroraChatbot } from "@/components/aurora-chatbot";
+import { ChatbaseWidget } from "@/components/chatbase-widget";
 import { JsonLd } from "@/components/json-ld";
 import { indexableRobots } from "@/lib/seo-robots";
 import { siteConfig } from "@/lib/site-config";
@@ -149,7 +149,7 @@ export default function RootLayout({
         </div>
         <JsonLd />
         <div className="relative z-10">{children}</div>
-        <AuroraChatbot />
+        <ChatbaseWidget />
       </body>
     </html>
   );
