@@ -1,71 +1,21 @@
-"use client";
-
-import { useEffect } from "react";
+import Script from "next/script";
 import { CHATBASE_BOT_ID, CHATBASE_WIDGET_ENABLED } from "@/lib/chatbase-config";
 
-type ChatbaseFn = {
-  (...args: unknown[]): void;
-  q: unknown[][];
-};
-
-declare global {
-  interface Window {
-    chatbase?: ChatbaseFn;
-  }
+function buildChatbaseEmbedScript(botId: string) {
+  return `(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="${botId}";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();`;
 }
 
-function initChatbaseEmbed() {
-  const state = window.chatbase?.("getState" as never) as string | undefined;
-  if (state === "initialized") {
-    return;
-  }
-
-  const chatbase = ((...args: unknown[]) => {
-    chatbase.q.push(args);
-  }) as ChatbaseFn;
-
-  chatbase.q = [];
-
-  window.chatbase = new Proxy(chatbase, {
-    get(target, prop) {
-      if (prop === "q") {
-        return target.q;
-      }
-      return (...args: unknown[]) => chatbase(String(prop), ...args);
-    },
-  }) as ChatbaseFn;
-
-  if (document.getElementById(CHATBASE_BOT_ID)) {
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.src = "https://www.chatbase.co/embed.min.js";
-  script.id = CHATBASE_BOT_ID;
-  script.setAttribute("domain", "www.chatbase.co");
-  document.body.appendChild(script);
-}
-
-function ChatbaseWidgetInner() {
-  useEffect(() => {
-    const run = () => initChatbaseEmbed();
-
-    if (document.readyState === "complete") {
-      run();
-      return;
-    }
-
-    window.addEventListener("load", run);
-    return () => window.removeEventListener("load", run);
-  }, []);
-
-  return null;
-}
-
+/** Chatbase chat bubble — script ufficiale via next/script (affidabile in prod). */
 export function ChatbaseWidget() {
   if (!CHATBASE_WIDGET_ENABLED || !CHATBASE_BOT_ID) {
     return null;
   }
 
-  return <ChatbaseWidgetInner />;
+  return (
+    <Script
+      id="chatbase-widget-init"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: buildChatbaseEmbedScript(CHATBASE_BOT_ID) }}
+    />
+  );
 }
