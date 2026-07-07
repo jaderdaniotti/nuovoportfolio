@@ -94,7 +94,7 @@ export function HomePageShell({ projects }: HomePageShellProps) {
   ];
 
   return (
-    <div className="relative flex h-dvh min-w-0 flex-col overflow-x-clip">
+    <div className="relative flex min-h-dvh min-w-0 flex-col overflow-x-clip max-md:h-dvh max-md:overflow-y-auto md:h-dvh">
       <SplashCursor DENSITY_DISSIPATION={4.5} PRESSURE={0.7} />
       <BubbleMenu
         items={navItems}
@@ -108,7 +108,7 @@ export function HomePageShell({ projects }: HomePageShellProps) {
         staggerDelay={0.12}
       />
       <FloatingQuickActions />
-      <div className="relative z-10 flex min-h-0 flex-1">
+      <div className="relative z-10 flex flex-1 md:min-h-0">
         <HomeFullpageSwiper projects={projects} />
       </div>
     </div>

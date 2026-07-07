@@ -15,6 +15,7 @@ import { SkillsSection } from "@/components/sections/skills-section";
 import { TechSection } from "@/components/sections/tech-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 // import type { HomeProject } from "@/lib/home-content";
+import { useIsMobile } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
 import "swiper/css";
@@ -53,6 +54,7 @@ function parseHashIndex(): number {
 export function HomeFullpageSwiper(
   // { projects }: HomeFullpageSwiperProps
   ) {
+  const isMobile = useIsMobile();
   const swiperRef = useRef<SwiperType | null>(null);
 
   const applyHashToSwiper = useCallback(() => {
@@ -62,10 +64,11 @@ export function HomeFullpageSwiper(
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
     applyHashToSwiper();
     window.addEventListener("hashchange", applyHashToSwiper);
     return () => window.removeEventListener("hashchange", applyHashToSwiper);
-  }, [applyHashToSwiper]);
+  }, [applyHashToSwiper, isMobile]);
 
   const onSlideChange = (sw: SwiperType) => {
     const i = sw.realIndex;
@@ -76,6 +79,20 @@ export function HomeFullpageSwiper(
       window.history.replaceState(null, "", next);
     }
   };
+
+  if (isMobile) {
+    return (
+      <main className="relative w-full flex-1 [&_section]:h-auto [&_section]:min-h-dvh [&_section]:overflow-visible">
+        <HeroSection />
+        <AboutSection />
+        <TechSection />
+        <SkillsSection />
+        <TestimonialsSection />
+        <PricingTeaserSection />
+        <ContactSection />
+      </main>
+    );
+  }
 
   return (
     <main className="relative min-h-0 w-full flex-1">
