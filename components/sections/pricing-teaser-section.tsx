@@ -10,6 +10,7 @@ const websitePackages = [
     icon: Sprout,
     name: "Basic",
     description: "Presenza online essenziale per partire subito",
+    highlighted: false,
   },
   {
     icon: Rocket,
@@ -21,6 +22,7 @@ const websitePackages = [
     icon: Crown,
     name: "Business",
     description: "Per brand che vogliono crescere con contenuti e dati",
+    highlighted: false,
   },
 ] as const;
 
