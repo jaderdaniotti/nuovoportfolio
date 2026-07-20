@@ -26,41 +26,7 @@ type HomePageShellProps = {
 
 export function HomePageShell({ projects }: HomePageShellProps) {
   const navItems: MenuItem[] = [
-    {
-      label: "hero",
-      href: "/#hero",
-      ariaLabel: "Vai alla sezione hero",
-      rotation: -8,
-      hoverStyles: { bgColor: "#0f172a", textColor: "#ffffff" },
-    },
-    {
-      label: "chi sono",
-      href: "/#chi-sono",
-      ariaLabel: "Vai alla sezione chi sono",
-      rotation: 8,
-      hoverStyles: { bgColor: "#7c3aed", textColor: "#ffffff" },
-    },
-    {
-      label: "tecnologia",
-      href: "/#tecnologia",
-      ariaLabel: "Vai alla sezione tecnologia",
-      rotation: -8,
-      hoverStyles: { bgColor: "#0891b2", textColor: "#ffffff" },
-    },
-    {
-      label: "competenze",
-      href: "/#competenze",
-      ariaLabel: "Vai alla sezione competenze",
-      rotation: 8,
-      hoverStyles: { bgColor: "#16a34a", textColor: "#ffffff" },
-    },
-    {
-      label: "recensioni",
-      href: "/#testimonianze",
-      ariaLabel: "Vai alla sezione testimonianze",
-      rotation: -8,
-      hoverStyles: { bgColor: "#ef4444", textColor: "#ffffff" },
-    },
+
     {
       label: "tariffe",
       href: "https://jaderweb.com/pricing",
@@ -69,8 +35,16 @@ export function HomePageShell({ projects }: HomePageShellProps) {
       hoverStyles: { bgColor: "#ca8a04", textColor: "#ffffff" },
     },
     {
+      label: "tools",
+      href: "/tools",
+      ariaLabel: "Vai ai tools",
+      target: "_blank",
+      rotation: 8,
+      hoverStyles: { bgColor: "#0ea5e9", textColor: "#ffffff" },
+    },
+    {
       label: "contatti",
-      href: "/#contatti",
+      href: "https://jaderweb.com/contatti",
       ariaLabel: "Vai alla sezione contatti",
       rotation: -8,
       hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
@@ -82,14 +56,6 @@ export function HomePageShell({ projects }: HomePageShellProps) {
       target: "_blank",
       rotation: -8,
       hoverStyles: { bgColor: "#111827", textColor: "#ffffff" },
-    },
-    {
-      label: "tools",
-      href: "/tools",
-      ariaLabel: "Vai ai tools",
-      target: "_blank",
-      rotation: 8,
-      hoverStyles: { bgColor: "#0ea5e9", textColor: "#ffffff" },
     },
   ];
 
