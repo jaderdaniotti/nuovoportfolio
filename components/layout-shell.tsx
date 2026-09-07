@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/cookie-consent";
+import { ConsentedGoogleAnalytics } from "@/components/google-analytics";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 
 export function LayoutShell({ children }: { children: ReactNode }) {
@@ -21,6 +22,7 @@ export function LayoutShell({ children }: { children: ReactNode }) {
       {children}
       <SiteFooter />
       <CookieConsent />
+      <ConsentedGoogleAnalytics />
       <WhatsAppFab />
     </div>
   );

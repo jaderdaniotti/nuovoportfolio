@@ -3,6 +3,7 @@ import { Poppins, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { LayoutShell } from "@/components/layout-shell";
 import { ThemeProvider } from "@/components/theme-provider";
+import { PwaRegister } from "@/components/pwa-register";
 import {
   BRAND_CREAM,
   BRAND_INK,
@@ -29,6 +30,14 @@ const unbounded = Unbounded({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: OG_SITE_NAME,
+  appleWebApp: {
+    capable: true,
+    title: OG_SITE_NAME,
+    statusBarStyle: "black-translucent",
+  },
+  icons: {
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   verification: {
     google: "UFMvRmPRPO4BAMqYfNQkzZ5_EMb7hxb6fnyfLQNDH0c",
   },
@@ -90,6 +99,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LayoutShell>{children}</LayoutShell>
         </ThemeProvider>
+        <PwaRegister />
         <Analytics />
       </body>
     </html>

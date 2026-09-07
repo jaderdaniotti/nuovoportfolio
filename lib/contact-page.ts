@@ -8,7 +8,7 @@ export const contactPage = {
 } as const;
 
 export const contactModes = {
-  title: "Come vuoi raccontarci il progetto?",
+  title: "Come vuoi raccontarmi il progetto?",
   quick: {
     id: "quick" as const,
     label: "Form rapido",

@@ -3,8 +3,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Button } from "@/components/button";
 import { SectionLabel } from "@/components/section-label";
 import type { ServiceBlogPost } from "@/lib/blog/types";
-import { site } from "@/lib/home-content";
-import { absoluteUrl } from "@/lib/seo";
+import { blogFaqJsonLd, blogPostJsonLd } from "@/lib/json-ld";
 
 const SERVICE_LABELS: Record<string, string> = {
   matrimoni: "Matrimoni",
@@ -29,51 +28,13 @@ const SERVICE_LABELS: Record<string, string> = {
 };
 
 export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
-  const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
   const serviceHref = `/servizi/${post.service}`;
   const serviceLabel = SERVICE_LABELS[post.service] ?? post.service;
-
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    dateModified: post.date,
-    inLanguage: "it-IT",
-    mainEntityOfPage: canonicalUrl,
-    author: {
-      "@type": "Person",
-      name: "Jader Daniotti",
-      url: absoluteUrl("/"),
-    },
-    publisher: {
-      "@type": "Organization",
-      name: site.name,
-      url: absoluteUrl("/"),
-    },
-    keywords: post.keywords.join(", "),
-  };
-
-  const faqSchema =
-    post.faq.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: post.faq.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }
-      : null;
+  const faqSchema = blogFaqJsonLd(post);
 
   return (
     <article className="bg-background text-foreground">
-      <JsonLd data={articleSchema} />
+      <JsonLd data={blogPostJsonLd(post)} />
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
 
       <header className="border-b border-border bg-hero py-20 lg:py-28">

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { servicePages } from "@/lib/service-pages";
 import { absoluteUrl } from "@/lib/seo";
 import { getIndexableComuniItalia } from "@/lib/comuni";
+import { COMUNI_CONTENT_LASTMOD } from "@/lib/sitemap-dates";
 import {
   comuneBasePath,
   comuneContattiPath,
@@ -55,13 +56,13 @@ export function getComuniSitemapChunkCount() {
 }
 
 export function buildComuniSitemapChunk(chunkId: number): MetadataRoute.Sitemap {
-  const now = new Date();
+  const lastModified = COMUNI_CONTENT_LASTMOD;
   const start = chunkId * SITEMAP_CHUNK_SIZE;
   const slice = getComuniSitemapEntries().slice(start, start + SITEMAP_CHUNK_SIZE);
 
   return slice.map((entry) => ({
     url: absoluteUrl(entry.path),
-    lastModified: now,
+    lastModified,
     changeFrequency: entry.changeFrequency,
     priority: entry.priority,
   }));

@@ -17,7 +17,7 @@ export type LegalPage = {
 export const privacyPage: LegalPage = {
   eyebrow: "Privacy",
   title: "Informativa sulla privacy",
-  updatedAt: "15 agosto 2026",
+  updatedAt: "7 settembre 2026",
   intro:
     "Questa informativa descrive come jaderweb tratta i dati personali raccolti attraverso il sito e i canali di contatto, in conformità al Regolamento UE 2016/679 (GDPR) e alla normativa italiana applicabile.",
   sections: [
@@ -62,7 +62,7 @@ export const privacyPage: LegalPage = {
     {
       title: "Destinatari",
       paragraphs: [
-        "I dati possono essere comunicati a fornitori tecnici che supportano hosting, email, analytics o strumenti di comunicazione, esclusivamente per le attività necessarie al servizio.",
+        "I dati possono essere comunicati a fornitori tecnici che supportano hosting, email, analytics o strumenti di comunicazione, esclusivamente per le attività necessarie al servizio. Con il consenso, i dati di navigazione possono essere trattati da Google LLC tramite Google Analytics 4.",
         "Non vendiamo i dati personali a terzi.",
       ],
     },
@@ -91,7 +91,7 @@ export const privacyPage: LegalPage = {
 export const cookiePage: LegalPage = {
   eyebrow: "Cookie",
   title: "Informativa sui cookie",
-  updatedAt: "15 agosto 2026",
+  updatedAt: "7 settembre 2026",
   intro:
     "Questa pagina spiega cosa sono i cookie, quali tipologie possono essere utilizzate sul sito jaderweb e come gestirne le preferenze.",
   sections: [
@@ -109,7 +109,7 @@ export const cookiePage: LegalPage = {
       items: [
         "Cookie tecnici / necessari: indispensabili al funzionamento del sito, ad esempio per tema chiaro/scuro o sicurezza di base",
         "Cookie di preferenza: memorizzano scelte dell’utente per migliorare l’esperienza",
-        "Cookie analitici: aiutano a capire come viene utilizzato il sito, in forma aggregata o anonimizzata ove possibile",
+        "Cookie analitici: Google Analytics 4 (gtag.js, ID G-8HKCHN507P), caricati solo dopo il consenso, per capire come viene utilizzato il sito in forma aggregata",
       ],
     },
     {

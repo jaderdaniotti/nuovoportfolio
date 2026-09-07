@@ -3,7 +3,8 @@ import { servicePages } from "@/lib/service-pages";
 import { absoluteUrl } from "@/lib/seo";
 import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
 import { toolsCatalog } from "@/lib/tools-catalog";
-import { getAllServicePostSlugs } from "@/lib/blog/posts";
+import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
+import { CORE_CONTENT_LASTMOD, parsePostDate } from "@/lib/sitemap-dates";
 
 const staticPages: Array<{
   path: string;
@@ -24,33 +25,32 @@ const staticPages: Array<{
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const coreLastmod = CORE_CONTENT_LASTMOD;
 
   const core: MetadataRoute.Sitemap = staticPages.map((page) => ({
     url: absoluteUrl(page.path),
-    lastModified: now,
+    lastModified: coreLastmod,
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));
 
   const services: MetadataRoute.Sitemap = servicePages.map((page) => ({
     url: absoluteUrl(`/servizi/${page.slug}`),
-    lastModified: now,
+    lastModified: coreLastmod,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
   const tools: MetadataRoute.Sitemap = toolsCatalog.map((tool) => ({
     url: absoluteUrl(`/tools/${tool.slug}`),
-    lastModified: now,
+    lastModified: coreLastmod,
     changeFrequency: "monthly",
     priority: 0.65,
   }));
 
-  const blogSlugs = getAllServicePostSlugs();
-  const blog: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: absoluteUrl(`/blog/${slug}`),
-    lastModified: now,
+  const blog: MetadataRoute.Sitemap = SERVICE_BLOG_POSTS.map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: parsePostDate(post.date),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

@@ -43,12 +43,6 @@ export const heroMockups = [
     mobileSrc: "/img/projects/comoprivatedrivermobile.png",
   },
   {
-    name: "jaderweb",
-    url: "https://jaderweb.com/",
-    desktopSrc: "/img/projects/jaderwebpc.png",
-    mobileSrc: "/img/projects/jaderwebmobile.png",
-  },
-  {
     name: "Eleonora Politi Photographer",
     url: "https://eleonorapolitiphotographer.it/",
   },

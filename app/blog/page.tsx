@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InnerPageShell } from "@/components/inner-page-shell";
+import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
+import { blogHubJsonLd } from "@/lib/json-ld";
 import { pageSeo } from "@/lib/seo";
 
 const title = "Blog — jaderweb";
@@ -45,6 +47,7 @@ export default function BlogIndexPage() {
 
   return (
     <InnerPageShell>
+      <JsonLd data={blogHubJsonLd(SERVICE_BLOG_POSTS)} />
       <div className="bg-background text-foreground">
         <section className="border-b border-border bg-hero py-20 lg:py-28">
           <div className="page-shell">

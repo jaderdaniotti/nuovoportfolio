@@ -35,6 +35,10 @@ export function getCookieConsent(): CookieConsentValue | null {
   return readConsent();
 }
 
+export function useCookieConsent(): CookieConsentValue | null {
+  return useSyncExternalStore(subscribeConsent, readConsent, () => null);
+}
+
 function subscribeConsent(onStoreChange: () => void) {
   window.addEventListener("jaderweb:cookie-consent", onStoreChange);
   window.addEventListener("storage", onStoreChange);

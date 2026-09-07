@@ -85,6 +85,14 @@ Sitemap chunked 45k. Prerender solo pop ≥ 20k. ISR 30g. Non semplificare a 1 p
 - [x] **T25** Blog batch4: prenotazioni…digitalizzazione = 20
 - [x] **T26** Internal linking servizi/portfolio/comuni → blog
 
+## Roadmap SEO / indicizzazione / PWA (post-clone)
+
+> **Fonte di verità operativa:** [`SANTO-GRAAL.md`](./SANTO-GRAAL.md)  
+> Protocollo: un task al giorno/turno, DoD obbligatorio, solo `portfoliovercel`.  
+> Aggiorna sempre le checkbox in **SANTO-GRAAL.md** (questo blocco è solo scorciatoia).
+
+- [ ] **S01**–**S10** + backlog B/P → vedi SANTO-GRAAL.md
+
 ## Inventario — da copiare da comodigitale (no demo)
 
 ### App core

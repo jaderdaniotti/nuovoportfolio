@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { HomePageShell } from "@/components/home-page-shell";
+import { JsonLd } from "@/components/json-ld";
+import { siteRootJsonLd } from "@/lib/json-ld";
 import { pageSeo } from "@/lib/seo";
 
 const title = "jaderweb — Creazione siti web a Udine";
@@ -13,5 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomePageShell />;
+  return (
+    <>
+      <JsonLd data={siteRootJsonLd()} />
+      <HomePageShell />
+    </>
+  );
 }

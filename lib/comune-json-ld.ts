@@ -1,4 +1,4 @@
-import { organizationNode, ORGANIZATION_ID } from "@/lib/json-ld";
+import { entityGraphNodes, ORGANIZATION_ID, PERSON_ID } from "@/lib/json-ld";
 import { absoluteUrl, OG_SITE_NAME, SITE_URL } from "@/lib/seo";
 import type { ComuneData } from "@/lib/comuni";
 import type { ComunePageSeo } from "@/lib/comuni-seo";
@@ -46,7 +46,7 @@ export function comuneServiceJsonLd(
   return {
     "@context": "https://schema.org",
     "@graph": [
-      organizationNode(),
+      ...entityGraphNodes(),
       {
         "@type": "Service",
         "@id": `${url}#service`,
@@ -60,11 +60,10 @@ export function comuneServiceJsonLd(
         url,
         areaServed: areaServed(comune),
         provider: {
-          "@id": ORGANIZATION_ID,
+          "@id": PERSON_ID,
         },
         brand: {
-          "@type": "Brand",
-          name: OG_SITE_NAME,
+          "@id": ORGANIZATION_ID,
         },
       },
       {
@@ -89,7 +88,7 @@ export function comuniHubJsonLd(featured: ComuneData[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
-      organizationNode(),
+      ...entityGraphNodes(),
       {
         "@type": "CollectionPage",
         "@id": `${absoluteUrl(COMUNI_HUB_PATH)}#webpage`,
@@ -109,6 +108,10 @@ export function comuniHubJsonLd(featured: ComuneData[]) {
           url: absoluteUrl(comuneBasePath(comune.slug)),
         })),
       },
+      breadcrumb([
+        { name: "Home", path: "/" },
+        { name: "Comuni", path: COMUNI_HUB_PATH },
+      ]),
     ],
   };
 }
