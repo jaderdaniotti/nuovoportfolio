@@ -1,95 +1,89 @@
-import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/lib/site-config";
+import {
+  buildConfirmationEmail,
+  buildContactEmail,
+  createMailTransport,
+  type ContactPayload,
+} from "@/lib/mail";
 
 export const runtime = "nodejs";
 
-type ContactPayload = {
-  fullName?: string;
-  phone?: string;
-  email?: string;
-  message?: string;
-  privacyAccepted?: boolean;
-};
-
-function cleanEmailAddress(value: string) {
-  return value.replace(/^mailto:/i, "").trim();
+function asString(value: unknown) {
+  return typeof value === "string" ? value.trim() : "";
 }
 
-function requiredEnv(name: string) {
-  const value = process.env[name]?.trim();
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
+function asStringArray(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is string => typeof item === "string")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parsePayload(body: unknown): ContactPayload | null {
+  if (!body || typeof body !== "object") return null;
+  const data = body as Record<string, unknown>;
+
+  const mode = data.mode === "quick" || data.mode === "detailed" ? data.mode : null;
+  const clientType =
+    data.clientType === "privato" || data.clientType === "azienda"
+      ? data.clientType
+      : null;
+  const email = asString(data.email);
+  const phone = asString(data.phone);
+  const services = asStringArray(data.services);
+  const privacy = data.privacy === true;
+
+  if (!mode || !clientType || !email || !phone || !privacy || services.length === 0) {
+    return null;
   }
-  return value;
+
+  if (clientType === "azienda" && !asString(data.companyName)) {
+    return null;
+  }
+
+  if (clientType === "privato" && !asString(data.fullName)) {
+    return null;
+  }
+
+  return {
+    mode,
+    clientType,
+    fullName: asString(data.fullName),
+    companyName: asString(data.companyName),
+    contactPerson: asString(data.contactPerson),
+    vat: asString(data.vat),
+    services,
+    budget: asString(data.budget),
+    message: asString(data.message),
+    website: asString(data.website),
+    email,
+    phone,
+  };
 }
 
 export async function POST(request: Request) {
   try {
-    const payload = (await request.json()) as ContactPayload;
+    const body = await request.json();
+    const payload = parsePayload(body);
 
-    const fullName = payload.fullName?.trim() ?? "";
-    const phone = payload.phone?.trim() ?? "";
-    const email = payload.email?.trim() ?? "";
-    const message = payload.message?.trim() ?? "";
-    const privacyAccepted = Boolean(payload.privacyAccepted);
-
-    if (!fullName || !phone || !email || !message) {
+    if (!payload) {
       return NextResponse.json(
-        { error: "Compila tutti i campi obbligatori prima di inviare." },
+        { ok: false, error: "Dati incompleti o non validi." },
         { status: 400 },
       );
     }
 
-    if (!privacyAccepted) {
-      return NextResponse.json(
-        { error: "Devi accettare l'informativa privacy per procedere." },
-        { status: 400 },
-      );
-    }
-
-    const smtpUser = process.env.SMTP_USER?.trim() || cleanEmailAddress(siteConfig.links.email);
-    const smtpPass = requiredEnv("GOOGLE_APP_PASSWORD");
-    const recipient = process.env.CONTACT_TO?.trim() || cleanEmailAddress(siteConfig.links.email);
-
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST?.trim() || "smtp.gmail.com",
-      port: Number(process.env.SMTP_PORT ?? 465),
-      secure: process.env.SMTP_SECURE?.trim() === "false" ? false : true,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"${fullName}" <${smtpUser}>`,
-      to: recipient,
-      replyTo: email,
-      subject: `Nuovo contatto dal sito - ${fullName}`,
-      text: [
-        `Nome e cognome: ${fullName}`,
-        `Telefono: ${phone}`,
-        `Email: ${email}`,
-        "",
-        "Messaggio:",
-        message,
-      ].join("\n"),
-      html: `
-        <h2>Nuova richiesta dal form contatti</h2>
-        <p><strong>Nome e cognome:</strong> ${fullName}</p>
-        <p><strong>Telefono:</strong> ${phone}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Privacy accettata:</strong> Si</p>
-        <hr />
-        <p><strong>Messaggio:</strong></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-      `,
-    });
+    const transport = createMailTransport();
+    await transport.sendMail(buildContactEmail(payload));
+    await transport.sendMail(buildConfirmationEmail(payload));
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Errore durante l'invio del messaggio.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("[contact]", error);
+    return NextResponse.json(
+      { ok: false, error: "Invio non riuscito. Riprova tra poco." },
+      { status: 500 },
+    );
   }
 }

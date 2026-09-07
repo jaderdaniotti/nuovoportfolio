@@ -1,104 +1,197 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import images from "@/src/images";
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { Button } from "@/components/button";
+import { Reveal } from "@/components/reveal";
+import { SitePreviewFrame } from "@/components/site-preview-frame";
+import { hero, heroMockups } from "@/lib/home-content";
+
+const AUTOPLAY_MS = 7000;
+
+function MockupSlide({
+  desktopSrc,
+  mobileSrc,
+  name,
+  url,
+  lcp = false,
+}: {
+  desktopSrc?: string;
+  mobileSrc?: string;
+  name: string;
+  url?: string;
+  lcp?: boolean;
+}) {
+  return (
+    <div className="relative w-full overflow-hidden pb-[12%] pt-2">
+      <div className="relative z-10 w-[88%] overflow-hidden rounded-2xl border border-border bg-ink text-cream shadow-2xl lg:rounded-[1.25rem]">
+        <div className="flex items-center gap-1.5 border-b border-cream/10 bg-ink px-3 py-2.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+          <span className="h-2.5 w-2.5 rounded-full bg-cream/25" />
+          <span className="h-2.5 w-2.5 rounded-full bg-cream/25" />
+          <span className="ml-2 truncate text-[11px] text-cream/40">
+            {name}
+          </span>
+        </div>
+        <div className="relative aspect-[16/10] bg-cream/5">
+          <SitePreviewFrame
+            url={url}
+            fallbackSrc={desktopSrc}
+            alt={`Homepage del sito ${name}`}
+            viewportWidth={1440}
+            viewportHeight={900}
+            sizes="(min-width: 1024px) 55vw, 90vw"
+            fetchPriority={lcp ? "high" : "auto"}
+          />
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 right-0 z-20 w-[32%] max-w-[220px] overflow-hidden rounded-[1.5rem] border border-border bg-ink text-cream shadow-xl sm:max-w-[260px] lg:w-[30%] lg:max-w-[280px] lg:rounded-[1.75rem]">
+        <div className="mx-auto mt-2 h-1.5 w-10 rounded-full bg-cream/20" />
+        <div className="relative mx-1.5 mt-2 mb-1.5 aspect-[390/844] overflow-hidden rounded-[1.15rem] bg-cream/5">
+          <SitePreviewFrame
+            url={url}
+            fallbackSrc={mobileSrc}
+            alt={`Versione mobile del sito ${name}`}
+            viewportWidth={390}
+            viewportHeight={844}
+            sizes="280px"
+            lazy
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function HeroVisual() {
+  const slides = heroMockups;
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback(
+    (dir: -1 | 1) => {
+      setIndex((i) => (i + dir + slides.length) % slides.length);
+    },
+    [slides.length],
+  );
+
+  useEffect(() => {
+    if (paused || slides.length <= 1) return;
+    const id = window.setInterval(() => go(1), AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [paused, go, slides.length]);
+
+  const current = slides[index];
+
+  return (
+    <div
+      className="relative w-full"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false);
+      }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current.name}
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -16 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full"
+        >
+          <MockupSlide
+            name={current.name}
+            url={"url" in current ? current.url : undefined}
+            desktopSrc={"desktopSrc" in current ? current.desktopSrc : undefined}
+            mobileSrc={"mobileSrc" in current ? current.mobileSrc : undefined}
+            lcp={index === 0}
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Progetto precedente"
+          className="flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background text-foreground transition hover:border-foreground/40"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Progetto successivo"
+          className="flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background text-foreground transition hover:border-foreground/40"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+        <div className="ml-2 flex gap-1.5">
+          {slides.map((s, i) => (
+            <button
+              key={s.name}
+              type="button"
+              aria-label={`Vai a ${s.name}`}
+              onClick={() => setIndex(i)}
+              className={`h-1.5 rounded-full transition-all ${
+                i === index ? "w-6 bg-foreground" : "w-1.5 bg-foreground/25"
+              }`}
+            />
+          ))}
+        </div>
+        {"url" in current && current.url ? (
+          <a
+            href={current.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-muted transition hover:text-foreground"
+          >
+            Apri sito
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
 export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-zinc-50 px-6 py-[clamp(1rem,2.5dvh,2rem)] transition-colors dark:bg-zinc-950 lg:px-24"
+      className="relative overflow-hidden bg-hero pt-8 text-foreground lg:pt-12"
     >
-      <div className="absolute bottom-0 right-8">
-        <h1 className="brexon z-0 hidden select-none text-left text-[16vw] italic text-zinc-300 dark:text-zinc-700 md:block">
-          JADER
-        </h1>
-      </div>
-      {/* Background Decorative Elements */}
-      <div className="pointer-events-none absolute left-[-10%] top-[-10%] h-96 w-96 rounded-full bg-zinc-200/50 blur-[100px] dark:bg-zinc-800/40" />
-      <div className="pointer-events-none absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-zinc-200/30 blur-[120px] dark:bg-zinc-800/30" />
-
-      {/* Main Content Container */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start text-left">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex w-full max-w-4xl flex-col gap-4 md:gap-5"
-        >
-          {/* Label / Subtitle */}
-          <div className="flex items-center gap-3">
-            <Image
-              src={images.logo}
-              alt="Logopurple"
-              width={36}
-              height={36}
-              className="h-9 w-auto"
-              priority
-            />
-            <span className="h-px w-8 bg-zinc-900 dark:bg-zinc-300 md:w-12" />
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 dark:text-zinc-300 md:text-xs">
-              Web Developer & Designer • Udine, IT
-            </span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-[clamp(2.2rem,8.2vh,5.6rem)] font-bold leading-[1.02] tracking-tight text-zinc-900 dark:text-zinc-100">
-            Creazione siti web <br className="hidden md:block" />
-          </h1>
-
-          {/* Description */}
-          <p className="mt-1 max-w-2xl text-[clamp(0.95rem,2.2vh,1.2rem)] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            Creazione siti web a Udine e in tutta Italia: aiuto brand e professionisti a distinguersi
-            online con progetti performanti, ottimizzati SEO e pensati per convertire.
+      <div className="page-shell grid min-w-0 gap-10 pb-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:pb-24 xl:gap-10">
+        <Reveal delay={0.05} y={16} className="min-w-0">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+            {hero.eyebrow}
           </p>
 
-          {/* Call To Actions */}
-          <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row">
-            {/* Primary CTA (triggering a scroll to Contact slide) */}
-            <button 
-              onClick={() => {
-                const el = document.getElementById("contatti");
-                el?.scrollIntoView({ behavior: "smooth" });
-                // Note: The Swiper will handle the hash if configured standardly, or we can just update hash
-                window.location.hash = "#contatti";
-              }}
-              className="group relative z-10 inline-flex h-12 w-full items-center justify-center overflow-hidden rounded-full bg-zinc-900 px-6 text-sm font-medium tracking-wide text-zinc-50 transition-all hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 sm:w-auto"
-            >
-              <span className="mr-2">Richiedi un preventivo</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
-            
-            {/* Secondary CTA */}
-            <Link
-              href="/comuni"
-              className="z-10 inline-flex h-12 w-full items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 px-6 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-zinc-600 dark:hover:bg-zinc-800 sm:w-auto"
-            >
-              Vedi i comuni serviti
-            </Link>
+          <h1 className="font-display max-w-xl break-words text-[clamp(2.2rem,4.8vw,3.75rem)] font-semibold leading-[1.04] tracking-tight">
+            {hero.headline}
+          </h1>
+
+          <p className="mt-6 max-w-lg text-[clamp(1rem,2vh,1.15rem)] leading-relaxed text-muted">
+            {hero.subheadline}
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Button href="/contatti">{hero.ctaPrimary}</Button>
+            <Button href="/servizi" variant="outline" arrow="down">
+              {hero.ctaSecondary}
+            </Button>
           </div>
-        </motion.div>
+        </Reveal>
+
+        <Reveal delay={0.2} className="min-w-0 w-full">
+          <HeroVisual />
+        </Reveal>
       </div>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-4 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-zinc-400 dark:text-zinc-500 xl:flex"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em] animate-pulse">Scroll</span>
-        <div className="relative h-8 w-px overflow-hidden bg-zinc-300 dark:bg-zinc-700">
-          <motion.div 
-            animate={{ top: ['-100%', '100%'] }} 
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            className="absolute left-0 h-full w-full bg-zinc-900 dark:bg-zinc-100"
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }

@@ -75,7 +75,7 @@ export function getFooterRecentBlogLinks(limit = FOOTER_RECENT_BLOG_LIMIT): Foot
 
 export function getFooterFeaturedComuniLinks(limit = FOOTER_FEATURED_COMUNI_LIMIT): FooterLink[] {
   return [...comuniItalia]
-    .filter((comune) => comune.seo?.indexable !== false)
+    .filter((comune) => comune.indexable !== false)
     .sort((a, b) => (b.popolazione ?? 0) - (a.popolazione ?? 0))
     .slice(0, limit)
     .map((comune) => ({

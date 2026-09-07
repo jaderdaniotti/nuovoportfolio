@@ -1,3 +1,6 @@
+import { SITE_URL } from "@/lib/seo";
+
+/** Compatibility shim for legacy jaderweb imports. Canonical brand lives in lib/seo + lib/home-content. */
 export const siteConfig = {
   name: "jaderweb",
   personName: "Jader Daniotti",
@@ -5,8 +8,7 @@ export const siteConfig = {
   title: "Creazione siti web a Udine | jaderweb",
   description:
     "Creazione siti web a Udine e in tutta Italia: sviluppo su misura, UX moderna, SEO tecnica e supporto diretto per PMI, professionisti e brand.",
-  // Keep one canonical host for metadata, robots and sitemap.
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://jaderweb.com").replace(/\/$/, ""),
+  url: SITE_URL.replace(/\/$/, ""),
   locale: "it_IT",
   keywords: [
     "Creazione siti web a",
@@ -25,7 +27,7 @@ export const siteConfig = {
   ],
   author: {
     name: "jaderweb",
-    url: (process.env.NEXT_PUBLIC_SITE_URL || "https://jaderweb.com").replace(/\/$/, ""),
+    url: SITE_URL.replace(/\/$/, ""),
   },
   links: {
     email: "mailto:jaderdaniotti.lavoro@gmail.com",

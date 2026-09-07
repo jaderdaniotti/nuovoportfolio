@@ -1,79 +1,100 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BLOG_ARTICLES } from "@/lib/blog-articles";
-import { indexableRobots } from "@/lib/seo-robots";
-import { siteConfig } from "@/lib/site-config";
+import { InnerPageShell } from "@/components/inner-page-shell";
+import { Reveal } from "@/components/reveal";
+import { SectionLabel } from "@/components/section-label";
+import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
+import { pageSeo } from "@/lib/seo";
+
+const title = "Blog — jaderweb";
+const description =
+  "Guide su siti verticali, SEO locale e conversioni: matrimoni, ristoranti, B&B, professionisti e altri settori. Di Jader Daniotti, freelance a Udine.";
 
 export const metadata: Metadata = {
-  title: `Blog creazione siti web a livello locale — ${siteConfig.name}`,
-  description:
-    "Articoli su creazione siti web a livello locale, SEO, UX e performance: guide pratiche per PMI e professionisti.",
-  keywords: [
-    "Creazione siti web a",
-    "creazione siti web a livello locale",
-    "blog web design",
-    "SEO Udine",
-    "articoli UX",
-    "Next.js tutorial",
-    ...siteConfig.keywords.slice(0, 4),
-  ] as string[],
-  openGraph: {
-    title: `Blog creazione siti web a livello locale — ${siteConfig.name}`,
-    description: "Articoli su creazione siti web a livello locale, UX e visibilità online.",
-    url: `${siteConfig.url}/blog`,
-    siteName: siteConfig.name,
-    locale: siteConfig.locale,
-    type: "website",
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/blog`,
-  },
-  robots: indexableRobots,
+  title,
+  description,
+  ...pageSeo("/blog", { title, description }),
+};
+
+const SERVICE_LABELS: Record<string, string> = {
+  matrimoni: "Matrimoni",
+  "sagre-eventi": "Sagre",
+  ristoranti: "Ristoranti",
+  "bb-case-vacanza": "B&B",
+  professionisti: "Professionisti",
+  "associazioni-sportive": "Sport",
+  "band-eventi": "Band",
+  "agenzie-immobiliari": "Immobiliare",
+  "eventi-privati": "Eventi privati",
+  artigiani: "Artigiani",
+  "landing-ads": "Landing",
+  "one-page": "One page",
+  "sito-48h": "Sito 48h",
+  palestre: "Palestre",
+  "preventivi-online": "Preventivi",
+  prenotazioni: "Prenotazioni",
+  "cv-portfolio": "Portfolio",
+  "eventi-locali": "Eventi locali",
+  digitalizzazione: "Digitalizzazione",
 };
 
 export default function BlogIndexPage() {
-  const sorted = [...BLOG_ARTICLES].sort((a, b) => (a.date < b.date ? 1 : -1));
+  const sorted = [...SERVICE_BLOG_POSTS].sort((a, b) =>
+    a.date < b.date ? 1 : -1,
+  );
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 md:py-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-600 dark:text-violet-300">Blog</p>
-      <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-zinc-100">
-        Articoli su siti web, SEO locale e crescita digitale
-      </h1>
-      <p className="mt-4 max-w-3xl text-pretty text-zinc-600 dark:text-zinc-300">
-        Archivio completo con articoli ottimizzati per keyword come “quanto costa un sito web” e “creare siti web Friuli”, con UI coerente
-        con il resto del progetto.
-      </p>
+    <InnerPageShell>
+      <div className="bg-background text-foreground">
+        <section className="border-b border-border bg-hero py-20 lg:py-28">
+          <div className="page-shell">
+            <Reveal>
+              <SectionLabel>Blog</SectionLabel>
+              <h1 className="font-display max-w-4xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+                Testi utili.
+                <br />
+                Decisioni più chiare.
+              </h1>
+              <p className="mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">
+                Articoli su siti per mestieri precisi. Scrivo da freelance a
+                Udine: meno teoria, più cose che puoi usare sul tuo progetto.
+              </p>
+            </Reveal>
+          </div>
+        </section>
 
-      <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {sorted.map((post) => (
-          <li key={post.slug} className="h-full">
-            <Link
-              href={`/blog/${post.slug}`}
-              className="group flex h-full flex-col rounded-3xl border border-zinc-200/80 bg-white/70 p-5 transition hover:border-violet-300 hover:shadow-[0_24px_70px_-40px_rgba(109,40,217,0.45)] sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/70 dark:hover:border-violet-500/40"
-            >
-              <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
-                <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString("it-IT", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-                <span>·</span>
-                <span>{post.keywords[0]}</span>
-              </div>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight text-zinc-950 transition group-hover:text-violet-700 sm:text-2xl dark:text-zinc-100 dark:group-hover:text-violet-300">
-                {post.title}
-              </h2>
-              <p className="mt-3 flex-1 text-sm text-zinc-600 sm:text-base dark:text-zinc-300">{post.description}</p>
-              <span className="mt-5 inline-flex text-sm font-semibold text-violet-700 dark:text-violet-300">
-                Leggi l&apos;articolo →
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+        <section className="py-16 lg:py-24">
+          <div className="page-shell">
+            <ul className="mx-auto max-w-4xl divide-y divide-border border-y border-border">
+              {sorted.map((post, index) => (
+                <li key={post.slug}>
+                  <Reveal delay={Math.min(0.04 + (index % 8) * 0.02, 0.2)}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="group grid gap-3 py-8 transition md:grid-cols-[7rem_1fr_auto] md:items-baseline md:gap-8"
+                    >
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                        {SERVICE_LABELS[post.service] ?? post.service}
+                      </span>
+                      <span>
+                        <span className="font-display block text-[clamp(1.15rem,2.4vw,1.55rem)] font-semibold leading-snug tracking-tight transition group-hover:opacity-70">
+                          {post.title}
+                        </span>
+                        <span className="mt-2 block max-w-2xl text-sm leading-relaxed text-muted md:text-[0.95rem]">
+                          {post.description}
+                        </span>
+                      </span>
+                      <span className="text-sm font-medium text-muted transition group-hover:text-foreground">
+                        Leggi →
+                      </span>
+                    </Link>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
+    </InnerPageShell>
   );
 }

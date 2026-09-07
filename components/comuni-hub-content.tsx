@@ -1,188 +1,141 @@
-"use client";
-
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import type { ComuneData } from "@/lib/comuni";
+import { ComuniAnimatedList } from "@/components/comuni-animated-list";
+import { COMUNI_HUB_PATH, comuneBasePath } from "@/lib/comune-paths";
+import type { ComuneListItem } from "@/lib/comuni";
 
-type ComuniHubContentProps = {
-  comuni: ComuneData[];
-};
-
-const MAX_RESULTS = 240;
-
-export function ComuniHubContent({ comuni }: ComuniHubContentProps) {
-  const [query, setQuery] = useState("");
-  const [region, setRegion] = useState("Tutte");
-  const [province, setProvince] = useState("Tutte");
-
-  const normalizedQuery = query.trim().toLowerCase();
-
-  const regions = useMemo(() => {
-    return ["Tutte", ...new Set(comuni.map((comune) => comune.regione?.nome ?? "").filter(Boolean))];
-  }, [comuni]);
-
-  const provinces = useMemo(() => {
-    const list = comuni
-      .filter((comune) => region === "Tutte" || comune.regione?.nome === region)
-      .map((comune) => comune.provincia?.nome ?? "")
-      .filter(Boolean);
-
-    return ["Tutte", ...new Set(list)];
-  }, [comuni, region]);
-
-  const filtered = useMemo(() => {
-    return comuni.filter((comune) => {
-      const byRegion = region === "Tutte" || comune.regione?.nome === region;
-      const byProvince = province === "Tutte" || comune.provincia?.nome === province;
-      if (!byRegion || !byProvince) return false;
-      if (!normalizedQuery) return true;
-
-      return (
-        comune.nome.toLowerCase().includes(normalizedQuery) ||
-        comune.sigla.toLowerCase().includes(normalizedQuery) ||
-        (comune.provincia?.nome ?? "").toLowerCase().includes(normalizedQuery) ||
-        (comune.regione?.nome ?? "").toLowerCase().includes(normalizedQuery)
-      );
-    });
-  }, [comuni, normalizedQuery, province, region]);
-
-  const comuniTop = useMemo(() => {
-    return [...comuni]
-      .sort((a, b) => (b.popolazione ?? 0) - (a.popolazione ?? 0))
-      .slice(0, 12);
-  }, [comuni]);
-
-  const visibleResults = filtered.slice(0, MAX_RESULTS);
+export function ComuniHubContent({
+  query,
+  regione,
+  provincia,
+  regioni,
+  province,
+  topCities,
+  results,
+}: {
+  query: string;
+  regione: string;
+  provincia: string;
+  regioni: string[];
+  province: string[];
+  topCities: ComuneListItem[];
+  results: ComuneListItem[];
+}) {
+  const hasFilters = Boolean(query || regione || provincia);
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-14 md:px-10">
-      <header className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Copertura locale</p>
-        <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-zinc-900 md:text-5xl">
-          In che comuni lavoro in Italia
-        </h1>
-        <p className="mt-4 text-zinc-700">
-          Lavoro con aziende e professionisti in tutti i comuni italiani. Seleziona regione e provincia,
-          oppure cerca direttamente il tuo comune: trovi subito la pagina locale dedicata.
-        </p>
-      </header>
-
-      <section className="mt-8 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Comuni coperti</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{comuni.length}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Regioni coperte</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{regions.length - 1}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Risultati filtrati</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{filtered.length}</p>
+    <>
+      <section className="bg-hero pt-16 pb-12 text-foreground lg:pt-24 lg:pb-16">
+        <div className="page-shell">
+          <h1 className="font-display max-w-4xl text-[clamp(2.2rem,5.5vw,4.25rem)] font-semibold leading-[1.04] tracking-tight">
+            Ecco le zone che copriamo
+          </h1>
         </div>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-zinc-200 bg-white p-5 md:p-6">
-        <label htmlFor="comuni-search" className="text-sm font-medium text-zinc-700">
-          Cerca il tuo comune
-        </label>
-        <input
-          id="comuni-search"
-          type="text"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Es. Milano, Roma, Torino, Udine..."
-          className="mt-2 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none ring-zinc-300 transition focus:border-zinc-400 focus:ring-2"
-        />
-
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <label className="text-sm">
-            <span className="mb-1 block font-medium text-zinc-700">Regione</span>
-            <select
-              value={region}
-              onChange={(event) => {
-                setRegion(event.target.value);
-                setProvince("Tutte");
-              }}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none ring-zinc-300 transition focus:border-zinc-400 focus:ring-2"
-            >
-              {regions.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-sm">
-            <span className="mb-1 block font-medium text-zinc-700">Provincia</span>
-            <select
-              value={province}
-              onChange={(event) => setProvince(event.target.value)}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none ring-zinc-300 transition focus:border-zinc-400 focus:ring-2"
-            >
-              {provinces.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </section>
-
-      {!normalizedQuery && region === "Tutte" && province === "Tutte" ? (
-        <section className="mt-10">
-          <h2 className="text-xl font-semibold text-zinc-900">Comuni principali</h2>
-          <p className="mt-1 text-sm text-zinc-600">
-            I centri con maggiore popolazione, utili per iniziare da mercati ad alta domanda.
-          </p>
-          <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {comuniTop.map((comune) => (
+      <section className="border-t border-border bg-background py-16 text-foreground lg:py-20">
+        <div className="page-shell">
+          <h2 className="font-display text-[clamp(1.6rem,3vw,2.25rem)] font-semibold tracking-tight">
+            Le 10 città più popolate d’Italia
+          </h2>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {topCities.map((comune) => (
               <li key={comune.slug}>
                 <Link
-                  href={`/comuni/${comune.slug}`}
-                  className="inline-flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900"
+                  href={comuneBasePath(comune.slug)}
+                  className="flex h-full items-center rounded-[1.25rem] border border-border px-5 py-4 font-display text-lg font-semibold tracking-tight transition hover:border-foreground/40"
                 >
-                  <span>
-                    {comune.nome} ({comune.sigla})
-                  </span>
-                  <span className="text-xs text-zinc-500">
-                    {(comune.popolazione ?? 0).toLocaleString("it-IT")}
-                  </span>
+                  {comune.nome}
                 </Link>
               </li>
             ))}
           </ul>
-        </section>
-      ) : null}
-
-      <section className="mt-10">
-        {filtered.length > MAX_RESULTS ? (
-          <p className="mb-4 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700">
-            Mostro i primi {MAX_RESULTS} risultati su {filtered.length}. Affina ricerca o filtri per trovare
-            subito il tuo comune.
-          </p>
-        ) : null}
-
-        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleResults.map((comune) => (
-            <li key={comune.slug}>
-              <Link
-                href={`/comuni/${comune.slug}`}
-                className="inline-flex w-full flex-col rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900"
-              >
-                <span className="font-medium">
-                  {comune.nome} ({comune.sigla})
-                </span>
-                <span className="mt-0.5 text-xs text-zinc-500">
-                  {comune.provincia?.nome} · {comune.regione?.nome}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        </div>
       </section>
-    </main>
+
+      <section className="border-y border-border bg-background py-16 text-foreground lg:py-20">
+        <div className="page-shell">
+          <h2 className="font-display text-[clamp(1.6rem,3vw,2.25rem)] font-semibold tracking-tight">
+            Cerca la tua città
+          </h2>
+          <form
+            action={COMUNI_HUB_PATH}
+            method="get"
+            className="mt-8 grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_auto]"
+          >
+            <label className="block">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                Cerca comune
+              </span>
+              <input
+                type="search"
+                name="q"
+                defaultValue={query}
+                placeholder="Nome, sigla, provincia, regione"
+                className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-foreground/40"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                Regione
+              </span>
+              <select
+                name="regione"
+                defaultValue={regione}
+                className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-foreground/40"
+              >
+                <option value="">Tutte</option>
+                {regioni.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                Provincia
+              </span>
+              <select
+                name="provincia"
+                defaultValue={provincia}
+                className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-foreground/40"
+              >
+                <option value="">Tutte</option>
+                {province.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="flex items-end">
+              <button
+                type="submit"
+                className="btn-accent h-12 w-full rounded-md px-6 text-sm font-semibold uppercase tracking-[0.08em] transition hover:brightness-95 md:w-auto"
+              >
+                Filtra
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-14">
+            {results.length === 0 ? (
+              <p className="text-muted">
+                Nessun comune trovato. Prova un altro nome o togli qualche filtro.
+              </p>
+            ) : (
+              <>
+                {hasFilters ? (
+                  <p className="mb-6 text-sm text-muted">
+                    {results.length.toLocaleString("it-IT")} risultati
+                  </p>
+                ) : null}
+                <ComuniAnimatedList comuni={results} />
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

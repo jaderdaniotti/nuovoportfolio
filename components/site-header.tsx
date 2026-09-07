@@ -1,135 +1,113 @@
 "use client";
 
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { siteNavItems } from "@/lib/site-nav-items";
-import { cn } from "@/lib/utils";
-import images from "@/src/images";
+import { Menu, Moon, Sun } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
+import { Button } from "@/components/button";
+import { SiteMenu } from "@/components/site-menu";
+import StaggeredMenu from "@/components/staggered-menu";
+import { useTheme } from "@/components/theme-provider";
+import { navItems, site } from "@/lib/home-content";
+import { cn } from "@/lib/cn";
 
-function isActive(pathname: string, href: string, match?: (pathname: string) => boolean) {
-  if (match) return match(pathname);
-  return pathname === href;
-}
+const staggeredItems = navItems.map((item) => ({
+  label: item.label,
+  ariaLabel: item.label,
+  link: item.href,
+}));
 
-export function SiteHeader() {
-  const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
+const staggeredSocials = [
+  { label: "Email", link: `mailto:${site.email}` },
+  { label: "WhatsApp", link: `https://wa.me/${site.whatsapp}` },
+];
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+type SiteHeaderProps = {
+  className?: string;
+};
 
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [mobileOpen]);
+export function SiteHeader({ className }: SiteHeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { toggleTheme, theme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/70 bg-zinc-50/90 backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-950/90">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <Image
-            src={images.logo}
-            alt="Jader Daniotti — logo"
-            width={40}
-            height={40}
-            className="h-9 w-auto rounded-lg border  bg-white p-1 transition group-hover:border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:group-hover:border-zinc-600"
-            priority
-          />
-          <span className="hidden text-sm font-semibold tracking-tight text-zinc-900 sm:inline dark:text-zinc-100">
-            Jaderweb
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Navigazione principale">
-          {siteNavItems.map((item) => {
-            const active = isActive(pathname, item.href, item.match);
-            const isHomeSection = item.href.includes("#");
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                scroll={isHomeSection}
-                aria-label={item.ariaLabel}
-                className={cn(
-                  "rounded-lg px-3 py-2 text-sm transition",
-                  active
-                    ? "font-semibold text-zinc-950 dark:text-zinc-100"
-                    : "text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100",
-                )}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 md:hidden dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800"
-          aria-label={mobileOpen ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav"
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          <span className="sr-only">Menu</span>
-          <svg
-            aria-hidden
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            className="h-5 w-5"
+    <>
+      <header
+        className={cn(
+          "sticky top-0 z-[70] border-b border-foreground/10 bg-background",
+          className,
+        )}
+      >
+        <div className="page-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-4 md:h-[5.25rem]">
+          <Link
+            href="/"
+            className="flex items-center gap-3 text-foreground"
+            aria-label={site.name}
           >
-            {mobileOpen ? (
-              <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
-            )}
-          </svg>
-        </button>
-      </div>
+            <BrandLogo />
+            <span className="font-display hidden text-lg uppercase font-semibold tracking-tight sm:inline">
+              {site.name}
+            </span>
+          </Link>
 
-      {mobileOpen ? (
-        <nav
-          id="mobile-nav"
-          aria-label="Navigazione mobile"
-          className="border-t border-zinc-200/70 px-4 py-3 md:hidden dark:border-zinc-800"
-        >
-          <ul className="flex flex-col gap-1">
-            {siteNavItems.map((item) => {
-              const active = isActive(pathname, item.href, item.match);
-              const isHomeSection = item.href.includes("#");
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "light" ? "Passa al tema scuro" : "Passa al tema chiaro"
+              }
+              title={theme === "light" ? "Tema scuro" : "Tema chiaro"}
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-foreground/15 text-foreground transition hover:border-foreground/40"
+            >
+              {theme === "light" ? (
+                <Moon className="h-4 w-4" />
+              ) : (
+                <Sun className="h-4 w-4" />
+              )}
+            </button>
 
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    scroll={isHomeSection}
-                    aria-label={item.ariaLabel}
-                    className={cn(
-                      "block rounded-lg px-3 py-2.5 text-sm transition",
-                      active
-                        ? "font-semibold text-zinc-950 dark:text-zinc-100"
-                        : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
-                    )}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      ) : null}
-    </header>
+            <Button
+              href="/contatti"
+              size="sm"
+              className="hidden md:inline-flex"
+            >
+              Parliamo del tuo progetto
+            </Button>
+
+            <div className="hidden xl:block">
+              <StaggeredMenu
+                position="right"
+                items={staggeredItems}
+                socialItems={staggeredSocials}
+                displaySocials
+                displayItemNumbering
+                showLogo={false}
+                colors={
+                  theme === "light"
+                    ? ["#E3FF04", "#0A0C00"]
+                    : ["#E3FF04", "#F6F5F3"]
+                }
+                accentColor="#E3FF04"
+                menuButtonColor={theme === "light" ? "#0A0C00" : "#F6F5F3"}
+                openMenuButtonColor={theme === "light" ? "#0A0C00" : "#F6F5F3"}
+                changeMenuColorOnOpen={false}
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Apri navigazione"
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-foreground/15 text-foreground transition hover:border-foreground/40 xl:hidden"
+            >
+              <Menu className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <SiteMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
   );
 }

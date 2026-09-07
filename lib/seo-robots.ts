@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const indexableRobots: NonNullable<Metadata["robots"]> = {
+export const indexableRobots: Metadata["robots"] = {
   index: true,
   follow: true,
   googleBot: {
@@ -12,7 +12,7 @@ export const indexableRobots: NonNullable<Metadata["robots"]> = {
   },
 };
 
-export const noindexRobots: NonNullable<Metadata["robots"]> = {
+export const noindexRobots: Metadata["robots"] = {
   index: false,
-  follow: false,
+  follow: true,
 };

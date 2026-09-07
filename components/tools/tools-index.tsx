@@ -31,35 +31,35 @@ export function ToolsIndex() {
   }, [activeCategory, normalizedQuery]);
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-14 md:px-10">
+    <main className="w-full">
       <header className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Toolbox</p>
-        <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-zinc-900 md:text-5xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Toolbox</p>
+        <h1 className="mt-3 font-display text-balance text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
           Tools gratuiti per SEO, conversioni e produttività web
         </h1>
-        <p className="mt-4 text-zinc-700">
+        <p className="mt-4 text-muted">
           Una libreria in crescita con convertitori, analizzatori SEO e utility pratiche. Al momento è pronta
           la struttura completa: ogni tool ha già una pagina dedicata ottimizzata SEO.
         </p>
       </header>
 
       <section className="mt-8 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Tool nel catalogo</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{toolsCatalog.length}</p>
+        <div className="rounded-xl border border-border bg-panel text-panel-fg p-4">
+          <p className="text-xs uppercase tracking-wide text-muted">Tool nel catalogo</p>
+          <p className="mt-1 text-2xl font-semibold text-foreground">{toolsCatalog.length}</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Categorie</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{categoryOrder.length}</p>
+        <div className="rounded-xl border border-border bg-panel text-panel-fg p-4">
+          <p className="text-xs uppercase tracking-wide text-muted">Categorie</p>
+          <p className="mt-1 text-2xl font-semibold text-foreground">{categoryOrder.length}</p>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Risultati filtrati</p>
-          <p className="mt-1 text-2xl font-semibold text-zinc-900">{filtered.length}</p>
+        <div className="rounded-xl border border-border bg-panel text-panel-fg p-4">
+          <p className="text-xs uppercase tracking-wide text-muted">Risultati filtrati</p>
+          <p className="mt-1 text-2xl font-semibold text-foreground">{filtered.length}</p>
         </div>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-zinc-200 bg-white p-5 md:p-6">
-        <label htmlFor="tool-search" className="text-sm font-medium text-zinc-700">
+      <section className="mt-8 rounded-2xl border border-border bg-panel text-panel-fg p-5 md:p-6">
+        <label htmlFor="tool-search" className="text-sm font-medium text-muted">
           Cerca un tool
         </label>
         <input
@@ -68,7 +68,7 @@ export function ToolsIndex() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Es. JSON formatter, audit SEO, image converter..."
-          className="mt-2 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none ring-zinc-300 transition focus:border-zinc-400 focus:ring-2"
+          className="mt-2 w-full rounded-lg border border-border px-3 py-2 text-sm text-foreground outline-none ring-accent transition focus:border-zinc-400 focus:ring-2"
         />
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -77,8 +77,8 @@ export function ToolsIndex() {
             onClick={() => setActiveCategory("all")}
             className={`rounded-full border px-3 py-1.5 text-sm transition ${
               activeCategory === "all"
-                ? "border-zinc-900 bg-zinc-900 text-white"
-                : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400 hover:text-zinc-900"
+                ? "border-zinc-900 bg-foreground text-background"
+                : "border-border bg-panel text-panel-fg text-muted hover:border-foreground/40 hover:text-foreground"
             }`}
           >
             Tutti
@@ -92,8 +92,8 @@ export function ToolsIndex() {
                 onClick={() => setActiveCategory(category)}
                 className={`rounded-full border px-3 py-1.5 text-sm transition ${
                   active
-                    ? "border-zinc-900 bg-zinc-900 text-white"
-                    : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400 hover:text-zinc-900"
+                    ? "border-zinc-900 bg-foreground text-background"
+                    : "border-border bg-panel text-panel-fg text-muted hover:border-foreground/40 hover:text-foreground"
                 }`}
               >
                 {toolCategoryLabels[category]}
@@ -105,20 +105,20 @@ export function ToolsIndex() {
 
       <section className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((tool) => (
-          <article key={tool.slug} className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-zinc-500">
+          <article key={tool.slug} className="rounded-xl border border-border bg-panel text-panel-fg p-4 shadow-sm">
+            <p className="text-xs uppercase tracking-wide text-muted">
               {toolCategoryLabels[tool.category]}
             </p>
-            <h2 className="mt-2 text-lg font-semibold tracking-tight text-zinc-900">{tool.name}</h2>
-            <p className="mt-2 text-sm text-zinc-700">{tool.summary}</p>
-            <p className="mt-1 text-xs text-zinc-500">Obiettivo: {tool.intent}</p>
+            <h2 className="mt-2 text-lg font-semibold tracking-tight text-foreground">{tool.name}</h2>
+            <p className="mt-2 text-sm text-muted">{tool.summary}</p>
+            <p className="mt-1 text-xs text-muted">Obiettivo: {tool.intent}</p>
             <div className="mt-4 flex items-center justify-between gap-2">
-              <span className="rounded-full border border-zinc-300 px-2 py-1 text-xs text-zinc-600">
+              <span className="rounded-full border border-border px-2 py-1 text-xs text-muted">
                 {tool.ready === "ui-ready" ? "Pronto" : "In sviluppo"}
               </span>
               <Link
                 href={`/tools/${tool.slug}`}
-                className="rounded-full border border-zinc-900 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-zinc-800"
+                className="rounded-full border border-zinc-900 bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90"
               >
                 Apri tool
               </Link>

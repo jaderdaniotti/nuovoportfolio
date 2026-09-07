@@ -1,117 +1,42 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ComunePageShell } from "@/components/comune-page-shell";
-import { getComuneBySlug, getPreRenderComuniItaliaSlugs } from "@/lib/comuni";
-import { indexableRobots, noindexRobots } from "@/lib/seo-robots";
-import { siteConfig } from "@/lib/site-config";
-
-type PageProps = {
-  params: Promise<{ slug: string }>;
-};
+import { JsonLd } from "@/components/json-ld";
+import { ComuneHomeShell } from "@/components/comune-home-shell";
+import { getNearbyComuni, getPreRenderComuniItaliaSlugs } from "@/lib/comuni";
+import { comuneServiceJsonLd } from "@/lib/comune-json-ld";
+import {
+  comunePageMetadata,
+  getLocalizedSeo,
+  requireComune,
+  type ComuneSlugParams,
+} from "@/lib/comune-page";
 
 export const revalidate = 2592000;
+export const dynamicParams = true;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getPreRenderComuniItaliaSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ComuneSlugParams): Promise<Metadata> {
   const { slug } = await params;
-  const comune = getComuneBySlug(slug);
-
-  if (!comune) {
-    return {
-      title: "Comune non trovato",
-      robots: noindexRobots,
-    };
-  }
-
-  const title = comune.seo?.title ?? `Creazione siti web a ${comune.nome} (${comune.sigla})`;
-  const description =
-    comune.seo?.description ??
-    `Creazione siti web a ${comune.nome}: sviluppo su misura e SEO locale per attività in provincia di ${comune.provincia?.nome}.`;
-  const canonicalPath = comune.seo?.canonical ?? `/comuni/${comune.slug}`;
-  const url = `${siteConfig.url}${canonicalPath}`;
-  const shouldIndex = comune.seo?.indexable ?? true;
-
-  return {
-    title,
-    description,
-    keywords: comune.seo?.keywords ?? [
-      "Creazione siti web a",
-      `creazione siti web a ${comune.nome}`,
-      `siti web ${comune.nome}`,
-    ],
-    alternates: { canonical: url },
-    openGraph: { title, description, url },
-    robots: shouldIndex ? indexableRobots : noindexRobots,
-  };
+  const comune = requireComune(slug);
+  return comunePageMetadata(comune, "home");
 }
 
-export default async function ComunePage({ params }: PageProps) {
+export default async function ComuneLandingPage({
+  params,
+}: ComuneSlugParams) {
   const { slug } = await params;
-  const comune = getComuneBySlug(slug);
-
-  if (!comune) {
-    notFound();
-  }
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: `Creazione siti web a ${comune.nome} e SEO locale`,
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: `${comune.nome}, ${comune.provincia?.nome}, ${comune.regione?.nome}`,
-    },
-    provider: {
-      "@type": "Person",
-      name: siteConfig.personName,
-      url: siteConfig.url,
-    },
-    name: comune.seo?.serviceName ?? `Servizi web a ${comune.nome}`,
-    description:
-      comune.seo?.description ??
-      `Supporto per siti web professionali, restyling e SEO locale per attivita in ${comune.nome}.`,
-  };
-
-  const seoTitle = comune.seo?.title ?? `Creazione siti web a ${comune.nome} (${comune.sigla})`;
-  const seoDescription =
-    comune.seo?.description ??
-    `Creazione siti web a ${comune.nome}: sviluppo su misura e SEO locale per attività in provincia di ${comune.provincia?.nome}, ${comune.regione?.nome}.`;
-  const localCta =
-    comune.seo?.cta ??
-    `Se lavori a ${comune.nome}, possiamo definire una strategia web locale con obiettivi chiari.`;
+  const comune = requireComune(slug);
+  const seo = getLocalizedSeo(comune, "home");
+  const nearby = getNearbyComuni(comune);
 
   return (
     <>
-      <section className="sr-only">
-        <h1>{seoTitle}</h1>
-        <p>{seoDescription}</p>
-        <p>
-          Comune: {comune.nome}. Provincia: {comune.provincia?.nome} ({comune.sigla}). Regione:{" "}
-          {comune.regione?.nome}. Popolazione: {(comune.popolazione ?? 0).toLocaleString("it-IT")}.
-        </p>
-        <p>{localCta}</p>
-        <Link href="/comuni">Vedi tutti i comuni italiani</Link>
-        <Link href="/#contatti">Richiedi una consulenza</Link>
-      </section>
-
-      <ComunePageShell comune={comune} />
-      <noscript>
-        <section className="mx-auto w-full max-w-5xl px-6 py-10 text-sm text-zinc-700 md:px-10">
-          JavaScript e disattivato: puoi comunque navigare i contenuti locali da{" "}
-          <Link href="/comuni" className="underline">
-            /comuni
-          </Link>
-          .
-        </section>
-      </noscript>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={comuneServiceJsonLd(comune, seo)} />
+      <ComuneHomeShell comune={comune} seo={seo} nearby={nearby} />
     </>
   );
 }

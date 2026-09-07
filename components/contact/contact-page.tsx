@@ -28,7 +28,7 @@ const steps = [
   "Compili il form con obiettivi e priorità del progetto.",
   "Ti ricontatto entro 24 ore per chiarire dettagli e budget.",
   "Ricevi una proposta su misura con tempi e costi trasparenti.",
-  "Partiamo solo quando sei convinto che sia la soluzione giusta.",
+  "Parto solo quando sei convinto che sia la soluzione giusta.",
 ] as const;
 
 export function ContactPage() {
@@ -43,7 +43,7 @@ export function ContactPage() {
           Iniziamo un progetto
         </p>
         <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-zinc-100">
-          Trasformiamo la tua idea in un sito che converte
+          Trasformo la tua idea in un sito che converte
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
           Raccontami cosa ti serve: ti preparo un preventivo personalizzato per un sito veloce, su

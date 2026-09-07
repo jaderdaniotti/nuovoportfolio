@@ -580,21 +580,22 @@ export default async function ToolDetailPage({ params }: PageProps) {
   };
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-14 md:px-10">
+    <main className="bg-background text-foreground">
+      <div className="page-shell mx-auto w-full max-w-4xl py-14">
       <Link
         href="/tools"
-        className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs text-zinc-600 transition hover:border-zinc-400 hover:text-zinc-900"
+        className="inline-flex rounded-full border border-border px-3 py-1.5 text-xs text-muted transition hover:border-foreground/40 hover:text-foreground"
       >
         Torna all&apos;indice tools
       </Link>
 
-      <article className="mt-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm md:p-8">
-        <p className="text-xs uppercase tracking-wide text-zinc-500">{toolCategoryLabels[tool.category]}</p>
-        <h1 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+      <article className="mt-4 rounded-2xl border border-border bg-panel p-6 text-panel-fg md:p-8">
+        <p className="text-xs uppercase tracking-wide text-muted">{toolCategoryLabels[tool.category]}</p>
+        <h1 className="mt-2 font-display text-balance text-3xl font-semibold tracking-tight md:text-4xl">
           {tool.name}
         </h1>
-        <p className="mt-4 text-zinc-700">{tool.summary}</p>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-4 text-muted">{tool.summary}</p>
+        <p className="mt-2 text-muted">
           <strong>Obiettivo:</strong> {tool.intent}
         </p>
 
@@ -754,6 +755,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
         </div>
       </article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </div>
     </main>
   );
 }

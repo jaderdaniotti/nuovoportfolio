@@ -1,82 +1,49 @@
-"use client";
+import { AuthorityStripSection } from "@/components/sections/authority-strip-section";
+import { DifferentiationSection } from "@/components/sections/differentiation-section";
+import { FounderSection } from "@/components/sections/founder-section";
+import { FinalCtaSection } from "@/components/sections/final-cta-section";
+import { HeroSection } from "@/components/sections/hero-section";
+import { LocalSection } from "@/components/sections/local-section";
+import { PortfolioSection } from "@/components/sections/portfolio-section";
+import { ProcessSection } from "@/components/sections/process-section";
+import { ServicesFlowingMenuSection } from "@/components/sections/services-flowing-menu";
+import { ServicesSection } from "@/components/sections/services-section";
+import { TechSection } from "@/components/sections/tech-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { IntroSplash } from "@/components/intro-splash";
+import { ScrollToTopOnLoad } from "@/components/scroll-to-top-on-load";
+import { getFeaturedComuni } from "@/lib/comuni";
+import { COMUNI_HUB_PATH, comuneBasePath } from "@/lib/comune-paths";
 
-import dynamic from "next/dynamic";
-import BubbleMenu from "@/components/bubble-menu";
-import type { MenuItem } from "@/components/bubble-menu";
-import { FloatingQuickActions } from "@/components/floating-quick-actions";
-import SplashCursor from "@/components/splash-cursor";
-import type { HomeProject } from "@/lib/home-content";
-
-const HomeFullpageSwiper = dynamic<{ projects: HomeProject[] }>(
-  () =>
-    import("@/components/home-fullpage-swiper").then((m) => m.HomeFullpageSwiper),
-  {
-    ssr: false,
-    loading: () => (
-      <main className="flex min-h-[calc(100dvh-4rem)] w-full flex-1 items-center justify-center text-sm text-zinc-500">
-        
-      </main>
-    ),
-  },
-);
-
-type HomePageShellProps = {
-  projects: HomeProject[];
-};
-
-export function HomePageShell({ projects }: HomePageShellProps) {
-  const navItems: MenuItem[] = [
-
-    {
-      label: "tariffe",
-      href: "https://jaderweb.com/pricing",
-      ariaLabel: "Vai alla pagina tariffe",
-      rotation: 8,
-      hoverStyles: { bgColor: "#ca8a04", textColor: "#ffffff" },
-    },
-    {
-      label: "tools",
-      href: "/tools",
-      ariaLabel: "Vai ai tools",
-      target: "_blank",
-      rotation: 8,
-      hoverStyles: { bgColor: "#0ea5e9", textColor: "#ffffff" },
-    },
-    {
-      label: "contatti",
-      href: "https://jaderweb.com/contatti",
-      ariaLabel: "Vai alla sezione contatti",
-      rotation: -8,
-      hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
-    },
-    {
-      label: "blog",
-      href: "/blog",
-      ariaLabel: "Vai al blog",
-      target: "_blank",
-      rotation: -8,
-      hoverStyles: { bgColor: "#111827", textColor: "#ffffff" },
-    },
-  ];
+export function HomePageShell() {
+  const featured = getFeaturedComuni(8);
 
   return (
-    <div className="relative flex min-h-dvh min-w-0 flex-col overflow-x-clip max-md:h-dvh max-md:overflow-y-auto md:h-dvh">
-      <SplashCursor DENSITY_DISSIPATION={4.5} PRESSURE={0.7} />
-      <BubbleMenu
-        items={navItems}
-        menuAriaLabel="Apri navigazione del sito"
-        menuBg="#ffffff"
-        menuContentColor="#111111"
-        useFixedPosition
-        className="top-5 md:top-6"
-        animationEase="back.out(1.5)"
-        animationDuration={0.5}
-        staggerDelay={0.12}
-      />
-      <FloatingQuickActions />
-      <div className="relative z-10 flex flex-1 md:min-h-0">
-        <HomeFullpageSwiper projects={projects} />
-      </div>
-    </div>
+    <>
+      <ScrollToTopOnLoad />
+      <IntroSplash />
+      <main>
+        <HeroSection />
+        <AuthorityStripSection />
+        <ServicesSection />
+        <ServicesFlowingMenuSection />
+        <PortfolioSection />
+        <DifferentiationSection />
+        <ProcessSection />
+        <TechSection />
+        <TestimonialsSection />
+        <FounderSection />
+        <LocalSection
+          links={[
+            ...featured.map((comune) => ({
+              href: comuneBasePath(comune.slug),
+              label: `Siti web a ${comune.nome}`,
+            })),
+            { href: COMUNI_HUB_PATH, label: "Tutti i comuni d’Italia" },
+          ]}
+        />
+        <FinalCtaSection />
+      </main>
+    </>
   );
 }

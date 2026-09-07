@@ -1,11 +1,20 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/lib/site-config";
+import { absoluteUrl } from "@/lib/seo";
+import { getComuniSitemapChunkCount } from "@/lib/sitemap-entries";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = siteConfig.url.replace(/\/$/, "");
+  const comuniSitemaps = Array.from(
+    { length: getComuniSitemapChunkCount() },
+    (_, id) => absoluteUrl(`/comuni/sitemap/${id}.xml`),
+  );
+
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
-    sitemap: [`${base}/sitemap.xml`, "https://www.jaderweb.com/sitemap-www.xml"],
-    host: base,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: "/api/",
+    },
+    host: "https://jaderweb.com",
+    sitemap: [absoluteUrl("/sitemap.xml"), ...comuniSitemaps],
   };
 }

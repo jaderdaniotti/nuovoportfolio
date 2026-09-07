@@ -1,0 +1,525 @@
+# Indicizzazione SEO locale — comuni italiani (jaderweb)
+#
+# Questo file documenta come il progetto replica la landing e genera
+# migliaia di URL localizzati a partire da un JSON anagrafico dei comuni.
+# Non e un file di configurazione runtime: e la mappa della tecnica usata.
+
+meta:
+  progetto: portfolionext / jaderweb
+  dominio_canonico: https://jaderweb.com
+  lingua: it-IT
+  obiettivo: >
+    Apparire nelle ricerche locali tipo "siti web a {Comune}" coprendo
+    tutti i comuni italiani con una pagina dedicata, senza scrivere
+    a mano 7904 landing.
+  tecnica_in_sintesi: >
+    Dataset anagrafico (src/comuni.json) + generatore deterministico di
+    copy SEO (scripts/generate-comuni-seo.mjs) + una sola rotta Next.js
+    dinamica (app/comuni/[slug]/page.tsx) che replica la landing home
+    con hero, metadati, JSON-LD e copy localizzati. Sitemap, hub,
+    footer e linking interno chiudono il grafo di crawl.
+
+numeri_operativi:
+  comuni_totali: 7904
+  regioni: 20
+  province: 107
+  pagine_indexabili: 7904
+  pagine_prerender_al_build: 508
+  soglia_prerender_popolazione: 20000
+  soglia_indexable_popolazione: 0
+  revalidate_isr_secondi: 2592000 # 30 giorni
+  priorita_sitemap_comune: 0.7
+  priorita_sitemap_hub: 0.85
+
+# ---------------------------------------------------------------------------
+# 1. DATASET SORGENTE
+# ---------------------------------------------------------------------------
+
+dataset_anagrafico:
+  file: src/comuni.json
+  formato: array JSON di oggetti Comune
+  origine: >
+    Anagrafica ISTAT-like dei comuni italiani (codice, provincia, regione,
+    CAP, popolazione). E la single source of truth geografica.
+  perche_un_json: >
+    Un file statico importabile a build-time evita database, API e
+    runtime fetch. Next.js puo prerenderare e TypeScript puo tipizzare
+    i record grazie a resolveJsonModule.
+  schema_record:
+    nome: string # es. "Abano Terme"
+    codice: string # codice ISTAT, usato anche come seed hash e disambiguazione slug
+    zona:
+      codice: string
+      nome: string # es. "Nord-est"
+    regione:
+      codice: string
+      nome: string # es. "Veneto"
+    provincia:
+      codice: string
+      nome: string # es. "Padova"
+    sigla: string # sigla provincia, es. "PD" — entra nello slug
+    codiceCatastale: string
+    cap: array_di_stringhe
+    popolazione: number
+  esempio:
+    nome: Abano Terme
+    codice: "028001"
+    sigla: PD
+    popolazione: 19349
+    provincia: Padova
+    regione: Veneto
+
+# ---------------------------------------------------------------------------
+# 2. SLUG UNIVOCI
+# ---------------------------------------------------------------------------
+
+slugificazione:
+  algoritmo: >
+    1) normalizza NFD e toglie i diacritici (ò -> o, à -> a)
+    2) lowercase
+    3) sostituisce tutto cio che non e [a-z0-9] con trattino
+    4) trim dei trattini iniziali/finali
+    5) slug base = "{nome}-{sigla}"  es. abano-terme-pd
+    6) se collide, appende il codice ISTAT: "{slug}-{codice}"
+  perche_la_sigla: >
+    In Italia esistono omonimi (San Giovanni, Castro, ecc.). La sigla
+    provinciale rende lo slug univoco e geograficamente riconoscibile
+    sia per l'utente sia per Google.
+  implementazione_condivisa:
+    runtime: lib/comuni.ts -> funzioni slugify + withUniqueSlug
+    generatore_seo: scripts/generate-comuni-seo.mjs -> stesse regole
+    nota: >
+      Le due implementazioni devono restare allineate: lo slug e la
+      chiave che collega comuni.json e comuni-seo.json.
+  url_pubblico: /comuni/{slug}
+  esempi:
+    - slug: abano-terme-pd
+      url: https://jaderweb.com/comuni/abano-terme-pd
+    - slug: milano-mi
+      url: https://jaderweb.com/comuni/milano-mi
+    - slug: udine-ud
+      url: https://jaderweb.com/comuni/udine-ud
+
+# ---------------------------------------------------------------------------
+# 3. GENERAZIONE COPY SEO (anti-duplicate)
+# ---------------------------------------------------------------------------
+
+generatore_seo:
+  script: scripts/generate-comuni-seo.mjs
+  comando: npm run generate:comuni:seo
+  input: src/comuni.json
+  output: src/comuni-seo.json
+  idea_chiave: >
+    Google penalizza (o ignora) migliaia di pagine identiche con solo
+    il toponimo sostituito. Qui ogni comune riceve una combinazione
+    deterministica di title, description, opening, angle, CTA, intent
+    e keywords, scelta da liste di varianti tramite hash del codice ISTAT.
+    Stesso comune = stesso testo sempre (riproducibile). Comuni diversi
+    = mix diversi, senza LLM a runtime.
+
+  seed_deterministico:
+    funzione: seedFromComune
+    input: codice ISTAT (fallback: nome)
+    algoritmo: hash intero tipo djb2/shift (hash = (hash << 5) - hash + charCode)
+    uso: indice = (seed + offset) % lunghezza_lista_varianti
+    offset_per_campo:
+      titlePrefix: 0
+      opening: 1
+      angle: 2
+      cta: 3
+      intent: 4
+
+  banche_varianti:
+    titlePrefix:
+      - "Siti web a"
+      - "Realizzazione siti web a"
+      - "Web design e sviluppo a"
+      - "SEO locale e siti web a"
+      - "Sviluppo siti professionali a"
+    opening:
+      - template con placeholder "{{comune}}"
+      - 5 formulazioni diverse su siti veloci, UX, conversioni, CTA, SEO tecnica
+    angle:
+      - 5 angoli: Core Web Vitals, intento di ricerca, fiducia, Next.js/canonical, iterazione
+    cta:
+      - 5 call-to-action localizzate con "{{comune}}"
+    intent:
+      - "realizzazione siti web professionali"
+      - "restyling sito aziendale"
+      - "sviluppo landing page ad alta conversione"
+      - "ottimizzazione SEO locale tecnica"
+      - "consulenza performance e UX"
+
+  interpolazione:
+    placeholder: "{{comune}}"
+    valore: nome anagrafico originale (con accenti), non lo slug
+
+  record_seo_generato:
+    chiave: slug
+    campi:
+      title: "{titlePrefix} {nome} ({sigla})"
+      description: "{opening} {angle} Focus: {intent}."
+      canonical: /comuni/{slug}
+      keywords:
+        - "siti web {nome}"
+        - "web designer {nome}"
+        - "sviluppatore web {nome}"
+        - "seo locale {nome}"
+        - "creazione siti {provincia}"
+        - "siti web {sigla}"
+        - "realizzazione siti {regione}"
+        - "consulenza web {nome}"
+        - "{intent} {nome}"
+      opening: string
+      angle: string
+      cta: string
+      serviceName: "Servizi web a {nome}"
+      indexable: boolean
+      preRender: boolean
+
+  soglie:
+    indexable: >
+      popolazione >= 0. Oggi TUTTI i 7904 comuni sono indexabili.
+      Lo switch esiste per poter escludere in futuro i micro-comuni
+      se il crawl budget o la thin-content diventassero un problema.
+    preRender: >
+      popolazione >= 20000. Solo ~508 citta medio-grandi vengono
+      generate staticamente al `next build`. Le altre restano
+      on-demand / ISR, per non far esplodere tempo e memoria di build.
+
+  esempio_output:
+    slug: abano-terme-pd
+    title: Sviluppo siti professionali a Abano Terme (PD)
+    canonical: /comuni/abano-terme-pd
+    indexable: true
+    preRender: false # 19349 abitanti < 20000
+    keywords_note: >
+      Mix di query brand+local (siti web Abano Terme), query di
+      professione (web designer, sviluppatore), query geografica
+      allargata (Padova, PD, Veneto) e intent specifico.
+
+# ---------------------------------------------------------------------------
+# 4. LAYER RUNTIME — MERGE DATI + SEO
+# ---------------------------------------------------------------------------
+
+layer_runtime:
+  file: lib/comuni.ts
+  ruolo: unico punto di accesso per pagine, sitemap, footer, hub
+  flusso:
+    - importa src/comuni.json e src/comuni-seo.json
+    - applica withUniqueSlug a tutti i comuni
+    - attacca il record SEO corrispondente (seoBySlug[slug])
+    - normalizza sigla/provincia/regione/cap/popolazione
+    - ordina per nome italiano
+    - costruisce una Map slug -> ComuneData
+  export:
+    comuniItalia: array completo mergeato
+    ComuneData: tipo derivato
+    getComuneBySlug: lookup O(1)
+    getComuniItaliaSlugs: tutti gli slug
+    getIndexableComuniItaliaSlugs: slug con seo.indexable !== false
+    getPreRenderComuniItaliaSlugs: slug con seo.preRender === true
+  tsconfig:
+    resolveJsonModule: true
+    paths: "@/*" -> "./*"
+
+# ---------------------------------------------------------------------------
+# 5. ROUTING NEXT.JS — UNA LANDING, 7904 URL
+# ---------------------------------------------------------------------------
+
+routing:
+  hub:
+    path: /comuni
+    file: app/comuni/page.tsx
+    componente: components/comuni-hub-content.tsx
+    ruolo: >
+      Directory indicizzabile di tutta Italia. E il "silone" interno:
+      Google scopre le pagine figlie dai link, gli utenti cercano
+      comune/provincia/regione.
+    metadata:
+      title: "Creazione siti web a: comuni serviti in Italia"
+      canonical: https://jaderweb.com/comuni
+      robots: index, follow
+    ux_hub:
+      ricerca_testuale: nome, sigla, provincia, regione
+      filtri: regione + provincia
+      cap: primi 12 comuni per popolazione (senza filtri)
+      lista: max 240 risultati visibili, con invito ad affinare
+      linking: ogni riga punta a /comuni/{slug}
+
+  pagina_locale:
+    path: /comuni/[slug]
+    file: app/comuni/[slug]/page.tsx
+    modello: una sola pagina dinamica, NON 7904 file page.tsx
+    perche_una_rotta_sola: >
+      Mantenibilita. Un bug o un miglioramento SEO si applica a tutti
+      i comuni. Il copy localizzato arriva dai JSON, non dal filesystem.
+
+    generateStaticParams: >
+      Restituisce solo getPreRenderComuniItaliaSlugs() (~508).
+      Next.js 16 prerendera quelle HTML al build (viste nel log:
+      /comuni/abbiategrasso-mi, /comuni/acerra-na, ... +505).
+    dynamicParams: >
+      Default true. Uno slug presente in comuni.json ma non prerenderato
+      (es. un comune da 2.000 abitanti) viene comunque servito a runtime
+      e poi cached via ISR.
+    notFound: getComuneBySlug(slug) assente -> notFound()
+    revalidate: 2592000 # ISR 30 giorni
+
+    generateMetadata:
+      title: seo.title (fallback "Creazione siti web a {nome} ({sigla})")
+      description: seo.description
+      keywords: seo.keywords
+      canonical: siteConfig.url + seo.canonical
+      openGraph: title, description, url
+      robots: indexableRobots se seo.indexable, altrimenti noindexRobots
+
+    contenuto_per_crawler_sr_only:
+      file_sezione: app/comuni/[slug]/page.tsx -> <section className="sr-only">
+      perche: >
+        La UI visiva e uno swiper fullpage (client-heavy). I crawler
+        ricevono comunque un H1 unico, description, dati anagrafici
+        (comune, provincia, sigla, regione, popolazione), CTA locale
+        e due link interni (/comuni e /#contatti).
+      campi:
+        h1: seoTitle
+        p1: seoDescription
+        p2: "Comune / Provincia / Regione / Popolazione"
+        p3: localCta
+        link_hub: /comuni
+        link_contatti: /#contatti
+
+    json_ld_pagina:
+      type: Service
+      serviceType: "Creazione siti web a {nome} e SEO locale"
+      areaServed:
+        type: AdministrativeArea
+        name: "{nome}, {provincia}, {regione}"
+      provider:
+        type: Person
+        name: Jader Daniotti
+        url: siteConfig.url
+      name: seo.serviceName
+      description: seo.description
+      nota: >
+        Dice a Google che la pagina e un servizio geolocalizzato,
+        non un duplicato della home.
+
+    noscript: fallback testuale che punta a /comuni se JS e disattivato
+
+# ---------------------------------------------------------------------------
+# 6. REPLICA DELLA LANDING (esperienza utente)
+# ---------------------------------------------------------------------------
+
+replica_landing:
+  idea: >
+    Ogni /comuni/{slug} NON e una scheda secca: e la stessa esperienza
+    della home (fullpage swiper, sezioni, menu, CTA) con l'hero
+    riscritto sul comune. L'utente atterrato da Google "siti web a X"
+    vede un sito completo, non una pagina thin.
+  shell: components/comune-page-shell.tsx
+  swiper: components/comune-fullpage-swiper.tsx
+  differenza_vs_home:
+    hero: ComuneHeroSection al posto di HeroSection
+    sezioni_condivise:
+      - AboutSection (#chi-sono)
+      - TechSection (#tecnologia)
+      - SkillsSection (#competenze)
+      - TestimonialsSection (#testimonianze)
+      - ContactSection (#contatti)
+    sezioni_home_non_ripetute:
+      - PricingTeaserSection  # tariffe va a /pricing dal menu
+      - ProjectsSection
+  hero_localizzato: components/sections/comune-hero-section.tsx
+  hero_usa:
+    eyebrow: "SEO Locale • {nome}, {sigla}"
+    h1: seo.title
+    p_opening: seo.opening
+    p_angle: seo.angle
+    card_provincia: "{provincia} ({sigla})"
+    card_popolazione: popolazione formattata it-IT
+  menu_bubble:
+    hash_locali: #hero, #chi-sono, #tecnologia, #competenze, #testimonianze, #contatti
+    extra: /pricing, /comuni (hub), /tools
+    nota: il tasto "comuni" riporta all'hub, chiudendo il silo
+
+# ---------------------------------------------------------------------------
+# 7. SCOPERTA PER GOOGLE — SITEMAP, ROBOTS, INTERNAL LINKING
+# ---------------------------------------------------------------------------
+
+scoperta_e_crawl:
+  robots:
+    file: app/robots.ts
+    allow: /
+    disallow: /api/
+    host: https://jaderweb.com
+    sitemap:
+      - https://jaderweb.com/sitemap.xml
+      - https://www.jaderweb.com/sitemap-www.xml
+    verification_google: app/layout.tsx -> metadata.verification.google
+
+  sitemap_apex:
+    file: app/sitemap.ts
+    builder: lib/sitemap-entries.ts -> buildSitemapEntries(siteConfig.url)
+    comuni: >
+      getIndexableComuniItaliaSlugs() produce ~7904 URL
+      https://jaderweb.com/comuni/{slug}
+      changefreq monthly, priority 0.7, lastModified now
+    hub: https://jaderweb.com/comuni  priority 0.85 weekly
+    altre_url: home, /pricing, /contatti, /blog, articoli, /tools
+
+  sitemap_www:
+    file: app/sitemap-www.xml/route.ts
+    perche: >
+      Copre l'host www.jaderweb.com con lo stesso set di URL, cosi
+      entrambi i hostname dichiarati in robots hanno una sitemap.
+    cache: s-maxage 3600, stale-while-revalidate 86400
+
+  linking_interno:
+    hub: /comuni elenca e filtra tutti i comuni
+    footer:
+      file: lib/footer-nav.ts
+      getFooterFeaturedComuniLinks: top N per popolazione, solo indexable
+      getFooterComuniLinks: directory + "Siti web a {citta}" (top 24)
+      site-footer: blocco "Zone servite" + indice espandibile
+    home_alternativa:
+      components/home/home-page-clean.tsx
+      sezione "Zone servite" con featuredComuni + link all'hub
+    pagina_locale:
+      sr-only link a /comuni e contatti
+      menu link a /comuni
+    effetto: >
+      Grafo a tre livelli: Home/Footer -> Hub -> Pagina comune.
+      I crawler non dipendono solo dalla sitemap: trovano le URL
+      anche navigando.
+
+  metadata_globali:
+    file: app/layout.tsx
+    lang: it
+    metadataBase: siteConfig.url
+    title_template: "%s — jaderweb"
+    json_ld_sito: WebSite + Person (Udine, FVG)
+    robots_default: index, follow, googleBot max-image-preview large
+
+# ---------------------------------------------------------------------------
+# 8. PIPELINE OPERATIVA
+# ---------------------------------------------------------------------------
+
+pipeline:
+  passo_1_dataset:
+    azione: aggiornare src/comuni.json se cambiano comuni ISTAT / popolazioni
+  passo_2_seo:
+    comando: npm run generate:comuni:seo
+    effetto: riscrive src/comuni-seo.json (7904 chiavi)
+  passo_3_commit:
+    file_da_versionare:
+      - src/comuni.json
+      - src/comuni-seo.json
+      - lib/comuni.ts
+      - app/comuni/**
+      - scripts/generate-comuni-seo.mjs
+    nota: comuni-seo.json e grande ma va committato, e il copy live
+  passo_4_build:
+    comando: npm run build / vercel build
+    effetto: >
+      prerender hub + ~508 comuni grandi + sitemap con tutti gli
+      slug indexabili. Gli altri comuni si materializzano al primo hit.
+
+  script_legacy_non_usato_nel_routing_attuale:
+    file: scripts/generate-comuni-pages.mjs
+    comando: npm run generate:comuni
+    cosa_faceva: >
+      Generava un page.tsx fisico per ogni comune sotto app/comuni/{slug}/
+      con HomePageShell + blocco FAQ/copy inline. Soglia noindex-below
+      default 12000. E un approccio "file per comune".
+    stato_attuale: >
+      NON e il sistema in produzione. Oggi esiste solo
+      app/comuni/[slug]/page.tsx (rotta dinamica) + comuni-seo.json.
+      Lo script resta come alternativa storica / batch, non come
+      source of truth del routing.
+
+# ---------------------------------------------------------------------------
+# 9. PERCHE QUESTA TECNICA "APPARE DAPPERUTTO"
+# ---------------------------------------------------------------------------
+
+strategia_seo_locale:
+  query_target:
+    - "siti web a {Comune}"
+    - "creazione siti web {Comune}"
+    - "web designer {Comune}"
+    - "seo locale {Comune}"
+    - varianti provincia/regione ("creazione siti Padova", "siti web Veneto")
+  mossa_1_copertura: un URL per ogni comune italiano, non solo capoluoghi
+  mossa_2_unicita_onpage: title/h1/description/keywords/opening/angle/cta unici per seed
+  mossa_3_entita_geografica: JSON-LD Service + AdministrativeArea con nome, provincia, regione
+  mossa_4_dati_reali: popolazione, sigla, CAP nel dataset e in pagina (non solo keyword stuffing)
+  mossa_5_esperienza: landing completa (stesso sito della home) invece di una pagina vuota
+  mossa_6_discovery: sitemap 7904 URL + hub + footer + zone servite
+  mossa_7_canonical: ogni pagina ha canonical /comuni/{slug} sull'host apex
+  mossa_8_scalabilita_build: prerender solo i mercati >20k abitanti, ISR per il resto
+  mossa_9_lingua: html lang=it, locale it_IT, copy tutta in italiano
+
+limiti_e_guardrail:
+  thin_content_risk: >
+    Le sezioni About/Tech/Skills/Testimonials sono condivise. L'unicita
+    sta in metadata, hero, sr-only, JSON-LD e dati anagrafici. Se Google
+    stringesse sui doorway, alzare INDEXABLE_POPULATION_THRESHOLD o
+    arricchire il body visibile per-comune.
+  crawl_budget: >
+    7904 URL aggiuntivi. Oggi sono tutti indexable. Lo switch indexable
+    e preRender esistono proprio per poter ridurre la superficie.
+  omonimi: disambiguati con sigla provincia e, se serve, codice ISTAT
+  www_vs_apex: canonical su jaderweb.com, sitemap duplicata per www
+  js_heavy_ui: sr-only + JSON-LD + noscript compensano lo swiper client-side
+
+# ---------------------------------------------------------------------------
+# 10. MAPPA FILE (quick reference)
+# ---------------------------------------------------------------------------
+
+file_coinvolti:
+  dati:
+    - src/comuni.json
+    - src/comuni-seo.json
+  generazione:
+    - scripts/generate-comuni-seo.mjs          # ATTIVO
+    - scripts/generate-comuni-pages.mjs        # LEGACY
+    - package.json                             # generate:comuni:seo
+  runtime:
+    - lib/comuni.ts
+    - lib/sitemap-entries.ts
+    - lib/footer-nav.ts
+    - lib/seo-robots.ts
+    - lib/site-config.ts
+  rotte:
+    - app/comuni/page.tsx
+    - app/comuni/[slug]/page.tsx
+    - app/sitemap.ts
+    - app/sitemap-www.xml/route.ts
+    - app/robots.ts
+    - app/layout.tsx
+  ui:
+    - components/comuni-hub-content.tsx
+    - components/comune-page-shell.tsx
+    - components/comune-fullpage-swiper.tsx
+    - components/sections/comune-hero-section.tsx
+    - components/site-footer.tsx
+    - components/json-ld.tsx
+    - components/home/home-page-clean.tsx      # zone servite (variante home)
+
+# ---------------------------------------------------------------------------
+# 11. COME REPLICARE LA TECNICA IN UN ALTRO PROGETTO
+# ---------------------------------------------------------------------------
+
+ricetta_riuso:
+  1_raccogli_un_json_di_luoghi: >
+    Array di localita con nome, codice univoco, area superiore
+    (provincia/regione), eventuale popolazione.
+  2_definisci_slug_stabili: "{nome}-{disambiguatore}" + collisione via codice
+  3_genera_un_secondo_json_seo: script deterministico, varianti + placeholder
+  4_una_rotta_dinamica: app/{silo}/[slug]/page.tsx con generateMetadata
+  5_prerender_selettivo: generateStaticParams solo per i mercati top
+  6_hub_indicizzabile: pagina directory con link a tutte (o alle top) localita
+  7_sitemap_completa: elenca gli slug indexable, non solo quelli prerenderati
+  8_json_ld_geografico: Service / LocalBusiness / AdministrativeArea
+  9_internal_linking: footer + hub + home, non lasciare le URL orfane
+  10_non_clonare_file: clona il TEMPLATE, varia i DATI

@@ -1,66 +1,62 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { Button } from "@/components/button";
+import { Reveal } from "@/components/reveal";
+import { HeroVisual } from "@/components/sections/hero-section";
 import type { ComuneData } from "@/lib/comuni";
+import { comuneLabel } from "@/lib/comuni";
+import type { ComunePageSeo } from "@/lib/comuni-seo";
+import { comuneContattiPath, comuneServiziPath } from "@/lib/comune-paths";
 
-type ComuneHeroSectionProps = {
+export function ComuneHeroSection({
+  comune,
+  seo,
+}: {
   comune: ComuneData;
-};
-
-export function ComuneHeroSection({ comune }: ComuneHeroSectionProps) {
-  const opening =
-    comune.seo?.opening ??
-    `Supporto aziende e professionisti a ${comune.nome} con siti web veloci, chiari e orientati ai contatti.`;
-
-  const angle =
-    comune.seo?.angle ??
-    "Architettura tecnica, UX e SEO on-page allineate alle ricerche locali.";
-
+  seo: ComunePageSeo;
+}) {
   return (
     <section
       id="hero"
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-zinc-50 px-6 py-[clamp(1rem,2.5dvh,2rem)] transition-colors dark:bg-zinc-950 lg:px-24"
+      className="relative overflow-hidden bg-hero pt-8 text-foreground lg:pt-12"
     >
-      <div className="pointer-events-none absolute left-[-10%] top-[-10%] h-96 w-96 rounded-full bg-zinc-200/50 blur-[100px] dark:bg-zinc-800/40" />
-      <div className="pointer-events-none absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-zinc-200/30 blur-[120px] dark:bg-zinc-800/30" />
+      <div className="page-shell grid min-w-0 gap-10 pb-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:pb-24 xl:gap-10">
+        <Reveal delay={0.05} y={16} className="min-w-0">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+            {seo.eyebrow}
+          </p>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start text-left">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex w-full max-w-4xl flex-col gap-4 md:gap-5"
-        >
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-zinc-900 dark:bg-zinc-300 md:w-12" />
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 dark:text-zinc-300 md:text-xs">
-              SEO Locale • {comune.nome}, {comune.sigla}
+          <h1 className="font-display max-w-xl break-words text-[clamp(2.2rem,4.8vw,3.75rem)] font-semibold leading-[1.04] tracking-tight">
+            {seo.h1}
+          </h1>
+
+          <p className="mt-6 max-w-lg text-[clamp(1rem,2vh,1.15rem)] leading-relaxed text-muted">
+            {comune.seo.opening}
+          </p>
+          <p className="mt-4 max-w-lg text-[clamp(1rem,2vh,1.15rem)] leading-relaxed text-muted">
+            {comune.seo.angle}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-muted">
+              {comune.provincia} ({comune.sigla})
+            </span>
+            <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-muted">
+              {comune.regione}
             </span>
           </div>
 
-          <h1 className="text-[clamp(2.2rem,8.2vh,5.3rem)] font-bold leading-[1.02] tracking-tight text-zinc-900 dark:text-zinc-100">
-            {comune.seo?.title ?? `Siti web a ${comune.nome} (${comune.sigla})`}
-          </h1>
-
-          <p className="mt-1 max-w-2xl text-[clamp(0.95rem,2.2vh,1.15rem)] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            {opening}
-          </p>
-          <p className="max-w-2xl text-[clamp(0.95rem,2vh,1.05rem)] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            {angle}
-          </p>
-
-          <div className="mt-4 grid w-full max-w-xl grid-cols-2 gap-3 text-xs text-zinc-600 md:text-sm">
-            <div className="rounded-xl border border-zinc-200 bg-white/80 p-3 dark:border-zinc-800 dark:bg-zinc-900/70">
-              <strong className="block text-zinc-900 dark:text-zinc-100">Provincia</strong>
-              {comune.provincia?.nome} ({comune.sigla})
-            </div>
-            <div className="rounded-xl border border-zinc-200 bg-white/80 p-3 dark:border-zinc-800 dark:bg-zinc-900/70">
-              <strong className="block text-zinc-900 dark:text-zinc-100">Popolazione</strong>
-              {(comune.popolazione ?? 0).toLocaleString("it-IT")}
-            </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Button href={comuneContattiPath(comune.slug)}>
+              {seo.cta}
+            </Button>
+            <Button href={comuneServiziPath(comune.slug)} variant="outline" arrow="down">
+              Servizi a {comuneLabel(comune)}
+            </Button>
           </div>
-        </motion.div>
+        </Reveal>
+
+        <Reveal delay={0.2} className="min-w-0 w-full">
+          <HeroVisual />
+        </Reveal>
       </div>
     </section>
   );

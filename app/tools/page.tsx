@@ -1,29 +1,25 @@
 import type { Metadata } from "next";
 import { ToolsIndex } from "@/components/tools/tools-index";
 import { indexableRobots } from "@/lib/seo-robots";
-import { siteConfig } from "@/lib/site-config";
+import { pageSeo } from "@/lib/seo";
+
+const title = "Tools SEO e utility web — jaderweb";
+const description =
+  "Strumenti gratuiti per SEO, conversioni e produttività: convertitori, analizzatori e utility operative.";
 
 export const metadata: Metadata = {
-  title: "Tools SEO per creazione siti web a livello locale",
-  description:
-    "Indice completo dei tools del sito per creazione siti web a livello locale: convertitori, analizzatori SEO, checker tecnici e utility operative.",
-  keywords: [
-    "Creazione siti web a",
-    "tools creazione siti web",
-    "tools SEO locale",
-  ],
-  alternates: {
-    canonical: `${siteConfig.url}/tools`,
-  },
-  openGraph: {
-    title: "Tools SEO per creazione siti web a livello locale",
-    description:
-      "Scopri i tools disponibili per creazione siti web a livello locale: analizzatori SEO, converter immagini/documenti e utility operative.",
-    url: `${siteConfig.url}/tools`,
-  },
+  title,
+  description,
   robots: indexableRobots,
+  ...pageSeo("/tools", { title, description }),
 };
 
 export default function ToolsPage() {
-  return <ToolsIndex />;
+  return (
+    <main className="bg-background text-foreground">
+      <div className="page-shell py-14 md:py-20">
+        <ToolsIndex />
+      </div>
+    </main>
+  );
 }

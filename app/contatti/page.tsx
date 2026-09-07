@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { ContactPage } from "@/components/contact/contact-page";
-import { JsonLd } from "@/components/json-ld";
-import { indexableRobots } from "@/lib/seo-robots";
-import {
-  buildContattiPageJsonLd,
-  contattiPageMetadata,
-} from "@/lib/seo-pricing-contatti";
+import { InnerPageShell } from "@/components/inner-page-shell";
+import { ContactPageContent } from "@/components/sections/contact-page-content";
+import { pageSeo } from "@/lib/seo";
+
+const title = "Contatti — jaderweb";
+const description =
+  "Hai un'idea? Parliamone. Raccontaci il progetto: siti web, e-commerce, automazioni e digitalizzazione a Como.";
 
 export const metadata: Metadata = {
-  ...contattiPageMetadata,
-  robots: indexableRobots,
+  title,
+  description,
+  ...pageSeo("/contatti", { title, description }),
 };
 
-export default function ContattiRoutePage() {
+export default function ContattiPage() {
   return (
-    <>
-      <JsonLd data={buildContattiPageJsonLd()} />
-      <ContactPage />
-    </>
+    <InnerPageShell>
+      <ContactPageContent />
+    </InnerPageShell>
   );
 }

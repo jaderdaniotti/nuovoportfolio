@@ -1,72 +1,80 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  SiCss,
+  SiHtml5,
+  SiJavascript,
+  SiLinux,
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiReact,
+  SiShopify,
+  SiVercel,
+} from "react-icons/si";
+import LogoLoop, { type LogoItem } from "@/components/logo-loop";
+import { Reveal } from "@/components/reveal";
+import { SectionLabel } from "@/components/section-label";
+import { useTheme } from "@/components/theme-provider";
+import { technologies } from "@/lib/home-content";
 
-const technologies = [
-  { name: "Next.js", bg: "bg-zinc-900", color: "text-white" },
-  { name: "React", bg: "bg-sky-500/10", color: "text-sky-600" },
-  { name: "TypeScript", bg: "bg-blue-500/10", color: "text-blue-600" },
-  { name: "Tailwind CSS", bg: "bg-teal-500/10", color: "text-teal-600" },
-  { name: "Framer Motion", bg: "bg-fuchsia-500/10", color: "text-fuchsia-600" },
-  { name: "Laravel", bg: "bg-red-500/10", color: "text-red-600" },
-  { name: "PHP", bg: "bg-indigo-500/10", color: "text-indigo-600" },
-  { name: "Three.js", bg: "bg-zinc-200", color: "text-zinc-900" },
+const techLogos: LogoItem[] = [
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
+  { node: <SiShopify />, title: "Shopify", href: "https://www.shopify.com" },
+  { node: <SiLinux />, title: "Linux", href: "https://www.linux.org" },
+  { node: <SiVercel />, title: "Vercel", href: "https://vercel.com" },
+  {
+    node: <SiJavascript />,
+    title: "JavaScript",
+    href: "https://developer.mozilla.org/docs/Web/JavaScript",
+  },
+  {
+    node: <SiHtml5 />,
+    title: "HTML",
+    href: "https://developer.mozilla.org/docs/Web/HTML",
+  },
+  {
+    node: <SiCss />,
+    title: "CSS",
+    href: "https://developer.mozilla.org/docs/Web/CSS",
+  },
+  { node: <SiReact />, title: "React", href: "https://react.dev" },
+  { node: <SiMysql />, title: "MySQL", href: "https://www.mysql.com" },
 ];
 
 export function TechSection() {
-  return (
-    <section
-      id="tecnologia"
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-zinc-50 px-6 py-[clamp(0.75rem,2dvh,1.5rem)] transition-colors dark:bg-zinc-950 lg:px-24"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30 dark:opacity-10" />
-      
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-5xl flex-col items-center justify-center gap-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center gap-3"
-        >
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-zinc-400 dark:bg-zinc-600" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-zinc-500 dark:text-zinc-400">
-              Stack
-            </span>
-            <span className="h-px w-8 bg-zinc-400 dark:bg-zinc-600" />
-          </div>
-          <h2 className="text-[clamp(1.9rem,5.3vh,3.2rem)] font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Tecnologie per l&apos;eccellenza.
-          </h2>
-          <p className="mt-1 max-w-2xl text-[clamp(0.92rem,2vh,1.08rem)] text-zinc-600 dark:text-zinc-300">
-            Utilizzo i framework più moderni e robusti per garantire velocità,
-            sicurezza e scalabilità ad ogni applicazione.
-          </p>
-        </motion.div>
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
-        {/* Floating tech pills */}
-        <div className="mt-1 flex max-w-4xl flex-wrap items-center justify-center gap-2 md:gap-3">
-          {technologies.map((tech, i) => (
-            <motion.div
-              key={tech.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ y: -5, scale: 1.05 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.4, 
-                delay: i * 0.05,
-                type: "spring", stiffness: 300
-              }}
-              className={`flex cursor-default items-center justify-center rounded-2xl border border-zinc-100 px-4 py-2 shadow-sm md:px-5 md:py-2.5 ${tech.bg}`}
-            >
-              <span className={`text-sm font-bold tracking-tight md:text-base ${tech.color}`}>
-                {tech.name}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+  return (
+    <section className="border-y border-border bg-background py-20 text-foreground lg:py-28">
+      <div className="page-shell">
+        <Reveal className="mx-auto max-w-5xl text-center">
+          <SectionLabel className="justify-center">Stack</SectionLabel>
+          <h2 className="font-display text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+            {technologies.title}
+          </h2>
+          <p className="mx-auto mt-8 max-w-3xl text-[clamp(1.05rem,2.2vw,1.35rem)] leading-relaxed text-muted">
+            {technologies.body}
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="relative mt-14 h-[180px] overflow-hidden lg:mt-16 lg:h-[200px]">
+        <LogoLoop
+          logos={techLogos}
+          speed={100}
+          direction="left"
+          logoHeight={88}
+          gap={64}
+          hoverSpeed={0}
+          scaleOnHover
+          fadeOut
+          fadeOutColor={isDark ? "#0A0C00" : "#F6F5F3"}
+          ariaLabel="Stack tecnologico"
+          className="text-foreground"
+        />
       </div>
     </section>
   );
