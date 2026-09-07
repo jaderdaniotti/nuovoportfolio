@@ -7,6 +7,7 @@ import type {
   ReactNode,
 } from "react";
 import { cn } from "@/lib/cn";
+import { getLinkTitle } from "@/lib/link-titles";
 
 type ButtonVariant = "accent" | "outline" | "link" | "linkAccent";
 type ButtonSize = "sm" | "md" | "lg";
@@ -133,16 +134,24 @@ export function Button(props: ButtonProps) {
     const isInternal =
       href.startsWith("/") && !href.startsWith("//") && !href.startsWith("/api/");
 
+    const title =
+      typeof linkRest.title === "string"
+        ? linkRest.title
+        : getLinkTitle(
+            href,
+            typeof children === "string" ? children : undefined,
+          );
+
     if (isInternal) {
       return (
-        <Link href={href} className={classes} {...linkRest}>
+        <Link href={href} className={classes} {...linkRest} title={title}>
           {content}
         </Link>
       );
     }
 
     return (
-      <a href={href} className={classes} {...linkRest}>
+      <a href={href} className={classes} {...linkRest} title={title}>
         {content}
       </a>
     );

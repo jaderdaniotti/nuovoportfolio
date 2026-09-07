@@ -2,8 +2,10 @@ import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
 import { CookieManageButton } from "@/components/cookie-consent";
 import { footerLegal, footerNavItems, site } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 import { getFeaturedComuni } from "@/lib/comuni";
 import { COMUNI_HUB_PATH, comuneBasePath } from "@/lib/comune-paths";
+import { siteConfig } from "@/lib/site-config";
 
 export function SiteFooter() {
   const featuredComuni = getFeaturedComuni(24);
@@ -12,7 +14,11 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-background py-16 text-foreground">
       <div className="page-shell grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link href="/" className="inline-flex items-center gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-3"
+            title={getLinkTitle("/")}
+          >
             <BrandLogo />
             <span className="font-display text-sm font-semibold">{site.name}</span>
           </Link>
@@ -30,6 +36,7 @@ export function SiteFooter() {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  title={getLinkTitle(link.href, link.label)}
                   className="text-sm transition hover:text-foreground"
                 >
                   {link.label}
@@ -48,6 +55,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={`mailto:${site.email}`}
+                title={getLinkTitle(`mailto:${site.email}`)}
                 className="transition hover:text-foreground"
               >
                 {site.email}
@@ -56,6 +64,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={`https://wa.me/${site.whatsapp}`}
+                title={getLinkTitle(`https://wa.me/${site.whatsapp}`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition hover:text-foreground"
@@ -63,6 +72,7 @@ export function SiteFooter() {
                 {site.phoneDisplay}
               </a>
             </li>
+            <li>P.IVA {siteConfig.vatNumber}</li>
           </ul>
         </div>
 
@@ -75,6 +85,10 @@ export function SiteFooter() {
               <li key={comune.slug}>
                 <Link
                   href={comuneBasePath(comune.slug)}
+                  title={getLinkTitle(
+                    comuneBasePath(comune.slug),
+                    `Siti web a ${comune.nome}`,
+                  )}
                   className="text-sm transition hover:text-foreground"
                 >
                   Siti web a {comune.nome}
@@ -84,6 +98,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href={COMUNI_HUB_PATH}
+                title={getLinkTitle(COMUNI_HUB_PATH, "Tutti i comuni d’Italia")}
                 className="text-sm font-medium transition hover:text-foreground"
               >
                 Tutti i comuni d’Italia
@@ -103,6 +118,7 @@ export function SiteFooter() {
               {index > 0 ? <span aria-hidden>·</span> : null}
               <Link
                 href={link.href}
+                title={getLinkTitle(link.href, link.label)}
                 className="transition hover:text-foreground"
               >
                 {link.label}

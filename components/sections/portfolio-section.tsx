@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { SitePreviewFrame } from "@/components/site-preview-frame";
 import { portfolioProjects } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 
 function hostnameOf(url: string) {
   try {
@@ -81,6 +82,7 @@ export function PortfolioSection({
                   </h3>
                   <a
                     href={project.url}
+                    title={getLinkTitle(project.url, `Apri sito ${project.title}`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-auto inline-flex items-center gap-2 text-sm font-medium transition hover:opacity-70"

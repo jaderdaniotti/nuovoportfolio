@@ -1,5 +1,5 @@
 import { site } from "@/lib/home-content";
-import { siteConfig } from "@/lib/site-config";
+import { sameAsProfiles, siteConfig } from "@/lib/site-config";
 import { OG_SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 import type { ServicePage } from "@/lib/service-pages";
 import type { ServiceBlogPost } from "@/lib/blog/types";
@@ -8,11 +8,11 @@ export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const PROFESSIONAL_SERVICE_ID = `${SITE_URL}/#professionalservice`;
 
-const udineAddress = {
+const napAddress = {
   "@type": "PostalAddress",
-  addressLocality: "Udine",
-  addressRegion: "Friuli-Venezia Giulia",
-  addressCountry: "IT",
+  addressLocality: siteConfig.address.addressLocality,
+  addressRegion: siteConfig.address.addressRegion,
+  addressCountry: siteConfig.address.addressCountry,
 } as const;
 
 export function personNode() {
@@ -25,9 +25,10 @@ export function personNode() {
     description:
       "Sviluppatore e designer freelance a Udine: siti web, SEO locale e soluzioni digitali per PMI e professionisti.",
     email: site.email,
-    telephone: site.phoneDisplay,
+    telephone: siteConfig.telephone,
     worksFor: { "@id": ORGANIZATION_ID },
-    address: udineAddress,
+    address: napAddress,
+    sameAs: sameAsProfiles(),
     knowsAbout: [
       "Web design",
       "Sviluppo frontend",
@@ -48,10 +49,19 @@ export function organizationNode() {
     url: SITE_URL,
     logo: absoluteUrl("/img/logo/logonerosubianco.svg"),
     email: site.email,
-    telephone: site.phoneDisplay,
+    telephone: siteConfig.telephone,
+    vatID: siteConfig.vatNumber,
     founder: { "@id": PERSON_ID },
-    address: udineAddress,
-    // sameAs reali → task S09 (niente placeholder LinkedIn/GitHub)
+    address: napAddress,
+    sameAs: sameAsProfiles(),
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: site.email,
+      telephone: siteConfig.telephone,
+      availableLanguage: ["Italian"],
+      areaServed: "IT",
+    },
   };
 }
 
@@ -63,9 +73,9 @@ export function professionalServiceNode() {
     url: SITE_URL,
     image: absoluteUrl("/img/logo/logonerosubianco.svg"),
     description: siteConfig.description,
-    telephone: site.phoneDisplay,
+    telephone: siteConfig.telephone,
     email: site.email,
-    address: udineAddress,
+    address: napAddress,
     areaServed: [
       { "@type": "Country", name: "Italia" },
       { "@type": "AdministrativeArea", name: "Friuli-Venezia Giulia" },
@@ -303,5 +313,54 @@ export function siteRootJsonLd() {
         author: { "@id": PERSON_ID },
       },
     ],
+  };
+}
+
+export function pillarPageJsonLd(page: {
+  path: string;
+  seoTitle: string;
+  description: string;
+  title: string;
+  faq: Array<{ question: string; answer: string }>;
+}) {
+  const url = absoluteUrl(page.path);
+  const graph: object[] = [
+    ...entityGraphNodes(),
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: page.seoTitle,
+      description: page.description,
+      isPartOf: { "@type": "WebSite", name: OG_SITE_NAME, url: SITE_URL },
+      about: { "@id": PROFESSIONAL_SERVICE_ID },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: page.title, item: url },
+      ],
+    },
+  ];
+
+  if (page.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      mainEntity: page.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
   };
 }

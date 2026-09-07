@@ -9,6 +9,7 @@ import { SiteMenu } from "@/components/site-menu";
 import StaggeredMenu from "@/components/staggered-menu";
 import { useTheme } from "@/components/theme-provider";
 import { navItems, site } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 import { cn } from "@/lib/cn";
 
 const staggeredItems = navItems.map((item) => ({
@@ -43,6 +44,7 @@ export function SiteHeader({ className }: SiteHeaderProps) {
             href="/"
             className="flex items-center gap-3 text-foreground"
             aria-label={site.name}
+            title={getLinkTitle("/")}
           >
             <BrandLogo />
             <span className="font-display hidden text-lg uppercase font-semibold tracking-tight sm:inline">
@@ -71,6 +73,7 @@ export function SiteHeader({ className }: SiteHeaderProps) {
               href="/contatti"
               size="sm"
               className="hidden md:inline-flex"
+              title={getLinkTitle("/contatti")}
             >
               Parliamo del tuo progetto
             </Button>

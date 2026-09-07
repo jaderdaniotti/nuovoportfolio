@@ -5,21 +5,37 @@ import {
   getServicePostsByService,
   SERVICE_BLOG_POSTS,
 } from "@/lib/blog/posts";
+import type { ServiceBlogPost } from "@/lib/blog/types";
+
+function seededPosts(
+  posts: ServiceBlogPost[],
+  seed: number,
+  limit: number,
+): ServiceBlogPost[] {
+  if (posts.length <= limit) return posts;
+  const start = Math.abs(seed) % posts.length;
+  const rotated = [...posts.slice(start), ...posts.slice(0, start)];
+  return rotated.slice(0, limit);
+}
 
 export function BlogInsightsSection({
   service,
   title = "Approfondimenti dal blog",
   limit = 5,
+  seed,
 }: {
   service?: string;
   title?: string;
   limit?: number;
+  /** Se impostato, ruota la selezione post (es. codice comune) per varietà tra landing. */
+  seed?: number;
 }) {
-  const posts = (
-    service
-      ? getServicePostsByService(service)
-      : [...SERVICE_BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1))
-  ).slice(0, limit);
+  const pool = service
+    ? getServicePostsByService(service)
+    : [...SERVICE_BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  const posts =
+    seed == null ? pool.slice(0, limit) : seededPosts(pool, seed, limit);
 
   if (posts.length === 0) return null;
 

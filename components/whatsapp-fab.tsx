@@ -1,10 +1,13 @@
 import { MessageCircle } from "lucide-react";
 import { site } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 
 export function WhatsAppFab() {
+  const href = `https://wa.me/${site.whatsapp}`;
   return (
     <a
-      href={`https://wa.me/${site.whatsapp}`}
+      href={href}
+      title={getLinkTitle(href)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Scrivici su WhatsApp"

@@ -15,7 +15,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { ScrollToTopOnLoad } from "@/components/scroll-to-top-on-load";
 import type { ComuneData } from "@/lib/comuni";
 import { comuneLabel } from "@/lib/comuni";
-import type { ComunePageSeo } from "@/lib/comuni-seo";
+import { seedFromComune, type ComunePageSeo } from "@/lib/comuni-seo";
 import { COMUNI_HUB_PATH, comuneContattiPath, comuneServicePath } from "@/lib/comune-paths";
 import { serviceIndexItems } from "@/lib/services-content";
 
@@ -63,11 +63,14 @@ export function ComuneHomeShell({
           links={[
             { href: COMUNI_HUB_PATH, label: "Tutti i comuni serviti" },
             { href: comuneContattiPath(comune.slug), label: `Contatti freelance web ${comune.nome}` },
+            { href: "/blog", label: "Blog jaderweb" },
+            { href: "/udine", label: "Pilastro siti web Udine" },
           ]}
         />
         <BlogInsightsSection
           title={`Approfondimenti utili per attività a ${comune.nome}.`}
           limit={6}
+          seed={seedFromComune(comune.codice)}
         />
         <FinalCtaSection
           title={`Hai un progetto a ${comune.nome}?`}

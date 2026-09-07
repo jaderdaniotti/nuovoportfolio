@@ -3,6 +3,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { localSection } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 
 type LocalLink = {
   href: string;
@@ -54,6 +55,7 @@ export function LocalSection({
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    title={getLinkTitle(link.href, link.label)}
                     className="text-sm font-medium underline-offset-4 transition hover:text-foreground hover:underline"
                   >
                     {link.label}

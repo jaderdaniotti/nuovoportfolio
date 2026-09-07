@@ -1,5 +1,6 @@
 import { Button } from "@/components/button";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
+import { TopComuniLinksSection } from "@/components/sections/top-comuni-links-section";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import SplitText from "@/components/split-text";
@@ -86,6 +87,8 @@ export function ServicesPageContent({
         </div>
         <FlowingMenu items={items} speed={12} />
       </section>
+
+      {!locale ? <TopComuniLinksSection limit={10} /> : null}
 
       <FinalCtaSection href={contactHref} />
     </>

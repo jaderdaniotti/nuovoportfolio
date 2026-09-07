@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { navItems, site } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 
 type SiteMenuProps = {
   open: boolean;
@@ -34,7 +35,12 @@ export function SiteMenu({ open, onClose }: SiteMenuProps) {
         >
           <div className="flex items-center justify-between px-6 py-5 lg:px-10">
             <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-3 text-cream" onClick={onClose}>
+              <Link
+                href="/"
+                className="flex items-center gap-3 text-cream"
+                title={getLinkTitle("/")}
+                onClick={onClose}
+              >
                 <Image
                   src="/img/logo/logobiancosunero.svg"
                   alt={site.name}
@@ -63,6 +69,7 @@ export function SiteMenu({ open, onClose }: SiteMenuProps) {
               <motion.a
                 key={item.href}
                 href={item.href}
+                title={getLinkTitle(item.href, item.label)}
                 onClick={onClose}
                 className="font-display text-[clamp(2.4rem,8vw,5rem)] font-semibold leading-none tracking-tight text-cream transition hover:text-accent"
                 initial={{ opacity: 0, y: 24 }}

@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
 import { blogHubJsonLd } from "@/lib/json-ld";
-import { pageSeo } from "@/lib/seo";
+import { absoluteUrl, pageSeo } from "@/lib/seo";
 
 const title = "Blog — jaderweb";
 const description =
@@ -16,6 +16,12 @@ export const metadata: Metadata = {
   title,
   description,
   ...pageSeo("/blog", { title, description }),
+  alternates: {
+    canonical: absoluteUrl("/blog"),
+    types: {
+      "application/rss+xml": absoluteUrl("/blog/rss.xml"),
+    },
+  },
 };
 
 const SERVICE_LABELS: Record<string, string> = {
@@ -61,6 +67,28 @@ export default function BlogIndexPage() {
               <p className="mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">
                 Articoli su siti per mestieri precisi. Scrivo da freelance a
                 Udine: meno teoria, più cose che puoi usare sul tuo progetto.
+              </p>
+              <p className="mt-4 text-sm text-muted">
+                <a
+                  href="/blog/rss.xml"
+                  className="underline-offset-4 transition hover:text-foreground hover:underline"
+                >
+                  Feed RSS
+                </a>
+                {" · "}
+                <Link
+                  href="/udine"
+                  className="underline-offset-4 transition hover:text-foreground hover:underline"
+                >
+                  Siti web Udine
+                </Link>
+                {" · "}
+                <Link
+                  href="/costo-sito-web"
+                  className="underline-offset-4 transition hover:text-foreground hover:underline"
+                >
+                  Costo sito web
+                </Link>
               </p>
             </Reveal>
           </div>

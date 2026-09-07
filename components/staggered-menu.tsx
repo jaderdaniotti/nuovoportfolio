@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import { gsap } from "gsap";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
+import { getLinkTitle } from "@/lib/link-titles";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -534,6 +535,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     <a
                       className="sm-panel-item relative inline-block cursor-pointer text-[4rem] leading-none font-semibold tracking-[-2px] no-underline uppercase transition-[background,color] duration-150 ease-linear"
                       href={it.link}
+                      title={getLinkTitle(it.link, it.ariaLabel || it.label)}
                       aria-label={it.ariaLabel}
                       data-index={idx + 1}
                       onClick={closeMenu}
@@ -585,6 +587,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     <li key={s.label + i} className="sm-socials-item">
                       <a
                         href={s.link}
+                        title={getLinkTitle(s.link, s.label)}
                         target={s.link.startsWith("https") ? "_blank" : undefined}
                         rel={s.link.startsWith("https") ? "noopener noreferrer" : undefined}
                         className="sm-socials-link relative inline-block py-[2px] text-[1.2rem] font-medium no-underline transition-[color,opacity] duration-300 ease-linear"

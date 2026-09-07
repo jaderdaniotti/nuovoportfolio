@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { getLinkTitle } from "@/lib/link-titles";
 
 export type LogoItem =
   | {
@@ -418,6 +419,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               "focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2",
             )}
             href={item.href}
+            title={itemAriaLabel || item.title || (item.href ? getLinkTitle(item.href) : undefined)}
             aria-label={itemAriaLabel || "logo link"}
             target="_blank"
             rel="noreferrer noopener"

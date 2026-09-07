@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { getLinkTitle } from "@/lib/link-titles";
 
 export interface MenuItemData {
   link: string;
@@ -198,6 +199,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       <a
         className="font-display relative flex h-full cursor-pointer items-center justify-center gap-3 px-4 py-2.5 text-center text-[clamp(1.05rem,2.6vw,1.65rem)] leading-none font-semibold tracking-tight text-foreground no-underline uppercase transition-colors hover:bg-accent hover:text-ink sm:py-3"
         href={link}
+        title={getLinkTitle(link, text)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

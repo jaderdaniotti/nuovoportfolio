@@ -5,7 +5,7 @@
 export const CORE_CONTENT_LASTMOD = new Date("2026-09-07T12:00:00.000Z");
 
 /** Dataset comuni / silo path structure last meaningful refresh */
-export const COMUNI_CONTENT_LASTMOD = new Date("2026-09-07T12:00:00.000Z");
+export const COMUNI_CONTENT_LASTMOD = new Date("2026-09-07T15:50:00.000Z");
 
 export function parsePostDate(isoDate: string): Date {
   const d = new Date(`${isoDate}T12:00:00.000Z`);

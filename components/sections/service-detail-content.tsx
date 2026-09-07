@@ -3,6 +3,7 @@ import { Button } from "@/components/button";
 import { StickyStackCards } from "@/components/sticky-stack-cards";
 import { BlogInsightsSection } from "@/components/sections/blog-insights-section";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
+import { TopComuniLinksSection } from "@/components/sections/top-comuni-links-section";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import type { ServicePage } from "@/lib/service-pages";
@@ -281,6 +282,14 @@ export function ServiceDetailContent({
         service={page.slug}
         title={`Guide su ${page.name.toLowerCase()}.`}
       />
+
+      {!locale ? (
+        <TopComuniLinksSection
+          serviceSlug={page.slug}
+          serviceName={page.name}
+          title={`${page.name} nelle città principali`}
+        />
+      ) : null}
 
       <FinalCtaSection
         title={locale?.ctaTitle ?? page.ctaTitle}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { Button } from "@/components/button";
 import { cn } from "@/lib/cn";
+import { getLinkTitle } from "@/lib/link-titles";
 
 export const COOKIE_CONSENT_KEY = "jaderweb-cookie-consent";
 
@@ -87,6 +88,7 @@ export function CookieConsent() {
           il tuo consenso, cookie analitici per migliorare l&apos;esperienza.{" "}
           <Link
             href="/cookie"
+            title={getLinkTitle("/cookie")}
             className="font-medium text-foreground underline decoration-accent decoration-2 underline-offset-2 transition hover:opacity-70"
           >
             Maggiori informazioni

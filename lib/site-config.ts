@@ -5,6 +5,8 @@ export const siteConfig = {
   name: "jaderweb",
   personName: "Jader Daniotti",
   vatNumber: "14494540967",
+  /** E.164 senza spazi — unico formato telefono in JSON-LD */
+  telephone: "+393513152008",
   title: "Creazione siti web a Udine | jaderweb",
   description:
     "Creazione siti web a Udine e in tutta Italia: sviluppo su misura, UX moderna, SEO tecnica e supporto diretto per PMI, professionisti e brand.",
@@ -29,10 +31,21 @@ export const siteConfig = {
     name: "jaderweb",
     url: SITE_URL.replace(/\/$/, ""),
   },
+  address: {
+    addressLocality: "Udine",
+    addressRegion: "Friuli-Venezia Giulia",
+    addressCountry: "IT",
+  },
   links: {
     email: "mailto:jaderdaniotti.lavoro@gmail.com",
     calendar: "https://calendar.google.com",
-    linkedin: "https://www.linkedin.com",
-    github: "https://github.com",
+    /** Profili pubblici verificati — niente homepage generiche */
+    linkedin: "https://www.linkedin.com/in/jader-daniotti-0a00b9328",
+    github: "https://github.com/jaderdaniotti",
   },
 } as const;
+
+/** Profili ufficiali per JSON-LD `sameAs` (Organization + Person). */
+export function sameAsProfiles(): string[] {
+  return [siteConfig.links.linkedin, siteConfig.links.github];
+}

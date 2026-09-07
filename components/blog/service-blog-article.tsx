@@ -2,8 +2,10 @@ import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { Button } from "@/components/button";
 import { SectionLabel } from "@/components/section-label";
+import { TopComuniLinksSection } from "@/components/sections/top-comuni-links-section";
 import type { ServiceBlogPost } from "@/lib/blog/types";
 import { blogFaqJsonLd, blogPostJsonLd } from "@/lib/json-ld";
+import { getTopComuniServiceLinks } from "@/lib/comune-internal-links";
 
 const SERVICE_LABELS: Record<string, string> = {
   matrimoni: "Matrimoni",
@@ -31,6 +33,20 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
   const serviceHref = `/servizi/${post.service}`;
   const serviceLabel = SERVICE_LABELS[post.service] ?? post.service;
   const faqSchema = blogFaqJsonLd(post);
+  const comuneLinks = getTopComuniServiceLinks(
+    post.service,
+    serviceLabel,
+    6,
+  );
+  const relatedLinks =
+    post.related && post.related.length > 0
+      ? post.related
+      : [
+          { label: serviceLabel, href: serviceHref },
+          { label: "Siti web a Udine", href: "/udine" },
+          { label: "Quanto costa un sito web", href: "/costo-sito-web" },
+          ...comuneLinks.slice(0, 3),
+        ];
 
   return (
     <article className="bg-background text-foreground">
@@ -125,32 +141,36 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
                 {serviceLabel}
               </Button>
             </div>
-            {post.related && post.related.length > 0 ? (
-              <ul className="mt-8 space-y-2 border-t border-border pt-6 text-sm">
-                {post.related.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-muted underline-offset-4 transition hover:text-foreground hover:underline"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-8 border-t border-border pt-6 text-sm">
+            <ul className="mt-8 space-y-2 border-t border-border pt-6 text-sm">
+              {relatedLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-muted underline-offset-4 transition hover:text-foreground hover:underline"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
                 <Link
                   href="/blog"
                   className="text-muted underline-offset-4 transition hover:text-foreground hover:underline"
                 >
                   ← Torna al blog
                 </Link>
-              </p>
-            )}
+              </li>
+            </ul>
           </aside>
         </div>
       </div>
+
+      <TopComuniLinksSection
+        serviceSlug={post.service}
+        serviceName={serviceLabel}
+        title={`${serviceLabel}: pagine locali`}
+        limit={8}
+      />
     </article>
   );
 }

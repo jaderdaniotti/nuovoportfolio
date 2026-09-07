@@ -7,6 +7,7 @@ import { Button } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { SitePreviewFrame } from "@/components/site-preview-frame";
 import { hero, heroMockups } from "@/lib/home-content";
+import { getLinkTitle } from "@/lib/link-titles";
 
 const AUTOPLAY_MS = 7000;
 
@@ -147,6 +148,7 @@ export function HeroVisual() {
         {"url" in current && current.url ? (
           <a
             href={current.url}
+            title={getLinkTitle(current.url, `Apri sito ${current.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-muted transition hover:text-foreground"

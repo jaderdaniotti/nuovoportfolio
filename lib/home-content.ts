@@ -23,6 +23,9 @@ export const footerNavItems = [
   ...navItems,
   { label: "Comuni", href: "/comuni" },
   { label: "Tools", href: "/tools" },
+  { label: "Siti web Udine", href: "/udine" },
+  { label: "Freelance FVG", href: "/friuli" },
+  { label: "Costo sito web", href: "/costo-sito-web" },
 ] as const;
 
 export const hero = {

@@ -159,11 +159,11 @@ Aggiorna le checkbox **qui**. Questa è la todo list ufficiale in-repo.
 - [x] **S02** Sitemap: `lastmod` reali (blog `post.date`); allineare o dismettere `/sitemap-www.xml`
 - [x] **S03** Redirect 301 www↔apex + security/cache headers in `next.config`
 - [x] **S04** Schema: `Person` / `ProfessionalService`, Breadcrumb blog+comuni, `ItemList` hub servizi/blog
-- [ ] **S05** Pagine pilastro commerciali (Udine / FVG / costi sito) + feed RSS `/blog/rss.xml`
-- [ ] **S06** Ampliare varietà `comuni-seo` + linking blog↔comuni top / servizi↔comuni
+- [x] **S05** Pagine pilastro commerciali (Udine / FVG / costi sito) + feed RSS `/blog/rss.xml`
+- [x] **S06** Ampliare varietà `comuni-seo` + linking blog↔comuni top / servizi↔comuni
 - [ ] **S07** Performance CWV sul silo: lazy client JS, font/image priority, OG leggeri
 - [ ] **S08** Cleanup crawl: rimuovere o 301 blog legacy noindex; audit soft-404
-- [ ] **S09** `sameAs` social reali + NAP coerente in JSON-LD Organization
+- [x] **S09** `sameAs` social reali + NAP coerente in JSON-LD Organization
 - [ ] **S10** IndexNow / ping sitemap post-deploy (opzionale)
 
 ### B — Backlog codice SEO (dopo S01–S09)
@@ -219,6 +219,9 @@ Prossimo (non iniziato): S0Y
 | 2026-09-07 | S02 sitemap lastmod | OK | blog=post.date; core/comuni stabili; www sitemap → 308 apex |
 | 2026-09-07 | S01 PWA | OK | standalone manifest, sw.js shell-only, /offline, apple-touch, SW headers |
 | 2026-09-07 | S04 Schema JSON-LD | OK | entity graph Person/Org/ProfessionalService; hub ItemList; breadcrumb blog+comuni; home WebSite |
+| 2026-09-07 | S09 sameAs + NAP | OK | LinkedIn+GitHub reali; vatID; tel E.164; footer P.IVA; contatti schema; seo-home→siteRoot |
+| 2026-09-07 | S05 pilastro + RSS | OK | /udine /friuli /costo-sito-web + FAQ schema; /blog/rss.xml (95 item); sitemap+footer |
+| 2026-09-07 | S06 comuni-seo + link | OK | pool template ampliati + proof per popolazione; TopComuni su servizi/blog; blog seed per comune |
 | | | | |
 
 ---
@@ -231,7 +234,7 @@ Prossimo (non iniziato): S0Y
 | 2026-09-07 | Vercel Domains | Confermare in dashboard che www è redirect domain verso apex (oltre al codice) | Ops manuale GSC/Vercel |
 | 2026-09-07 | PWA icons | icon-192 molto leggero (366B); valutare asset maskable con safe-zone reale | Pxx polish icone |
 | 2026-09-07 | PWA push | Push/VAPID non in S01 (fuori scope) | X se richiesto |
-| 2026-09-07 | `lib/seo-home.ts` | Legacy JSON-LD non montato (`logopurple`, sameAs placeholder); home usa `siteRootJsonLd` | Bxx rimozione o allineamento in S09 |
+| 2026-09-07 | LinkedIn location | Profilo LI mostra “Greater Milan”; sito/schema NAP = Udine | Ops: aggiornare location LinkedIn per coerenza |
 
 ---
 
@@ -243,7 +246,9 @@ Prossimo (non iniziato): S0Y
 - Sitemap comuni: `app/comuni/sitemap.ts` + `lib/sitemap-entries.ts` (chunk 45_000)
 - Robots: `app/robots.ts`
 - Blog servizi: `lib/blog/posts/*` + `components/blog/service-blog-article.tsx`
-- Manifest attuale: `app/manifest.ts` (`display: browser` → da portare a standalone in S01)
+- Pilastro: `lib/pillar-pages.ts` → `/udine`, `/friuli`, `/costo-sito-web`
+- RSS: `app/blog/rss.xml/route.ts`
+- Manifest attuale: `app/manifest.ts`
 - Clone storico: `CLONE-TASKS.md` (T00–T26 chiusi)
 
 ### Sitemap da allegare in GSC (apex)
