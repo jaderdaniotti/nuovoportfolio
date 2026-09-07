@@ -3,9 +3,9 @@ import { InnerPageShell } from "@/components/inner-page-shell";
 import { PortfolioPageContent } from "@/components/sections/portfolio-page-content";
 import { pageSeo } from "@/lib/seo";
 
-const title = "Portfolio — jaderweb";
+const title = "Portfolio siti web reali | Anteprime live — jaderweb";
 const description =
-  "Progetti web realizzati da Jader Daniotti: siti, hospitality, retail e portfolio. Anteprime live e lavori consegnati.";
+  "Lavori consegnati da Jader Daniotti: siti hospitality, retail e brand con anteprime live. Guarda cosa puoi ottenere, poi scrivimi.";
 
 export const metadata: Metadata = {
   title,

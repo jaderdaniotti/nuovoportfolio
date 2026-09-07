@@ -21,51 +21,77 @@ export function ContactPageContent({
     locationLine?: string;
   };
 }) {
+  const lean = Boolean(locale);
+
   return (
     <>
       <section className="bg-hero pt-16 pb-20 text-foreground lg:pt-24 lg:pb-28">
         <div className="page-shell">
-          <Reveal>
+          {lean ? (
             <SectionLabel>{locale?.eyebrow ?? contactPage.eyebrow}</SectionLabel>
-          </Reveal>
+          ) : (
+            <Reveal>
+              <SectionLabel>{contactPage.eyebrow}</SectionLabel>
+            </Reveal>
+          )}
           <h1 className="font-display mt-0 max-w-4xl text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight">
-            <SplitText
-              tag="span"
-              text={contactPage.title}
-              className="font-display block text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
-              delay={40}
-              duration={0.6}
-              ease="power3.out"
-              splitType="chars"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-80px"
-              textAlign="left"
-            />
-            <SplitText
-              tag="span"
-              text={contactPage.titleLine2}
-              className="font-display block text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
-              delay={30}
-              duration={0.6}
-              ease="power3.out"
-              splitType="chars"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-80px"
-              textAlign="left"
-            />
+            {lean ? (
+              <>
+                <span className="block">{contactPage.title}</span>
+                <span className="block">{contactPage.titleLine2}</span>
+              </>
+            ) : (
+              <>
+                <SplitText
+                  tag="span"
+                  text={contactPage.title}
+                  className="font-display block text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
+                  delay={40}
+                  duration={0.6}
+                  ease="power3.out"
+                  splitType="chars"
+                  from={{ opacity: 0, y: 40 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  rootMargin="-80px"
+                  textAlign="left"
+                />
+                <SplitText
+                  tag="span"
+                  text={contactPage.titleLine2}
+                  className="font-display block text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
+                  delay={30}
+                  duration={0.6}
+                  ease="power3.out"
+                  splitType="chars"
+                  from={{ opacity: 0, y: 40 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  rootMargin="-80px"
+                  textAlign="left"
+                />
+              </>
+            )}
           </h1>
-          <Reveal>
-            <p className="mt-8 max-w-2xl text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">
-              {locale?.subtitle ?? contactPage.subtitle}
-            </p>
-            <p className="font-display mt-10 text-[clamp(0.95rem,2vw,1.15rem)] font-semibold tracking-[0.14em] text-foreground">
-              {contactPage.stack.join(" · ")}
-            </p>
-          </Reveal>
+          {lean ? (
+            <>
+              <p className="mt-8 max-w-2xl text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">
+                {locale?.subtitle ?? contactPage.subtitle}
+              </p>
+              <p className="font-display mt-10 text-[clamp(0.95rem,2vw,1.15rem)] font-semibold tracking-[0.14em] text-foreground">
+                {contactPage.stack.join(" · ")}
+              </p>
+            </>
+          ) : (
+            <Reveal>
+              <p className="mt-8 max-w-2xl text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-muted">
+                {contactPage.subtitle}
+              </p>
+              <p className="font-display mt-10 text-[clamp(0.95rem,2vw,1.15rem)] font-semibold tracking-[0.14em] text-foreground">
+                {contactPage.stack.join(" · ")}
+              </p>
+            </Reveal>
+          )}
         </div>
       </section>
 
@@ -82,15 +108,42 @@ export function ContactPageContent({
 
       <section className="border-b border-border bg-background py-20 text-foreground lg:py-28">
         <div className="page-shell">
-          <Reveal className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-[clamp(2.2rem,5.5vw,4rem)] font-semibold leading-[1.04] tracking-tight">
-              {contactAfter.title}
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
-              {contactAfter.body}
-            </p>
-          </Reveal>
-          <ProcessTimeline items={[...contactAfter.steps]} />
+          {lean ? (
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="font-display text-[clamp(2.2rem,5.5vw,4rem)] font-semibold leading-[1.04] tracking-tight">
+                {contactAfter.title}
+              </h2>
+              <p className="mx-auto mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {contactAfter.body}
+              </p>
+            </div>
+          ) : (
+            <Reveal className="mx-auto max-w-3xl text-center">
+              <h2 className="font-display text-[clamp(2.2rem,5.5vw,4rem)] font-semibold leading-[1.04] tracking-tight">
+                {contactAfter.title}
+              </h2>
+              <p className="mx-auto mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {contactAfter.body}
+              </p>
+            </Reveal>
+          )}
+          {lean ? (
+            <ol className="mx-auto mt-12 max-w-3xl space-y-8">
+              {contactAfter.steps.map((step) => (
+                <li key={step.number}>
+                  <p className="font-display text-[clamp(1.5rem,3vw,2rem)] font-semibold text-foreground/25">
+                    {step.number}
+                  </p>
+                  <h3 className="font-display mt-2 text-xl font-semibold tracking-tight">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-muted">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <ProcessTimeline items={[...contactAfter.steps]} />
+          )}
         </div>
       </section>
 

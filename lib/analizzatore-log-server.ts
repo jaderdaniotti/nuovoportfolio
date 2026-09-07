@@ -17,6 +17,7 @@ export type ServerLogAnalysisResult = {
   parseRatePercent: number;
   byStatus: Map<number, number>;
   topPaths: [string, number][];
+  top404Paths: [string, number][];
   topIps: [string, number][];
   topUserAgents: [string, number][];
   methods: Map<string, number>;
@@ -199,6 +200,7 @@ export function analyzeServerAccessLog(
   let matched = 0;
   const byStatus = new Map<number, number>();
   const pathCounts = new Map<string, number>();
+  const path404Counts = new Map<string, number>();
   const ipCounts = new Map<string, number>();
   const uaCounts = new Map<string, number>();
   const methods = new Map<string, number>();
@@ -217,6 +219,7 @@ export function analyzeServerAccessLog(
 
     bumpNumMap(byStatus, p.status, 1);
     bumpMap(pathCounts, pathKey, 1);
+    if (p.status === 404) bumpMap(path404Counts, pathKey, 1);
     bumpMap(ipCounts, p.ip, 1);
     bumpMap(methods, p.method || "?", 1);
 
@@ -240,6 +243,7 @@ export function analyzeServerAccessLog(
     parseRatePercent,
     byStatus,
     topPaths: topNFromMap(pathCounts, options.topN),
+    top404Paths: topNFromMap(path404Counts, options.topN),
     topIps: topNFromMap(ipCounts, options.topN),
     topUserAgents: topNFromMap(uaCounts, Math.min(options.topN, 10)),
     methods,
@@ -250,7 +254,14 @@ export function analyzeServerAccessLog(
   };
 }
 
+import { suggestRedirectsFrom404Paths } from "@/lib/not-found-suggestions";
+
 export function formatServerLogReport(result: ServerLogAnalysisResult): string {
+  const redirectHints = suggestRedirectsFrom404Paths(
+    result.top404Paths.map(([path]) => path),
+    2,
+  ).slice(0, 20);
+
   const lines: string[] = [
     "--- Analisi access log ---",
     `Righe totali nel file (inclusi vuoti): ${result.totalLines}`,
@@ -269,6 +280,19 @@ export function formatServerLogReport(result: ServerLogAnalysisResult): string {
     "",
     "--- Top percorsi ---",
     ...result.topPaths.map(([path, n]) => `  ${n}\t${path}`),
+    "",
+    "--- Top 404 ---",
+    ...(result.top404Paths.length
+      ? result.top404Paths.map(([path, n]) => `  ${n}\t${path}`)
+      : ["  (nessun 404 nel campione)"]),
+    "",
+    "--- Suggerimenti redirect da 404 ---",
+    ...(redirectHints.length
+      ? redirectHints.map(
+          (item) =>
+            `  ${item.from} → ${item.to}  (${item.reason}, score ${Math.round(item.score)})`,
+        )
+      : ["  (nessun suggerimento)"]),
     "",
     "--- Top IP ---",
     ...result.topIps.map(([ip, n]) => `  ${n}\t${ip}`),
@@ -289,6 +313,8 @@ export const SAMPLE_COMBINED_LOG = [
   '203.0.113.42 - - [30/Apr/2026:10:01:04 +0200] "GET /servizi?utm=news HTTP/1.1" 200 8123 "https://example.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) Safari/605.1.15"',
   '198.51.100.10 - - [30/Apr/2026:10:01:10 +0200] "POST /api/lead HTTP/1.1" 201 88 "-" "curl/8.7.1"',
   '198.51.100.99 - - [30/Apr/2026:10:01:12 +0200] "GET /robots.txt HTTP/1.1" 404 156 "-" "Googlebot/2.1"',
+  '198.51.100.99 - - [30/Apr/2026:10:01:20 +0200] "GET /pricing HTTP/1.1" 404 156 "-" "Mozilla/5.0"',
+  '198.51.100.99 - - [30/Apr/2026:10:01:22 +0200] "GET /about HTTP/1.1" 404 156 "-" "Mozilla/5.0"',
   '198.51.100.99 - - [30/Apr/2026:10:02:01 +0200] "GET /.env HTTP/1.1" 403 312 "-" "-"',
   '[2001:db8::1] - - [30/Apr/2026:10:03:44 +0200] "GET /pricing HTTP/1.1" 301 162 "-" "Mozilla/5.0 (iPhone; CPU iPhone OS 18_4 like Mac OS X)"',
   '{"method":"GET","path":"/dashboard","status":200,"remote_addr":"192.0.2.5","request":"GET /dashboard HTTP/1.1"}',

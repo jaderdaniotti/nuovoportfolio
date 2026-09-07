@@ -7,6 +7,8 @@ import {
   getComuniProvince,
   getComuniRegioni,
   getFeaturedComuni,
+  getFeaturedComuniByRegione,
+  getIndexableComuniItalia,
   toComuneListItem,
 } from "@/lib/comuni";
 import { comuniHubJsonLd } from "@/lib/comune-json-ld";
@@ -25,6 +27,8 @@ export const metadata: Metadata = {
   }),
 };
 
+const FVG_REGIONE = "Friuli-Venezia Giulia";
+
 function normalize(value: string) {
   return value
     .normalize("NFD")
@@ -42,22 +46,28 @@ export default async function ComuniHubPage({
   const regione = typeof params.regione === "string" ? params.regione : "";
   const provincia = typeof params.provincia === "string" ? params.provincia : "";
 
-  const all = getComuneListItems();
   const featured = getFeaturedComuni(10);
   const topCities = featured.map(toComuneListItem);
+  const fvgCities = getFeaturedComuniByRegione(FVG_REGIONE, 8).map(
+    toComuneListItem,
+  );
+  const totalIndexable = getIndexableComuniItalia().length;
+  const hasFilters = Boolean(query || regione || provincia);
   const needle = normalize(query);
 
-  const filtered = all.filter((comune) => {
-    if (regione && comune.regione !== regione) return false;
-    if (provincia && comune.provincia !== provincia) return false;
-    if (!needle) return true;
-    return (
-      normalize(comune.nome).includes(needle) ||
-      normalize(comune.sigla).includes(needle) ||
-      normalize(comune.provincia).includes(needle) ||
-      normalize(comune.regione).includes(needle)
-    );
-  });
+  const filtered = hasFilters
+    ? getComuneListItems().filter((comune) => {
+        if (regione && comune.regione !== regione) return false;
+        if (provincia && comune.provincia !== provincia) return false;
+        if (!needle) return true;
+        return (
+          normalize(comune.nome).includes(needle) ||
+          normalize(comune.sigla).includes(needle) ||
+          normalize(comune.provincia).includes(needle) ||
+          normalize(comune.regione).includes(needle)
+        );
+      })
+    : [];
 
   return (
     <InnerPageShell>
@@ -69,7 +79,9 @@ export default async function ComuniHubPage({
         regioni={getComuniRegioni()}
         province={getComuniProvince(regione || undefined)}
         topCities={topCities}
+        fvgCities={fvgCities}
         results={filtered}
+        totalIndexable={totalIndexable}
       />
     </InnerPageShell>
   );

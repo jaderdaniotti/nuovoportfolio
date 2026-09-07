@@ -8,6 +8,7 @@ import type {
 } from "react";
 import { cn } from "@/lib/cn";
 import { getLinkTitle } from "@/lib/link-titles";
+import { shouldPrefetchHref } from "@/lib/prefetch";
 
 type ButtonVariant = "accent" | "outline" | "link" | "linkAccent";
 type ButtonSize = "sm" | "md" | "lg";
@@ -144,7 +145,13 @@ export function Button(props: ButtonProps) {
 
     if (isInternal) {
       return (
-        <Link href={href} className={classes} {...linkRest} title={title}>
+        <Link
+          href={href}
+          prefetch={shouldPrefetchHref(href)}
+          className={classes}
+          {...linkRest}
+          title={title}
+        >
           {content}
         </Link>
       );

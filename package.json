@@ -11,7 +11,10 @@
     "generate:comuni:seo": "node scripts/generate-comuni-seo.mjs",
     "task:next": "node scripts/check-task-progress.mjs --task-file task.md",
     "task:summary": "node scripts/check-task-progress.mjs --task-file task.md --summary",
-    "agent:loop": "bash scripts/agent-loop.sh"
+    "agent:loop": "bash scripts/agent-loop.sh",
+    "seo:indexnow": "npx tsx scripts/ping-indexnow.ts",
+    "seo:indexnow:dry": "npx tsx scripts/ping-indexnow.ts --dry-run",
+    "seo:smoke": "npx tsx scripts/seo-smoke.ts"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.12.10",

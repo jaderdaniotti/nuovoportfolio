@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import { LEGACY_BLOG_REDIRECTS } from "./lib/legacy-blog-redirects";
+import { LEGACY_PATH_REDIRECTS } from "./lib/legacy-path-redirects";
 
 /**
  * Apex canonico: https://jaderweb.com
@@ -6,13 +8,22 @@ import type { NextConfig } from "next";
  * Security headers globali; cache lunga solo su asset statici versionati per path.
  */
 const nextConfig: NextConfig = {
+  // Canonico senza trailing slash (/servizi, non /servizi/).
+  // Next reindirizza automaticamente le URL con slash finale.
+  trailingSlash: false,
+
   async redirects() {
     return [
-      {
-        source: "/pricing",
-        destination: "/servizi",
+      ...LEGACY_PATH_REDIRECTS.map((rule) => ({
+        source: rule.source,
+        destination: rule.destination,
         permanent: true,
-      },
+      })),
+      ...LEGACY_BLOG_REDIRECTS.map((rule) => ({
+        source: rule.source,
+        destination: rule.destination,
+        permanent: true,
+      })),
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.jaderweb.com" }],
@@ -82,11 +93,20 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/img/:path*",
+        source: "/grazie",
         headers: [
           {
-            key: "Cache-Control",
-            value: "public, max-age=86400, stale-while-revalidate=604800",
+            key: "X-Robots-Tag",
+            value: "noindex, follow",
+          },
+        ],
+      },
+      {
+        source: "/offline",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, follow",
           },
         ],
       },

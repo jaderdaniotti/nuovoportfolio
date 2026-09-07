@@ -29,6 +29,7 @@ export function ServiceDetailContent({
   const relatedPages = getRelatedServicePages(page.slug);
   const contactHref = locale?.contactHref ?? "/contatti";
   const relatedBasePath = locale?.relatedBasePath ?? "/servizi";
+  const lean = Boolean(locale);
   const crumbs = locale?.breadcrumbs ?? [
     { href: "/", label: "Home" },
     { href: "/servizi", label: "Servizi" },
@@ -162,12 +163,30 @@ export function ServiceDetailContent({
               Cosa può includere il progetto.
             </h2>
           </Reveal>
-          <StickyStackCards
-            items={page.features.map((feature, index) => ({
-              iconLabel: String(index + 1).padStart(2, "0"),
-              title: feature,
-            }))}
-          />
+          {lean ? (
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2">
+              {page.features.map((feature, index) => (
+                <li
+                  key={feature}
+                  className="rounded-[1.5rem] border border-border bg-foreground/[0.03] p-6"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <p className="font-display mt-3 text-lg font-semibold tracking-tight">
+                    {feature}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <StickyStackCards
+              items={page.features.map((feature, index) => ({
+                iconLabel: String(index + 1).padStart(2, "0"),
+                title: feature,
+              }))}
+            />
+          )}
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
 import { toolsCatalog } from "@/lib/tools-catalog";
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
+import { getBlogPostDates } from "@/lib/blog/types";
 import { CORE_CONTENT_LASTMOD, parsePostDate } from "@/lib/sitemap-dates";
 
 const staticPages: Array<{
@@ -53,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blog: MetadataRoute.Sitemap = SERVICE_BLOG_POSTS.map((post) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
-    lastModified: parsePostDate(post.date),
+    lastModified: parsePostDate(getBlogPostDates(post).dateModified),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

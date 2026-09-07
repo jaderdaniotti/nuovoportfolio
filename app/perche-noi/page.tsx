@@ -3,9 +3,9 @@ import { InnerPageShell } from "@/components/inner-page-shell";
 import { WhyUsPageContent } from "@/components/sections/why-us-page-content";
 import { pageSeo } from "@/lib/seo";
 
-const title = "Perché noi — jaderweb";
+const title = "Perché lavorare con me | Freelance web — jaderweb";
 const description =
-  "Tecnologia moderna e codice proprietario, quando serve. Scegliamo la soluzione più adatta al progetto: sviluppo su misura o piattaforma.";
+  "Referente unico, stack moderno e codice su misura quando serve. Scelgo la soluzione giusta al progetto — non un pacchetto da listino.";
 
 export const metadata: Metadata = {
   title,

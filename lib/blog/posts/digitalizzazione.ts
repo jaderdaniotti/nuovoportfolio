@@ -12,6 +12,7 @@ export const digitalizzazionePosts = [
     description:
       "Comprare CRM e gestionali senza mappare i flussi è soldi buttati. Come analizzo i processi reali di una PMI e solo dopo scelgo gli strumenti.",
     date: "2026-07-30",
+    updated: "2026-09-07",
     keywords: [
       "digitalizzazione PMI",
       "processi digitali azienda",

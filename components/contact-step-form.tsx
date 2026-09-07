@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState, type ReactNode } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/cn";
@@ -108,6 +109,7 @@ function ChoiceCard({
 }
 
 export function ContactStepForm() {
+  const router = useRouter();
   const { theme } = useTheme();
   const [mode, setMode] = useState<ContactMode | null>(null);
   const [step, setStep] = useState(0);
@@ -202,7 +204,10 @@ export function ContactStepForm() {
         return;
       }
 
-      setSent(true);
+      const { trackContactSubmit } = await import("@/lib/ga-events");
+      trackContactSubmit();
+      router.push("/grazie");
+      return;
     } catch {
       setError("Invio non riuscito. Controlla la connessione e riprova.");
     } finally {

@@ -506,9 +506,9 @@ export function buildComunePageSeo(
 }
 
 export const HUB_SEO = {
-  title: "Creazione siti web a: comuni serviti in Italia | jaderweb",
+  title: "Siti web per comune | Hub Italia — jaderweb",
   description:
-    "Freelance web per la creazione di siti web in ogni comune italiano. Trova la pagina del tuo comune: servizi, contatti e soluzioni digitali localizzate.",
+    "Trova la pagina del tuo comune: servizi locali, contatti e soluzioni digitali. Freelance web che localizza il sito sul territorio italiano.",
   canonical: COMUNI_HUB_PATH,
   keywords: [
     "creazione siti web comuni Italia",

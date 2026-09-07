@@ -6,6 +6,7 @@ import {
   getTopComuniServiceLinks,
 } from "@/lib/comune-internal-links";
 import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
+import { shouldPrefetchHref } from "@/lib/prefetch";
 
 export function TopComuniLinksSection({
   serviceSlug,
@@ -44,6 +45,7 @@ export function TopComuniLinksSection({
             <li key={item.href}>
               <Link
                 href={item.href}
+                prefetch={shouldPrefetchHref(item.href)}
                 className="inline-flex rounded-full border border-border px-4 py-2 text-sm text-muted transition hover:border-foreground/40 hover:text-foreground"
               >
                 {item.label}
@@ -55,6 +57,7 @@ export function TopComuniLinksSection({
         <p className="mt-8">
           <Link
             href={COMUNI_HUB_PATH}
+            prefetch={shouldPrefetchHref(COMUNI_HUB_PATH)}
             className="text-sm font-medium underline decoration-accent decoration-2 underline-offset-4 transition hover:opacity-70"
           >
             Tutti i comuni d’Italia
@@ -62,6 +65,7 @@ export function TopComuniLinksSection({
           {" · "}
           <Link
             href="/udine"
+            prefetch={shouldPrefetchHref("/udine")}
             className="text-sm font-medium text-muted underline-offset-4 transition hover:text-foreground hover:underline"
           >
             Pilastro Udine
@@ -69,6 +73,7 @@ export function TopComuniLinksSection({
           {" · "}
           <Link
             href="/friuli"
+            prefetch={shouldPrefetchHref("/friuli")}
             className="text-sm font-medium text-muted underline-offset-4 transition hover:text-foreground hover:underline"
           >
             Freelance FVG

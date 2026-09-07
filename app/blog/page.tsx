@@ -7,10 +7,11 @@ import { SectionLabel } from "@/components/section-label";
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
 import { blogHubJsonLd } from "@/lib/json-ld";
 import { absoluteUrl, pageSeo } from "@/lib/seo";
+import { servicePages } from "@/lib/service-pages";
 
-const title = "Blog — jaderweb";
+const title = "Blog siti web e SEO locale | Guide pratiche — jaderweb";
 const description =
-  "Guide su siti verticali, SEO locale e conversioni: matrimoni, ristoranti, B&B, professionisti e altri settori. Di Jader Daniotti, freelance a Udine.";
+  "Guide operative su siti verticali, SEO locale e conversioni (ristoranti, B&B, matrimoni, professionisti). Scritto da me, freelance a Udine.";
 
 export const metadata: Metadata = {
   title,
@@ -24,32 +25,32 @@ export const metadata: Metadata = {
   },
 };
 
-const SERVICE_LABELS: Record<string, string> = {
-  matrimoni: "Matrimoni",
-  "sagre-eventi": "Sagre",
-  ristoranti: "Ristoranti",
-  "bb-case-vacanza": "B&B",
-  professionisti: "Professionisti",
-  "associazioni-sportive": "Sport",
-  "band-eventi": "Band",
-  "agenzie-immobiliari": "Immobiliare",
-  "eventi-privati": "Eventi privati",
-  artigiani: "Artigiani",
-  "landing-ads": "Landing",
-  "one-page": "One page",
-  "sito-48h": "Sito 48h",
-  palestre: "Palestre",
-  "preventivi-online": "Preventivi",
-  prenotazioni: "Prenotazioni",
-  "cv-portfolio": "Portfolio",
-  "eventi-locali": "Eventi locali",
-  digitalizzazione: "Digitalizzazione",
-};
+const SERVICE_LABELS: Record<string, string> = Object.fromEntries(
+  servicePages.map((page) => [page.slug, page.name]),
+);
 
-export default function BlogIndexPage() {
-  const sorted = [...SERVICE_BLOG_POSTS].sort((a, b) =>
-    a.date < b.date ? 1 : -1,
-  );
+const SERVICE_FILTERS = servicePages
+  .map((page) => page.slug)
+  .filter((slug) => SERVICE_BLOG_POSTS.some((post) => post.service === slug));
+
+function blogHref(servizio?: string) {
+  if (!servizio) return "/blog";
+  return `/blog?servizio=${encodeURIComponent(servizio)}`;
+}
+
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const servizio =
+    typeof params.servizio === "string" ? params.servizio.trim() : "";
+  const activeService = SERVICE_FILTERS.includes(servizio) ? servizio : "";
+
+  const sorted = [...SERVICE_BLOG_POSTS]
+    .filter((post) => (activeService ? post.service === activeService : true))
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
 
   return (
     <InnerPageShell>
@@ -94,8 +95,59 @@ export default function BlogIndexPage() {
           </div>
         </section>
 
+        <section className="border-b border-border py-10">
+          <div className="page-shell">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              Filtra per servizio
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              <li>
+                <Link
+                  href={blogHref()}
+                  className={`inline-flex rounded-md border px-3 py-2 text-sm transition hover:border-foreground/40 ${
+                    !activeService
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border"
+                  }`}
+                >
+                  Tutti ({SERVICE_BLOG_POSTS.length})
+                </Link>
+              </li>
+              {SERVICE_FILTERS.map((slug) => {
+                const count = SERVICE_BLOG_POSTS.filter(
+                  (post) => post.service === slug,
+                ).length;
+                return (
+                  <li key={slug}>
+                    <Link
+                      href={blogHref(slug)}
+                      className={`inline-flex rounded-md border px-3 py-2 text-sm transition hover:border-foreground/40 ${
+                        activeService === slug
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border"
+                      }`}
+                    >
+                      {SERVICE_LABELS[slug] ?? slug} ({count})
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+
         <section className="py-16 lg:py-24">
           <div className="page-shell">
+            {activeService ? (
+              <p className="mx-auto mb-6 max-w-4xl text-sm text-muted">
+                {sorted.length} articoli ·{" "}
+                {SERVICE_LABELS[activeService] ?? activeService}
+                {" · "}
+                <Link href={blogHref()} className="underline-offset-4 hover:underline">
+                  Mostra tutti
+                </Link>
+              </p>
+            ) : null}
             <ul className="mx-auto max-w-4xl divide-y divide-border border-y border-border">
               {sorted.map((post, index) => (
                 <li key={post.slug}>

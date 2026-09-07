@@ -17,9 +17,10 @@ export function SiteFooter() {
           <Link
             href="/"
             className="inline-flex items-center gap-3"
+            aria-label={site.name}
             title={getLinkTitle("/")}
           >
-            <BrandLogo />
+            <BrandLogo alt="" />
             <span className="font-display text-sm font-semibold">{site.name}</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
@@ -85,6 +86,7 @@ export function SiteFooter() {
               <li key={comune.slug}>
                 <Link
                   href={comuneBasePath(comune.slug)}
+                  prefetch={false}
                   title={getLinkTitle(
                     comuneBasePath(comune.slug),
                     `Siti web a ${comune.nome}`,
@@ -98,6 +100,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href={COMUNI_HUB_PATH}
+                prefetch
                 title={getLinkTitle(COMUNI_HUB_PATH, "Tutti i comuni d’Italia")}
                 className="text-sm font-medium transition hover:text-foreground"
               >

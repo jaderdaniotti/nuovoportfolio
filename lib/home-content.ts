@@ -132,12 +132,7 @@ export const serviceCategories = [
 ] as const;
 
 export const portfolioProjects = [
-  {
-    title: "jaderweb",
-    tags: "WEB DESIGN · NEXT.JS",
-    url: "https://jaderweb.com/",
-    desktopSrc: "/img/projects/jaderwebpc.png",
-  },
+  
   {
     title: "Eleonora Politi Photographer",
     tags: "PORTFOLIO · PHOTOGRAPHY",

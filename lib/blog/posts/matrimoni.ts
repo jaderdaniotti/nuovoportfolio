@@ -12,6 +12,7 @@ export const matrimoniPosts = [
     description:
       "Instagram e WhatsApp non tengono ferma l’informazione ufficiale. Un sito matrimonio raccoglie RSVP, mappe e orari in un unico link — e riduce le chat dell’ultimo minuto.",
     date: "2026-05-01",
+    updated: "2026-09-07",
     keywords: [
       "sito matrimonio",
       "sito nozze",

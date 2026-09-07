@@ -10,6 +10,7 @@ import StaggeredMenu from "@/components/staggered-menu";
 import { useTheme } from "@/components/theme-provider";
 import { navItems, site } from "@/lib/home-content";
 import { getLinkTitle } from "@/lib/link-titles";
+import { shouldPrefetchHref } from "@/lib/prefetch";
 import { cn } from "@/lib/cn";
 
 const staggeredItems = navItems.map((item) => ({
@@ -42,15 +43,28 @@ export function SiteHeader({ className }: SiteHeaderProps) {
         <div className="page-shell flex h-[4.5rem] min-w-0 items-center justify-between gap-4 md:h-[5.25rem]">
           <Link
             href="/"
+            prefetch={shouldPrefetchHref("/")}
             className="flex items-center gap-3 text-foreground"
             aria-label={site.name}
             title={getLinkTitle("/")}
           >
-            <BrandLogo />
+            <BrandLogo alt="" />
             <span className="font-display hidden text-lg uppercase font-semibold tracking-tight sm:inline">
               {site.name}
             </span>
           </Link>
+
+          <nav aria-label="Navigazione principale" className="sr-only">
+            <ul>
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} title={getLinkTitle(item.href, item.label)}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button

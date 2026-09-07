@@ -23,12 +23,15 @@ export function BlogInsightsSection({
   title = "Approfondimenti dal blog",
   limit = 5,
   seed,
+  instant = false,
 }: {
   service?: string;
   title?: string;
   limit?: number;
   /** Se impostato, ruota la selezione post (es. codice comune) per varietà tra landing. */
   seed?: number;
+  /** Senza framer opacity:0 (silo CWV). */
+  instant?: boolean;
 }) {
   const pool = service
     ? getServicePostsByService(service)
@@ -42,7 +45,7 @@ export function BlogInsightsSection({
   return (
     <section className="border-b border-border bg-background py-20 text-foreground lg:py-28">
       <div className="page-shell">
-        <Reveal>
+        <Reveal instant={instant}>
           <SectionLabel>Blog</SectionLabel>
           <h2 className="font-display max-w-3xl text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-[1.05] tracking-tight">
             {title}

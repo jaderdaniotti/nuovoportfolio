@@ -161,35 +161,35 @@ Aggiorna le checkbox **qui**. Questa è la todo list ufficiale in-repo.
 - [x] **S04** Schema: `Person` / `ProfessionalService`, Breadcrumb blog+comuni, `ItemList` hub servizi/blog
 - [x] **S05** Pagine pilastro commerciali (Udine / FVG / costi sito) + feed RSS `/blog/rss.xml`
 - [x] **S06** Ampliare varietà `comuni-seo` + linking blog↔comuni top / servizi↔comuni
-- [ ] **S07** Performance CWV sul silo: lazy client JS, font/image priority, OG leggeri
-- [ ] **S08** Cleanup crawl: rimuovere o 301 blog legacy noindex; audit soft-404
+- [x] **S07** Performance CWV sul silo: lazy client JS, font/image priority, OG leggeri
+- [x] **S08** Cleanup crawl: rimuovere o 301 blog legacy noindex; audit soft-404
 - [x] **S09** `sameAs` social reali + NAP coerente in JSON-LD Organization
-- [ ] **S10** IndexNow / ping sitemap post-deploy (opzionale)
+- [x] **S10** IndexNow / ping sitemap post-deploy (opzionale)
 
 ### B — Backlog codice SEO (dopo S01–S09)
 
-- [ ] **B01** Title/description CTR audit pagine core + top servizi
-- [ ] **B02** OG dedicati per ogni articolo blog (o template brand coerente)
-- [ ] **B03** Related posts graph tra i 95 articoli
-- [ ] **B04** Hub `/comuni` più ricco (regioni / popolari / search)
-- [ ] **B05** Policy trailing slash unica
-- [ ] **B06** 301 mappa da vecchi slug jaderweb residui
-- [ ] **B07** `robots` / `X-Robots-Tag` raffinati su thank-you e params
-- [ ] **B08** `dateModified` automatico su post rivisti
-- [ ] **B09** Filtri per servizio su `/blog`
-- [ ] **B10** Smoke script post-deploy (sample URL 200+canonical+jsonld)
-- [ ] **B11** GA4 eventi form / WhatsApp / CTA (se consenso cookie)
-- [ ] **B12** Log 404 → suggerimenti redirect
-- [ ] **B13** Prefetch selettivo link critici (no prefetch silo intero)
-- [ ] **B14** Sitemap index XML unico entry (oltre robots)
-- [ ] **B15** Priority/changefreq più granulari per comuni piccoli vs grandi
+- [x] **B01** Title/description CTR audit pagine core + top servizi
+- [x] **B02** OG dedicati per ogni articolo blog (o template brand coerente)
+- [x] **B03** Related posts graph tra i 95 articoli
+- [x] **B04** Hub `/comuni` più ricco (regioni / popolari / search)
+- [x] **B05** Policy trailing slash unica
+- [x] **B06** 301 mappa da vecchi slug jaderweb residui
+- [x] **B07** `robots` / `X-Robots-Tag` raffinati su thank-you e params
+- [x] **B08** `dateModified` automatico su post rivisti
+- [x] **B09** Filtri per servizio su `/blog`
+- [x] **B10** Smoke script post-deploy (sample URL 200+canonical+jsonld)
+- [x] **B11** GA4 eventi form / WhatsApp / CTA (se consenso cookie)
+- [x] **B12** Log 404 → suggerimenti redirect
+- [x] **B13** Prefetch selettivo link critici (no prefetch silo intero)
+- [x] **B14** Sitemap index XML unico entry (oltre robots)
+- [x] **B15** Priority/changefreq più granulari per comuni piccoli vs grandi
 
 ### P — Prodotto / UX (dopo SEO base)
 
-- [ ] **P01** Accessibilità: un H1/pagina, alt immagini, landmark
-- [ ] **P02** Lighthouse mobile spot (home, 1 servizio, 1 blog, 1 comune)
-- [ ] **P03** Offline page branded PWA
-- [ ] **P04** Install prompt discreto (non invasivo, tema jaderweb)
+- [x] **P01** Accessibilità: un H1/pagina, alt immagini, landmark
+- [x] **P02** Lighthouse mobile spot (home, 1 servizio, 1 blog, 1 comune)
+- [x] **P03** Offline page branded PWA
+- [x] **P04** Install prompt discreto (non invasivo, tema jaderweb)
 
 ### X — Espliciti utente (vuoto finché non chiede)
 
@@ -222,6 +222,28 @@ Prossimo (non iniziato): S0Y
 | 2026-09-07 | S09 sameAs + NAP | OK | LinkedIn+GitHub reali; vatID; tel E.164; footer P.IVA; contatti schema; seo-home→siteRoot |
 | 2026-09-07 | S05 pilastro + RSS | OK | /udine /friuli /costo-sito-web + FAQ schema; /blog/rss.xml (95 item); sitemap+footer |
 | 2026-09-07 | S06 comuni-seo + link | OK | pool template ampliati + proof per popolazione; TopComuni su servizi/blog; blog seed per comune |
+| 2026-09-07 | S07 CWV silo | OK | ComuneHomeShell lean; no Reveal/iframe/SplitText/FlowingMenu su locali; font trim; no twitter OG duplicato |
+| 2026-09-07 | S08 cleanup crawl | OK | 31 legacy blog → 301; footer→SERVICE_BLOG_POSTS; spot soft-404 comuni piccoli 200+H1 |
+| 2026-09-07 | S10 IndexNow | OK | key public/*.txt; lib/indexnow.ts + `npm run seo:indexnow` (63 URL core, no silo); dry-run OK; key locale 200; prod key 404 finché non deploy |
+| 2026-09-07 | B01 CTR titles | OK | core+pilastri+HUB+19 servizi: title benefit/keyword; perché-noi → 1ª persona; smoke title home/servizi/ristoranti |
+| 2026-09-07 | B02 OG blog | OK | `blog/[slug]/opengraph-image` + `blogSocialImage`; smoke PNG 1200×630 |
+| 2026-09-07 | B03 related posts | OK | `getRelatedBlogPosts` 4/post (service→related→keywords); UI Articoli correlati; 95/95 ok |
+| 2026-09-07 | B04 hub comuni | OK | H1 SEO; chip regioni; blocco FVG; lista solo con filtri; reset |
+| 2026-09-07 | B05 trailing slash | OK | `trailingSlash: false`; `/servizi/`→308 `/servizi` |
+| 2026-09-07 | B06 legacy paths | OK | `legacy-path-redirects` EN/IT→canonici; nav/footer → `/costo-sito-web`; smoke 308 |
+| 2026-09-07 | B07 robots thank-you | OK | `/grazie` noindex; proxy X-Robots su utm/gclid; robots disallow; form→/grazie |
+| 2026-09-07 | B08 dateModified | OK | `updated?` + `getBlogPostDates`; JSON-LD/sitemap/UI; seed 2 post |
+| 2026-09-07 | B09 blog filtri | OK | `?servizio=` chip; noindex via proxy; canonical hub |
+| 2026-09-07 | B10 seo smoke | OK | `npm run seo:smoke` 11/11 locale (200+canonical+jsonld) |
+| 2026-09-07 | B11 GA4 eventi | OK | trackGaEvent + consent; form/WhatsApp/CTA/thank_you; AnalyticsEvents |
+| 2026-09-07 | B12 404→redirect | OK | not-found tema+suggerimenti; log analyzer top404+hints |
+| 2026-09-07 | B13 prefetch | OK | `shouldPrefetchHref`: hub/servizi sì, silo comuni/blog no |
+| 2026-09-07 | B14 sitemap-index | OK | `/sitemap-index.xml` + robots entry primario |
+| 2026-09-07 | B15 comuni priority | OK | tier pop ≥100k/20k/5k/<5k → priority+changefreq |
+| 2026-09-07 | P01 a11y | OK | logo alt decorativo; nav principale sr-only; menu labeled; 1 H1 spot |
+| 2026-09-07 | P02 Lighthouse | OK | mobile spot: home P36/A94/BP96/SEO100; servizi A100/SEO100; blog P64/A98; comuni A100/SEO100; fix hero contrast+touch |
+| 2026-09-07 | P03 offline | OK | pagina branded (logo, CTA, WA); SW cache v2 |
+| 2026-09-07 | P04 install prompt | OK | `PwaInstallPrompt` delay 12s + dismiss LS; tema jaderweb |
 | | | | |
 
 ---
@@ -235,6 +257,10 @@ Prossimo (non iniziato): S0Y
 | 2026-09-07 | PWA icons | icon-192 molto leggero (366B); valutare asset maskable con safe-zone reale | Pxx polish icone |
 | 2026-09-07 | PWA push | Push/VAPID non in S01 (fuori scope) | X se richiesto |
 | 2026-09-07 | LinkedIn location | Profilo LI mostra “Greater Milan”; sito/schema NAP = Udine | Ops: aggiornare location LinkedIn per coerenza |
+| 2026-09-07 | S07 layout chrome | Header ancora gsap/framer globale su silo | B13/P02 o task CWV-2 se Lighthouse lo chiede |
+| 2026-09-07 | `lib/blog-articles.ts` | Dati legacy non più routati; file resta orfano | Bxx rimozione se nessuno importa |
+| 2026-09-07 | S10 IndexNow | Chiave non ancora live su apex (404 finché deploy); non inviare ping reale prima | Ops: dopo deploy `curl` key 200 poi `npm run seo:indexnow` |
+| 2026-09-07 | P02 home perf | Lighthouse mobile perf ~36 (TBT/LCP, header gsap/JS pesante) | CWV-2 / B13+P02 follow-up: alleggerire chrome globale |
 
 ---
 
@@ -248,10 +274,19 @@ Prossimo (non iniziato): S0Y
 - Blog servizi: `lib/blog/posts/*` + `components/blog/service-blog-article.tsx`
 - Pilastro: `lib/pillar-pages.ts` → `/udine`, `/friuli`, `/costo-sito-web`
 - RSS: `app/blog/rss.xml/route.ts`
+- IndexNow: `lib/indexnow.ts` + `npm run seo:indexnow` / `seo:indexnow:dry` (solo URL core)
 - Manifest attuale: `app/manifest.ts`
 - Clone storico: `CLONE-TASKS.md` (T00–T26 chiusi)
 
 ### Sitemap da allegare in GSC (apex)
+
+Preferisci l’index unico:
+
+```
+https://jaderweb.com/sitemap-index.xml
+```
+
+Oppure i pezzi singoli:
 
 ```
 https://jaderweb.com/sitemap.xml

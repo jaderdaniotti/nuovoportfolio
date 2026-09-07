@@ -3,6 +3,7 @@ import { sameAsProfiles, siteConfig } from "@/lib/site-config";
 import { OG_SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 import type { ServicePage } from "@/lib/service-pages";
 import type { ServiceBlogPost } from "@/lib/blog/types";
+import { getBlogPostDates } from "@/lib/blog/types";
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/#person`;
@@ -172,6 +173,7 @@ export function serviceJsonLd(page: ServicePage) {
 
 export function blogPostJsonLd(post: ServiceBlogPost) {
   const url = absoluteUrl(`/blog/${post.slug}`);
+  const { datePublished, dateModified } = getBlogPostDates(post);
 
   return {
     "@context": "https://schema.org",
@@ -182,8 +184,8 @@ export function blogPostJsonLd(post: ServiceBlogPost) {
         "@id": `${url}#article`,
         headline: post.title,
         description: post.description,
-        datePublished: post.date,
-        dateModified: post.date,
+        datePublished,
+        dateModified,
         inLanguage: "it-IT",
         mainEntityOfPage: url,
         keywords: post.keywords.join(", "),

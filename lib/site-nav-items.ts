@@ -21,9 +21,9 @@ export const siteNavItems: SiteNavItem[] = [
   },
   {
     label: "Tariffe",
-    href: "/pricing",
-    ariaLabel: "Vai alla pagina tariffe",
-    match: (pathname) => pathname === "/pricing",
+    href: "/costo-sito-web",
+    ariaLabel: "Vai alla pagina costi sito web",
+    match: (pathname) => pathname === "/costo-sito-web",
   },
   {
     label: "Blog",

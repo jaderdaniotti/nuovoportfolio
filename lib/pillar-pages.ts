@@ -27,9 +27,9 @@ export const pillarPages: PillarPage[] = [
     path: "/udine",
     eyebrow: "Udine",
     title: "Siti web a Udine",
-    seoTitle: "Siti web a Udine — freelance web | jaderweb",
+    seoTitle: "Siti web a Udine | Freelance referente unico — jaderweb",
     description:
-      "Creo siti web a Udine per PMI, professionisti e attività locali: chiari, veloci, pensati per convertire. Freelance, referente unico.",
+      "Creo siti web a Udine per PMI, professionisti e attività locali: chiari, veloci, fatti per chiamate e preventivi. Lavori con me, non con un call center.",
     intro:
       "Se cerchi un sito web a Udine, non ti serve un’agenzia con dieci slide. Ti serve qualcuno che capisca il territorio, metta online una presenza seria e resti raggiungibile dopo il go-live. Sono Jader Daniotti: lavoro da qui, su progetti su misura.",
     sections: [
@@ -94,9 +94,9 @@ export const pillarPages: PillarPage[] = [
     path: "/friuli",
     eyebrow: "Friuli Venezia Giulia",
     title: "Freelance web in Friuli Venezia Giulia",
-    seoTitle: "Freelance web Friuli Venezia Giulia | jaderweb",
+    seoTitle: "Freelance web in Friuli Venezia Giulia | jaderweb",
     description:
-      "Freelance web in FVG: siti, landing e digitalizzazione per imprese e professionisti. Un referente da Udine, progetti in regione e oltre.",
+      "Siti, landing e digitalizzazione in FVG: un referente da Udine per imprese e professionisti. Progetti in regione e oltre, senza agenzia intermedia.",
     intro:
       "Il Friuli Venezia Giulia ha imprese piccole, distretti forti e tanta attività che ancora vive di passaparola e social. Un sito solido non è un vezzo: è l’indirizzo stabile che Google e i clienti possono usare. Lavoro da Udine come freelance web per chi vuole risultati senza struttura da agenzia.",
     sections: [
@@ -161,9 +161,9 @@ export const pillarPages: PillarPage[] = [
     path: "/costo-sito-web",
     eyebrow: "Prezzi",
     title: "Quanto costa un sito web",
-    seoTitle: "Quanto costa un sito web nel 2026 | jaderweb",
+    seoTitle: "Quanto costa un sito web nel 2026 | Range reali — jaderweb",
     description:
-      "Range reali per un sito web nel 2026: cosa fa salire il prezzo, cosa puoi evitare, e come ti preventivo da freelance a Udine.",
+      "Range reali 2026 (vetrina, sito completo, e-commerce): cosa fa salire il prezzo e come ti preventivo io, freelance a Udine — senza listino fantasma.",
     intro:
       "“Quanto costa un sito web?” non ha una cifra unica — e chi te la tira fuori a freddo di solito sta vendendo un pacchetto, non un progetto. Qui ti spiego cosa fa muovere il prezzo e come lavoro io, così puoi arrivare al preventivo con le idee chiare.",
     sections: [

@@ -1,11 +1,11 @@
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/button";
-import { Reveal } from "@/components/reveal";
-import { HeroVisual } from "@/components/sections/hero-section";
 import type { ComuneData } from "@/lib/comuni";
 import { comuneLabel } from "@/lib/comuni";
 import type { ComunePageSeo } from "@/lib/comuni-seo";
 import { comuneContattiPath, comuneServiziPath } from "@/lib/comune-paths";
 
+/** Hero silo: HTML visibile subito, niente framer/Reveal/iframe (LCP). */
 export function ComuneHeroSection({
   comune,
   seo,
@@ -18,8 +18,8 @@ export function ComuneHeroSection({
       id="hero"
       className="relative overflow-hidden bg-hero pt-8 text-foreground lg:pt-12"
     >
-      <div className="page-shell grid min-w-0 gap-10 pb-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:pb-24 xl:gap-10">
-        <Reveal delay={0.05} y={16} className="min-w-0">
+      <div className="page-shell grid min-w-0 gap-10 pb-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-8 lg:pb-24 xl:gap-10">
+        <div className="min-w-0">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
             {seo.eyebrow}
           </p>
@@ -45,18 +45,25 @@ export function ComuneHeroSection({
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button href={comuneContattiPath(comune.slug)}>
-              {seo.cta}
-            </Button>
-            <Button href={comuneServiziPath(comune.slug)} variant="outline" arrow="down">
+            <Button href={comuneContattiPath(comune.slug)}>{seo.cta}</Button>
+            <Button
+              href={comuneServiziPath(comune.slug)}
+              variant="outline"
+              arrow="down"
+            >
               Servizi a {comuneLabel(comune)}
             </Button>
           </div>
-        </Reveal>
+        </div>
 
-        <Reveal delay={0.2} className="min-w-0 w-full">
-          <HeroVisual />
-        </Reveal>
+        <div className="relative mx-auto aspect-square w-[min(70vw,18rem)] overflow-hidden lg:mx-0 lg:aspect-auto lg:h-[min(28rem,52vh)] lg:w-full">
+          <BrandLogo
+            fill
+            sizes="(max-width: 1024px) 70vw, 40vw"
+            className="object-contain object-center lg:object-right"
+            priority
+          />
+        </div>
       </div>
     </section>
   );

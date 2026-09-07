@@ -12,9 +12,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/api/",
+      disallow: ["/api/", "/grazie", "/offline"],
     },
     host: "https://jaderweb.com",
-    sitemap: [absoluteUrl("/sitemap.xml"), ...comuniSitemaps],
+    sitemap: [
+      absoluteUrl("/sitemap-index.xml"),
+      absoluteUrl("/sitemap.xml"),
+      ...comuniSitemaps,
+    ],
   };
 }

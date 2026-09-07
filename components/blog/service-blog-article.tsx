@@ -4,6 +4,7 @@ import { Button } from "@/components/button";
 import { SectionLabel } from "@/components/section-label";
 import { TopComuniLinksSection } from "@/components/sections/top-comuni-links-section";
 import type { ServiceBlogPost } from "@/lib/blog/types";
+import { getRelatedBlogPosts } from "@/lib/blog/related-posts";
 import { blogFaqJsonLd, blogPostJsonLd } from "@/lib/json-ld";
 import { getTopComuniServiceLinks } from "@/lib/comune-internal-links";
 
@@ -47,6 +48,7 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
           { label: "Quanto costa un sito web", href: "/costo-sito-web" },
           ...comuneLinks.slice(0, 3),
         ];
+  const relatedPosts = getRelatedBlogPosts(post);
 
   return (
     <article className="bg-background text-foreground">
@@ -71,6 +73,21 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
                   day: "numeric",
                 })}
               </time>
+              {post.updated && post.updated > post.date ? (
+                <>
+                  <span className="mx-2 text-border" aria-hidden>
+                    /
+                  </span>
+                  <time dateTime={post.updated}>
+                    Aggiornato{" "}
+                    {new Date(post.updated).toLocaleDateString("it-IT", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </time>
+                </>
+              ) : null}
             </p>
             <h1 className="font-display mt-6 text-[clamp(2.1rem,5.5vw,3.75rem)] font-semibold leading-[1.02] tracking-tight">
               {post.title}
@@ -120,6 +137,34 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
                   </div>
                 ))}
               </dl>
+            </section>
+          ) : null}
+
+          {relatedPosts.length > 0 ? (
+            <section className="mt-16 border-t border-border pt-14">
+              <h2 className="font-display text-[clamp(1.45rem,3vw,2rem)] font-semibold tracking-tight">
+                Articoli correlati
+              </h2>
+              <ul className="mt-8 space-y-5">
+                {relatedPosts.map((related) => (
+                  <li key={related.slug}>
+                    <Link
+                      href={`/blog/${related.slug}`}
+                      className="group block"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                        {SERVICE_LABELS[related.service] ?? related.service}
+                      </p>
+                      <p className="font-display mt-2 text-lg font-semibold tracking-tight transition group-hover:text-foreground md:text-xl">
+                        {related.title}
+                      </p>
+                      <p className="mt-2 text-[0.98rem] leading-relaxed text-muted">
+                        {related.description}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </section>
           ) : null}
 

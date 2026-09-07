@@ -9,17 +9,27 @@ type BrandLogoProps = {
   className?: string;
   fill?: boolean;
   sizes?: string;
+  priority?: boolean;
+  /** Default: brand name. Pass "" when the parent link already names the brand. */
+  alt?: string;
 };
 
-export function BrandLogo({ className, fill, sizes }: BrandLogoProps) {
+export function BrandLogo({
+  className,
+  fill,
+  sizes,
+  priority,
+  alt = site.name,
+}: BrandLogoProps) {
   const { logoSrc, theme, mounted } = useTheme();
   const src = mounted ? logoSrc : themeLogos.dark;
 
   return (
     <Image
       src={src}
-      alt={site.name}
+      alt={alt}
       unoptimized
+      priority={priority}
       className={cn(
         fill
           ? "object-contain"

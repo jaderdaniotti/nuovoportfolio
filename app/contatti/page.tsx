@@ -5,9 +5,9 @@ import { ContactPageContent } from "@/components/sections/contact-page-content";
 import { entityGraphNodes, ORGANIZATION_ID, PERSON_ID } from "@/lib/json-ld";
 import { absoluteUrl, OG_SITE_NAME, SITE_URL, pageSeo } from "@/lib/seo";
 
-const title = "Contatti — jaderweb";
+const title = "Contatti e preventivo sito web | Udine — jaderweb";
 const description =
-  "Hai un'idea? Parliamone. Raccontami il progetto: siti web, e-commerce, automazioni e digitalizzazione a Udine e in tutta Italia.";
+  "Scrivimi o WhatsApp: preventivo chiaro per sito, landing o digitalizzazione. Rispondo io, Jader Daniotti — Udine e tutta Italia.";
 
 export const metadata: Metadata = {
   title,

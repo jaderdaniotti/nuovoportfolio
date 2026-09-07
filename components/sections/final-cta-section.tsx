@@ -7,16 +7,18 @@ export function FinalCtaSection({
   body,
   cta,
   href = "/contatti",
+  instant = false,
 }: {
   title?: string;
   body?: string;
   cta?: string;
   href?: string;
+  instant?: boolean;
 }) {
   return (
     <section className="bg-background py-24 text-foreground lg:py-32">
       <div className="page-shell">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <Reveal instant={instant} className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.02] tracking-tight">
             {title ?? finalCta.title}
           </h2>

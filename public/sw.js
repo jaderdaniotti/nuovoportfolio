@@ -2,7 +2,7 @@
  * jaderweb service worker — shell only.
  * NON precache /comuni/* (silo ~190K). Network-first navigations; offline → /offline.
  */
-const CACHE = "jaderweb-shell-v1";
+const CACHE = "jaderweb-shell-v2";
 const PRECACHE = [
   "/",
   "/offline",

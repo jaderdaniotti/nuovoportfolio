@@ -3,9 +3,9 @@ import { ToolsIndex } from "@/components/tools/tools-index";
 import { indexableRobots } from "@/lib/seo-robots";
 import { pageSeo } from "@/lib/seo";
 
-const title = "Tools SEO e utility web — jaderweb";
+const title = "Tools SEO gratuiti e utility web — jaderweb";
 const description =
-  "Strumenti gratuiti per SEO, conversioni e produttività: convertitori, analizzatori e utility operative.";
+  "Utility gratuite per SEO e produttività: convertitori, check e strumenti operativi. Usali subito, senza account.";
 
 export const metadata: Metadata = {
   title,

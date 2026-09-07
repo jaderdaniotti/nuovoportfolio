@@ -1,4 +1,4 @@
-import { BLOG_ARTICLES } from "@/lib/blog-articles";
+import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
 import { comuniItalia } from "@/lib/comuni";
 import { toolCategoryLabels, toolsCatalog, type ToolCategory } from "@/lib/tools-catalog";
 
@@ -48,7 +48,7 @@ export const footerHomeLinks: FooterLink[] = [
 ];
 
 export const footerServiceLinks: FooterLink[] = [
-  { label: "Tariffe e pacchetti", href: "/pricing", title: "Prezzi siti web e servizi digitali" },
+  { label: "Tariffe e pacchetti", href: "/costo-sito-web", title: "Prezzi siti web e servizi digitali" },
   { label: "Contatti e preventivi", href: "/contatti", title: "Richiedi un preventivo personalizzato" },
   { label: "Siti web per comune", href: "/comuni", title: "Creazione siti web in tutta Italia" },
   { label: "Toolbox SEO e utility", href: "/tools", title: "Strumenti gratuiti per siti web" },
@@ -56,8 +56,8 @@ export const footerServiceLinks: FooterLink[] = [
 ];
 
 function sortBlogArticles() {
-  return [...BLOG_ARTICLES].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  return [...SERVICE_BLOG_POSTS].sort(
+    (a, b) => (a.date < b.date ? 1 : -1),
   );
 }
 

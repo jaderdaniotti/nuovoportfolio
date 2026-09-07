@@ -38,12 +38,13 @@ export function SiteMenu({ open, onClose }: SiteMenuProps) {
               <Link
                 href="/"
                 className="flex items-center gap-3 text-cream"
+                aria-label={site.name}
                 title={getLinkTitle("/")}
                 onClick={onClose}
               >
                 <Image
                   src="/img/logo/logobiancosunero.svg"
-                  alt={site.name}
+                  alt=""
                   width={48}
                   height={48}
                   unoptimized
@@ -64,7 +65,10 @@ export function SiteMenu({ open, onClose }: SiteMenuProps) {
             </button>
           </div>
 
-          <nav className="flex flex-1 flex-col items-center justify-center gap-4 px-6">
+          <nav
+            aria-label="Navigazione principale"
+            className="flex flex-1 flex-col items-center justify-center gap-4 px-6"
+          >
             {navItems.map((item, index) => (
               <motion.a
                 key={item.href}

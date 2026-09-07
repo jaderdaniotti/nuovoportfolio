@@ -4,9 +4,9 @@ import { JsonLd } from "@/components/json-ld";
 import { siteRootJsonLd } from "@/lib/json-ld";
 import { pageSeo } from "@/lib/seo";
 
-const title = "jaderweb — Creazione siti web a Udine";
+const title = "Siti web a Udine | Freelance Next.js — jaderweb";
 const description =
-  "Freelance web a Udine: siti internet, e-commerce, brand, SEO locale, social e contenuti per PMI, professionisti e hospitality.";
+  "Creo siti web, landing e digitalizzazione per PMI e professionisti a Udine e in Italia. Referente unico, veloci da caricare, pensati per convertire.";
 
 export const metadata: Metadata = {
   title,

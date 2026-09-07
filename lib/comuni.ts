@@ -148,6 +148,13 @@ export function getFeaturedComuni(limit = 12) {
     .slice(0, limit);
 }
 
+export function getFeaturedComuniByRegione(regione: string, limit = 12) {
+  return getIndexableComuniItalia()
+    .filter((comune) => comune.regione === regione)
+    .sort((a, b) => b.popolazione - a.popolazione)
+    .slice(0, limit);
+}
+
 export function getNearbyComuni(comune: ComuneData, limit = 8) {
   return comuniItalia
     .filter(

@@ -31,7 +31,7 @@ function MockupSlide({
           <span className="h-2.5 w-2.5 rounded-full bg-accent" />
           <span className="h-2.5 w-2.5 rounded-full bg-cream/25" />
           <span className="h-2.5 w-2.5 rounded-full bg-cream/25" />
-          <span className="ml-2 truncate text-[11px] text-cream/40">
+          <span className="ml-2 truncate text-[11px] text-cream/70">
             {name}
           </span>
         </div>
@@ -132,17 +132,22 @@ export function HeroVisual() {
         >
           <ChevronRight className="h-5 w-5" />
         </button>
-        <div className="ml-2 flex gap-1.5">
+        <div className="ml-2 flex items-center gap-1">
           {slides.map((s, i) => (
             <button
               key={s.name}
               type="button"
               aria-label={`Vai a ${s.name}`}
+              aria-current={i === index ? "true" : undefined}
               onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-6 bg-foreground" : "w-1.5 bg-foreground/25"
-              }`}
-            />
+              className="flex h-11 w-11 items-center justify-center"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all ${
+                  i === index ? "w-6 bg-foreground" : "w-2 bg-foreground/40"
+                }`}
+              />
+            </button>
           ))}
         </div>
         {"url" in current && current.url ? (

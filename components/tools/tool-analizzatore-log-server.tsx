@@ -216,6 +216,24 @@ export function ToolAnalizzatoreLogServer() {
                 </ol>
               </div>
               <div>
+                <h4 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">404 (candidati redirect)</h4>
+                <ol className="mt-2 space-y-1.5 font-mono text-xs text-zinc-800">
+                  {result.top404Paths.length === 0 ? (
+                    <li className="text-zinc-500">— nessun 404</li>
+                  ) : (
+                    result.top404Paths.map(([p, n], i) => (
+                      <li key={`404-${p}-${i}`} className="flex justify-between gap-2 border-b border-zinc-100 pb-1.5">
+                        <span className="min-w-0 truncate">{p}</span>
+                        <span className="shrink-0 text-zinc-500">{n}</span>
+                      </li>
+                    ))
+                  )}
+                </ol>
+                <p className="mt-2 text-[11px] text-zinc-500">
+                  Copia report: include suggerimenti redirect automatici.
+                </p>
+              </div>
+              <div>
                 <h4 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Client IP</h4>
                 <ol className="mt-2 space-y-1.5 font-mono text-xs text-zinc-800">
                   {result.topIps.map(([ip, n], i) => (

@@ -16,8 +16,13 @@ export function Reveal({
   className,
   delay = 0.22,
   y = 28,
+  instant = false,
   ...props
-}: RevealProps) {
+}: RevealProps & { instant?: boolean }) {
+  if (instant) {
+    return <div className={cn(className)}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={cn(className)}

@@ -132,6 +132,7 @@ export function ProcessPageContent({
 }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const lean = Boolean(locale);
   const serviziHref = locale?.serviziHref ?? "/servizi";
   const contactHref = locale?.contactHref ?? "/contatti";
 
@@ -139,44 +140,69 @@ export function ProcessPageContent({
     <>
       <section className="bg-hero pt-16 pb-20 text-foreground lg:pt-24 lg:pb-28">
         <div className="page-shell">
-          <Reveal>
+          {lean ? (
             <SectionLabel>{locale?.eyebrow ?? processPage.eyebrow}</SectionLabel>
-          </Reveal>
+          ) : (
+            <Reveal>
+              <SectionLabel>{processPage.eyebrow}</SectionLabel>
+            </Reveal>
+          )}
           <h1 className="font-display mt-0 max-w-5xl text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight">
-            <SplitText
-              tag="span"
-              text={processPage.title}
-              className="font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
-              delay={40}
-              duration={0.6}
-              ease="power3.out"
-              splitType="chars"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-80px"
-              textAlign="left"
-            />
+            {lean ? (
+              <span>{processPage.title}</span>
+            ) : (
+              <SplitText
+                tag="span"
+                text={processPage.title}
+                className="font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.02] tracking-tight"
+                delay={40}
+                duration={0.6}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-80px"
+                textAlign="left"
+              />
+            )}
           </h1>
-          <Reveal>
-            <p className="font-display mt-8 max-w-3xl text-[clamp(1.2rem,2.4vw,1.75rem)] leading-snug tracking-tight">
-              {processPage.subtitle}
-            </p>
-            <p className="mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
-              {processPage.body}
-            </p>
-            {locale?.extra ? (
-              <p className="mt-4 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
-                {locale.extra}
+          {lean ? (
+            <>
+              <p className="font-display mt-8 max-w-3xl text-[clamp(1.2rem,2.4vw,1.75rem)] leading-snug tracking-tight">
+                {processPage.subtitle}
               </p>
-            ) : null}
-            <p className="font-display mt-10 text-[clamp(0.85rem,1.8vw,1.05rem)] font-semibold tracking-[0.14em] text-foreground">
-              {processPage.stack.join(" · ")}
-            </p>
-            <p className="mt-8 max-w-xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
-              {processPage.thread}
-            </p>
-          </Reveal>
+              <p className="mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {processPage.body}
+              </p>
+              {locale?.extra ? (
+                <p className="mt-4 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                  {locale.extra}
+                </p>
+              ) : null}
+              <p className="font-display mt-10 text-[clamp(0.85rem,1.8vw,1.05rem)] font-semibold tracking-[0.14em] text-foreground">
+                {processPage.stack.join(" · ")}
+              </p>
+              <p className="mt-8 max-w-xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {processPage.thread}
+              </p>
+            </>
+          ) : (
+            <Reveal>
+              <p className="font-display mt-8 max-w-3xl text-[clamp(1.2rem,2.4vw,1.75rem)] leading-snug tracking-tight">
+                {processPage.subtitle}
+              </p>
+              <p className="mt-6 max-w-2xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {processPage.body}
+              </p>
+              <p className="font-display mt-10 text-[clamp(0.85rem,1.8vw,1.05rem)] font-semibold tracking-[0.14em] text-foreground">
+                {processPage.stack.join(" · ")}
+              </p>
+              <p className="mt-8 max-w-xl text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-muted">
+                {processPage.thread}
+              </p>
+            </Reveal>
+          )}
         </div>
       </section>
 

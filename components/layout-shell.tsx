@@ -6,7 +6,9 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ConsentedGoogleAnalytics } from "@/components/google-analytics";
+import { AnalyticsEvents } from "@/components/analytics-events";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 
 export function LayoutShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -23,6 +25,8 @@ export function LayoutShell({ children }: { children: ReactNode }) {
       <SiteFooter />
       <CookieConsent />
       <ConsentedGoogleAnalytics />
+      <AnalyticsEvents />
+      <PwaInstallPrompt />
       <WhatsAppFab />
     </div>
   );

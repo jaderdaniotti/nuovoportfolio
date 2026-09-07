@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { OpenGraphCard } from "@/lib/opengraph-card";
+import { getServicePostBySlug } from "@/lib/blog/posts";
 import { getComuneBySlug } from "@/lib/comuni";
 import { getServicePage } from "@/lib/service-pages";
 
@@ -10,6 +11,11 @@ export const socialImageSize = {
 
 export const socialImageContentType = "image/png";
 export const defaultSocialImageAlt = "jaderweb — Freelance web a Udine";
+
+function truncateOgTitle(title: string, max = 72) {
+  if (title.length <= max) return title;
+  return `${title.slice(0, max - 1).trimEnd()}…`;
+}
 
 export function defaultSocialImage() {
   return new ImageResponse(
@@ -37,6 +43,27 @@ export async function serviceSocialImage(params: Promise<{ slug: string }>) {
   );
 }
 
+export async function blogSocialImage(params: Promise<{ slug: string }>) {
+  const { slug } = await params;
+  const post = getServicePostBySlug(slug);
+  const service = post ? getServicePage(post.service) : undefined;
+  const title = post ? truncateOgTitle(post.title) : "Blog jaderweb";
+  const subtitle = service
+    ? `${service.name} · jaderweb`
+    : "Guide siti web · jaderweb";
+
+  return new ImageResponse(
+    (
+      <OpenGraphCard
+        eyebrow="BLOG · JADERWEB"
+        title={title}
+        subtitle={subtitle}
+      />
+    ),
+    { ...socialImageSize },
+  );
+}
+
 export async function comuneSocialImage(params: Promise<{ slug: string }>) {
   const { slug } = await params;
   const comune = getComuneBySlug(slug);
@@ -56,4 +83,3 @@ export async function comuneSocialImage(params: Promise<{ slug: string }>) {
     { ...socialImageSize },
   );
 }
-
