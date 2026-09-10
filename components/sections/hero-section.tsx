@@ -179,7 +179,7 @@ export function HeroSection() {
             {hero.eyebrow}
           </p>
 
-          <h1 className="font-display max-w-xl break-words text-[clamp(2.2rem,4.8vw,3.75rem)] font-semibold leading-[1.04] tracking-tight">
+          <h1 className="font-display max-w-none text-[clamp(1.9rem,3.8vw,2.85rem)] font-semibold leading-[1.08] tracking-tight">
             {hero.headline}
           </h1>
 
@@ -189,7 +189,7 @@ export function HeroSection() {
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Button href="/contatti">{hero.ctaPrimary}</Button>
-            <Button href="/servizi" variant="outline" arrow="down">
+            <Button href={hero.ctaSecondaryHref} variant="outline">
               {hero.ctaSecondary}
             </Button>
           </div>

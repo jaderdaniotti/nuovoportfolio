@@ -147,6 +147,8 @@ export const pillarPages: PillarPage[] = [
       },
     ],
     related: [
+      { label: "Sviluppatore web a Gemona del Friuli", href: "/siti-web/gemona-del-friuli" },
+      { label: "Siti web in Alto Friuli", href: "/siti-web" },
       { label: "Siti web a Udine", href: "/udine" },
       { label: "Quanto costa un sito web", href: "/costo-sito-web" },
       { label: "Servizi", href: "/servizi" },
@@ -215,6 +217,7 @@ export const pillarPages: PillarPage[] = [
     ],
     related: [
       { label: "Siti web a Udine", href: "/udine" },
+      { label: "Sviluppatore web a Gemona", href: "/siti-web/gemona-del-friuli" },
       { label: "Freelance web in FVG", href: "/friuli" },
       { label: "Servizi", href: "/servizi" },
       { label: "Richiedi un preventivo", href: "/contatti" },

@@ -3,12 +3,12 @@ import { BrandLogo } from "@/components/brand-logo";
 import { CookieManageButton } from "@/components/cookie-consent";
 import { footerLegal, footerNavItems, site } from "@/lib/home-content";
 import { getLinkTitle } from "@/lib/link-titles";
-import { getFeaturedComuni } from "@/lib/comuni";
-import { COMUNI_HUB_PATH, comuneBasePath } from "@/lib/comune-paths";
+import { getLocalLandingNavItems } from "@/lib/local-landings";
+import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
 import { siteConfig } from "@/lib/site-config";
 
 export function SiteFooter() {
-  const featuredComuni = getFeaturedComuni(24);
+  const localLandings = getLocalLandingNavItems();
 
   return (
     <footer className="border-t border-border bg-background py-16 text-foreground">
@@ -25,6 +25,9 @@ export function SiteFooter() {
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
             {site.tagline}
+          </p>
+          <p className="mt-2 max-w-xs text-xs uppercase tracking-[0.12em] text-muted">
+            Udine · Gemona del Friuli · Friuli Venezia Giulia
           </p>
         </div>
 
@@ -77,23 +80,20 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <nav aria-label="Zone servite">
+        <nav aria-label="Alto Friuli">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-            Zone servite
+            Alto Friuli
           </p>
           <ul className="mt-4 space-y-2">
-            {featuredComuni.slice(0, 8).map((comune) => (
-              <li key={comune.slug}>
+            {localLandings.map((item) => (
+              <li key={item.href}>
                 <Link
-                  href={comuneBasePath(comune.slug)}
+                  href={item.href}
                   prefetch={false}
-                  title={getLinkTitle(
-                    comuneBasePath(comune.slug),
-                    `Siti web a ${comune.nome}`,
-                  )}
+                  title={getLinkTitle(item.href, item.label)}
                   className="text-sm transition hover:text-foreground"
                 >
-                  Siti web a {comune.nome}
+                  {item.label}
                 </Link>
               </li>
             ))}

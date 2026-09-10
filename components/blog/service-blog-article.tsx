@@ -45,6 +45,7 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
       : [
           { label: serviceLabel, href: serviceHref },
           { label: "Siti web a Udine", href: "/udine" },
+          { label: "Sviluppatore web a Gemona", href: "/siti-web/gemona-del-friuli" },
           { label: "Quanto costa un sito web", href: "/costo-sito-web" },
           ...comuneLinks.slice(0, 3),
         ];

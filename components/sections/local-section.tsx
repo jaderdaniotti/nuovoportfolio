@@ -32,9 +32,8 @@ export function LocalSection({
         <Reveal className="min-w-0">
           <SectionLabel>Chi siamo</SectionLabel>
           <h2 className="font-display text-[clamp(2rem,4.5vw,3rem)] font-semibold leading-[1.05] tracking-tight">
-            {title}
-            <br />
-            {titleLine2}
+            {title}{" "}
+            <span className="block">{titleLine2}</span>
           </h2>
           <p className="mt-6 max-w-lg leading-relaxed text-muted">
             {body}

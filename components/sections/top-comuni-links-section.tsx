@@ -56,6 +56,14 @@ export function TopComuniLinksSection({
 
         <p className="mt-8">
           <Link
+            href="/siti-web"
+            prefetch={shouldPrefetchHref("/siti-web")}
+            className="text-sm font-medium underline decoration-accent decoration-2 underline-offset-4 transition hover:opacity-70"
+          >
+            Alto Friuli — landing locali
+          </Link>
+          {" · "}
+          <Link
             href={COMUNI_HUB_PATH}
             prefetch={shouldPrefetchHref(COMUNI_HUB_PATH)}
             className="text-sm font-medium underline decoration-accent decoration-2 underline-offset-4 transition hover:opacity-70"

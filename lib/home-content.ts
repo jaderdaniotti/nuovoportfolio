@@ -1,6 +1,6 @@
 export const site = {
   name: "jaderweb",
-  tagline: "Digital solutions for ambitious businesses.",
+  tagline: "Sviluppatore web freelance in Friuli Venezia Giulia.",
   location: "Udine, Friuli Venezia Giulia — Italia",
   email: "jaderdaniotti.lavoro@gmail.com",
   whatsapp: "393513152008",
@@ -24,18 +24,94 @@ export const footerNavItems = [
   { label: "Comuni", href: "/comuni" },
   { label: "Tools", href: "/tools" },
   { label: "Siti web Udine", href: "/udine" },
+  { label: "Siti web Gemona", href: "/siti-web/gemona-del-friuli" },
+  { label: "Alto Friuli", href: "/siti-web" },
   { label: "Freelance FVG", href: "/friuli" },
   { label: "Costo sito web", href: "/costo-sito-web" },
 ] as const;
 
-export const hero = {
-  eyebrow: "FREELANCER · UDINE",
-  headline: "Costruisco esperienze digitali che fanno crescere il tuo business.",
-  subheadline:
-    "Progetto e sviluppo siti web, e-commerce e soluzioni digitali su misura per aziende e professionisti.",
-  ctaPrimary: "Inizia un progetto",
-  ctaSecondary: "Scopri cosa faccio",
+export const homeSeo = {
+  title: "Sviluppatore Web Freelance Udine e Gemona | jaderweb",
+  description:
+    "Sviluppatore web freelance a Udine e Gemona del Friuli. Realizzo siti web, ecommerce e soluzioni digitali su misura per aziende e professionisti.",
+  keywords: [
+    "sviluppatore web Udine",
+    "sviluppatore web freelance Udine",
+    "sviluppatore web Gemona del Friuli",
+    "sviluppatore web freelance Gemona del Friuli",
+    "realizzazione siti web Udine",
+    "siti web Udine",
+    "siti web Gemona del Friuli",
+    "ecommerce Udine",
+    "Shopify Udine",
+    "sviluppo web su misura",
+    "jaderweb",
+  ],
 } as const;
+
+export const hero = {
+  eyebrow: "Sviluppatore web freelance · Udine · Gemona",
+  headline: "Siti web, ecommerce e soluzioni digitali su misura",
+  subheadline:
+    "Sviluppatore web freelance a Udine e Gemona del Friuli. Progetto e realizzo siti web professionali, ecommerce e applicazioni web su misura per aziende, professionisti e attività locali.",
+  ctaPrimary: "Richiedi un preventivo",
+  ctaSecondary: "Vedi i lavori",
+  ctaSecondaryHref: "/portfolio",
+} as const;
+
+export const homeLocalIntent = {
+  eyebrow: "Udine · Gemona del Friuli",
+  lead: "Lavoro come sviluppatore web freelance a Udine e Gemona del Friuli, seguendo progetti per aziende, professionisti e attività locali in Friuli Venezia Giulia.",
+  places: [
+    {
+      name: "Udine",
+      href: "/udine",
+      heading: "Sviluppatore web freelance a Udine",
+      body: "Siti, ecommerce Shopify e sviluppo su misura per chi lavora in città o in provincia. Un referente, preventivo scritto, stack scelto sul progetto vero.",
+      cta: "Siti web a Udine",
+    },
+    {
+      name: "Gemona del Friuli",
+      href: "/siti-web/gemona-del-friuli",
+      heading: "Sviluppo web a Gemona e in Alto Friuli",
+      body: "Pagine chiare per negozi, artigiani, professionisti e aziende di Gemona e dei comuni vicini. Base a Udine, progetti sul territorio — senza sede finta in centro.",
+      cta: "Siti web a Gemona",
+    },
+  ],
+  serviceLinks: [
+    { href: "/servizi", label: "scopri i servizi" },
+    { href: "/servizi/professionisti", label: "siti per professionisti" },
+    { href: "/costo-sito-web", label: "costo di un sito web" },
+  ],
+} as const;
+
+export const homeFaqs = [
+  {
+    question: "Realizzi siti web a Udine e Gemona del Friuli?",
+    answer:
+      "Sì. Sono un sviluppatore web freelance con base a Udine e seguo Gemona del Friuli e l’Alto Friuli. Il lavoro avviene in call e WhatsApp; un confronto in zona si organizza quando serve.",
+  },
+  {
+    question: "Quanto costa realizzare un sito web?",
+    answer:
+      "Dipende da pagine, contenuti e se serve un ecommerce o solo una vetrina. Ti mando un preventivo scritto sul tuo caso. I range li spiego nella pagina sul costo del sito, senza listino uguale per tutti.",
+  },
+  {
+    question: "Realizzi ecommerce con Shopify?",
+    answer:
+      "Sì, quando Shopify è lo strumento giusto: catalogo, pagamenti, spedizioni. Se il flusso non sta in un tema, sviluppiamo una soluzione su misura.",
+  },
+  {
+    question: "Puoi sviluppare funzionalità personalizzate?",
+    answer:
+      "Sì. Applicazioni web, aree riservate, form, integrazioni e automazioni: Next.js e Node.js quando un template non basta.",
+  },
+  {
+    question: "Ti occupi anche di manutenzione e assistenza?",
+    answer:
+      "Sì. Dopo il lancio resto il referente per ritocchi, aggiornamenti e piccole evoluzioni, così il sito non resta fermo al giorno della pubblicazione.",
+  },
+] as const;
 
 /** Live site previews in hero mockups. Screens: desktop 1440×900, mobile 390×844. */
 export const heroMockups = [
@@ -61,7 +137,7 @@ export const heroMockups = [
 ] as const;
 
 export const authorityStrip = {
-  marqueeText: "WEB ✦ E-COMMERCE ✦ DEVELOPMENT ✦ AUTOMATION ✦ ",
+  marqueeText: "SITI WEB ✦ ECOMMERCE ✦ SVILUPPO WEB ✦ UDINE ✦ GEMONA ✦ ",
   tagline: "Dalla prima idea al progetto online.",
 } as const;
 
@@ -83,9 +159,9 @@ export const scrollExpandSection = {
 export const serviceCategories = [
   {
     number: "01",
-    title: "Siti Web",
+    title: "Realizzazione siti web",
     description:
-      "Siti web progettati per rappresentare il tuo brand e trasformare visitatori in clienti.",
+      "Siti web professionali e personalizzati per aziende, professionisti e attività locali a Udine, Gemona del Friuli e in Friuli Venezia Giulia.",
     items: [
       "Siti vetrina",
       "Landing page",
@@ -96,9 +172,9 @@ export const serviceCategories = [
   },
   {
     number: "02",
-    title: "E-commerce",
+    title: "Ecommerce",
     description:
-      "Costruisco e-commerce pensati per vendere, semplici da gestire e pronti a crescere.",
+      "Realizzazione di ecommerce e negozi online con Shopify o soluzioni personalizzate.",
     items: [
       "Shopify",
       "E-commerce custom",
@@ -109,9 +185,9 @@ export const serviceCategories = [
   },
   {
     number: "03",
-    title: "Web Development",
+    title: "Sviluppo web su misura",
     description:
-      "Quando un template non basta, sviluppo la soluzione da zero.",
+      "Sviluppo di applicazioni web, portali e funzionalità personalizzate con Next.js, Node.js e tecnologie moderne.",
     items: [
       "Next.js",
       "React",
@@ -126,59 +202,69 @@ export const serviceCategories = [
     number: "04",
     title: "Automazioni",
     description:
-      "Riduco le attività manuali trasformandole in processi automatici.",
+      "Automazioni web e integrazioni per semplificare attività ripetitive e processi aziendali.",
     items: ["Bot", "Automazioni", "API", "Workflow", "Integrazione tra servizi"],
   },
 ] as const;
 
 export const portfolioProjects = [
-  
   {
     title: "Eleonora Politi Photographer",
-    tags: "PORTFOLIO · PHOTOGRAPHY",
+    tags: "Fotografia",
+    summary:
+      "Sito web professionale per una fotografa, con portfolio, servizi e contatti.",
     url: "https://eleonorapolitiphotographer.it/",
   },
   {
     title: "Como Private Driver",
-    tags: "HOSPITALITY · WEB",
+    tags: "NCC e turismo",
+    summary:
+      "Sito web per un servizio di noleggio con conducente e itinerari turistici.",
     url: "https://www.comoprivatedriver.it/",
     desktopSrc: "/img/projects/comoprivatedriverpc.png",
   },
   {
     title: "Gioia Capelli",
-    tags: "RETAIL · WEB",
+    tags: "Attività commerciale",
+    summary: "Sito web per un’attività retail, con presentazione e contatti.",
     url: "https://gioiacapelli.it/",
   },
   {
     title: "Pompe Funebri Tortarolo e Conti",
-    tags: "CORPORATE · WEB",
+    tags: "Sito aziendale",
+    summary:
+      "Sito web aziendale per un’impresa di onoranze: servizi, informazioni e recapito.",
     url: "https://www.pompefunebritortaroloeconti.it/",
   },
   {
     title: "Como Lake Suites",
-    tags: "HOSPITALITY · WEB",
+    tags: "Struttura ricettiva",
+    summary: "Sito web per una struttura ricettiva, con soggiorni e contatti.",
     url: "https://www.comolakesuites.eu/",
   },
   {
     title: "Lake Como in Car",
-    tags: "HOSPITALITY · WEB",
+    tags: "NCC e turismo",
+    summary: "Sito web per un servizio di transfer e tour sul territorio.",
     url: "https://www.lakecomoincar.eu/it",
   },
   {
     title: "Authentic Pasta Lab",
-    tags: "FOOD · WEB",
+    tags: "Food",
+    summary: "Sito web per un’attività food, con proposta e identità visiva.",
     url: "https://authenticpastalab.vercel.app/",
   },
   {
     title: "Al Posta",
-    tags: "FOOD · WEB",
+    tags: "Ristorazione",
+    summary: "Sito web per un locale di ristorazione.",
     url: "https://alposta.vercel.app/",
   },
 ] as const;
 
 export const differentiation = {
   title: "Non sono qui per venderti un sito.",
-  body: "Parto dal tuo business, dagli obiettivi e dalle persone che vuoi raggiungere. Progetto quindi la tecnologia e l'esperienza digitale intorno alle tue esigenze.",
+  body: "Parto dal tuo business, dagli obiettivi e da chi vuoi raggiungere. Poi scelgo tecnologia ed esperienza intorno a quello che ti serve: un sito, un ecommerce o uno sviluppo su misura.",
   points: [
     {
       title: "Strategia",
@@ -205,29 +291,29 @@ export const differentiation = {
 
 export const processSection = {
   title: "Dal primo messaggio al lancio.",
-  body: "Un percorso chiaro, trasparente e collaborativo: dalla prima conversazione al go-live, e oltre.",
+  body: "Un percorso chiaro per realizzare siti web e applicazioni: dalla prima conversazione al go-live, e oltre.",
 } as const;
 
 export const processSteps = [
   {
     number: "01",
     title: "Discovery",
-    description: "Parliamo del progetto e degli obiettivi.",
+    description: "Capisco attività, obiettivi e se serve un sito, un ecommerce o uno sviluppo su misura.",
   },
   {
     number: "02",
     title: "Strategia",
-    description: "Definisco insieme struttura, funzionalità e direzione.",
+    description: "Definisco struttura, funzionalità e direzione del progetto.",
   },
   {
     number: "03",
     title: "Design",
-    description: "Creo l'esperienza visiva.",
+    description: "Progetto l’esperienza visiva intorno al brand e a chi deve usare il sito.",
   },
   {
     number: "04",
     title: "Development",
-    description: "Sviluppo il progetto.",
+    description: "Sviluppo il sito o l’applicazione con lo stack adatto al lavoro.",
   },
   {
     number: "05",
@@ -237,13 +323,13 @@ export const processSteps = [
   {
     number: "06",
     title: "Support",
-    description: "Continuo a seguirti dopo il lancio.",
+    description: "Resto disponibile per manutenzione, ritocchi e crescita dopo il lancio.",
   },
 ] as const;
 
 export const technologies = {
   title: "La tecnologia dietro i miei progetti.",
-  body: "Uso tecnologie moderne per creare prodotti digitali veloci, scalabili e facilmente mantenibili.",
+  body: "Sviluppo su misura con Next.js, React, Node.js e Shopify quando serve un negozio online — stack moderno, siti veloci e facili da mantenere.",
   stack: [
     "Next.js",
     "Node.js",
@@ -373,18 +459,24 @@ export const caseStudy = {
 } as const;
 
 export const localSection = {
-  title: "Freelance web a Udine.",
-  titleLine2: "Progetti digitali ovunque.",
-  body: "Sono un freelance web con base a Udine e lavoro con aziende, professionisti e realtà che vogliono costruire una presenza digitale realmente efficace.",
-  areas: ["Udine", "Friuli Venezia Giulia", "Milano", "Italia"] as const,
+  title: "Sviluppatore web freelance a Udine.",
+  titleLine2: "Progetti anche a Gemona e in FVG.",
+  body: "Lavoro come sviluppatore web freelance a Udine e Gemona del Friuli, con aziende, professionisti e attività locali in Friuli Venezia Giulia. Realizzo siti anche per Buja, Artegna, Osoppo, Venzone, Tarcento, Majano e i comuni vicini.",
+  areas: [
+    "Gemona del Friuli",
+    "Alto Friuli",
+    "Udine",
+    "Friuli Venezia Giulia",
+    "Italia",
+  ] as const,
 } as const;
 
 export const founderSection = {
   eyebrow: "Il referente",
   title: "Chi c’è dietro i lavori del web",
-  body: "Jader è lo sviluppatore che si occuperà del tuo progetto: un referente unico con cui condividerai il percorso di creazione digitale, dalla prima idea al sito online.",
+  body: "Sono Jader, sviluppatore web freelance. Aiuto aziende, professionisti e attività locali a realizzare siti web, ecommerce e soluzioni digitali su misura. Opero principalmente tra Udine, Gemona del Friuli e il resto del Friuli Venezia Giulia.",
   name: "Jader",
-  titleRole: "Sviluppatore",
+  titleRole: "Sviluppatore web freelance",
   handle: "jaderweb",
   status: "jaderweb.com",
   contactText: "Visita il sito",
@@ -395,8 +487,8 @@ export const founderSection = {
 
 export const finalCta = {
   title: "Hai un progetto in mente?",
-  body: "Raccontami cosa vuoi costruire. Ti rispondo con una prima valutazione del progetto.",
-  cta: "Raccontami il tuo progetto",
+  body: "Se sei a Udine, Gemona del Friuli o in Friuli Venezia Giulia, scrivimi cosa ti serve. Ti rispondo io, con una prima valutazione e un preventivo chiaro.",
+  cta: "Richiedi un preventivo",
   alt: "Oppure scrivici direttamente",
 } as const;
 

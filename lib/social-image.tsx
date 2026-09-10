@@ -10,7 +10,8 @@ export const socialImageSize = {
 };
 
 export const socialImageContentType = "image/png";
-export const defaultSocialImageAlt = "jaderweb — Freelance web a Udine";
+export const defaultSocialImageAlt =
+  "jaderweb — Sviluppatore web freelance a Udine e Gemona del Friuli";
 
 function truncateOgTitle(title: string, max = 72) {
   if (title.length <= max) return title;
@@ -21,8 +22,9 @@ export function defaultSocialImage() {
   return new ImageResponse(
     (
       <OpenGraphCard
-        title="jaderweb"
-        subtitle="Siti web, e-commerce e soluzioni digitali"
+        eyebrow="SVILUPPATORE WEB FREELANCE"
+        title="Udine e Gemona del Friuli"
+        subtitle="Siti web, ecommerce e sviluppo su misura"
       />
     ),
     { ...socialImageSize },

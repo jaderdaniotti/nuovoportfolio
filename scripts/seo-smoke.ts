@@ -17,8 +17,12 @@ const SAMPLE_PATHS = [
   "/blog/sito-matrimonio-vs-instagram-whatsapp",
   "/contatti",
   "/udine",
+  "/siti-web",
+  "/siti-web/gemona-del-friuli",
+  "/siti-web/buja",
   "/comuni",
   "/comuni/udine-ud",
+  "/comuni/gemona-del-friuli-ud",
   "/robots.txt",
   "/sitemap.xml",
 ];

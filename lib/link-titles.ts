@@ -1,7 +1,7 @@
 /** HTML `title` on anchors — used by SEO checkers and as hover hint. */
 
 const PAGE_TITLES: Record<string, string> = {
-  "/": "Homepage jaderweb — creazione siti web a Udine",
+  "/": "Homepage jaderweb — sviluppatore web freelance Udine e Gemona",
   "/servizi": "Servizi di creazione siti web",
   "/portfolio": "Portfolio siti web realizzati",
   "/processo": "Processo di lavoro per un sito web",
@@ -16,6 +16,18 @@ const PAGE_TITLES: Record<string, string> = {
   "/udine": "Siti web a Udine",
   "/friuli": "Freelance web in Friuli Venezia Giulia",
   "/costo-sito-web": "Costo di un sito web",
+  "/siti-web": "Siti web in Alto Friuli",
+  "/siti-web/gemona-del-friuli": "Sviluppatore web a Gemona del Friuli",
+  "/siti-web/buja": "Siti web per aziende a Buja",
+  "/siti-web/artegna": "Siti vetrina a Artegna",
+  "/siti-web/osoppo": "Siti web aziendali a Osoppo",
+  "/siti-web/venzone": "Siti web per turismo a Venzone",
+  "/siti-web/tarcento": "Realizzazione siti web a Tarcento",
+  "/siti-web/majano": "Siti web per imprese a Majano",
+  "/siti-web/trasaghis": "Siti web a Trasaghis",
+  "/siti-web/forgaria-nel-friuli": "Siti web a Forgaria nel Friuli",
+  "/siti-web/san-daniele-del-friuli": "Siti web ed e-commerce a San Daniele del Friuli",
+  "/siti-web/tolmezzo": "Sviluppatore web a Tolmezzo",
 };
 
 const SERVICE_TITLES: Record<string, string> = {

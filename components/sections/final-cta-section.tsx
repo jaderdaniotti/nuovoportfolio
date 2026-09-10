@@ -26,7 +26,7 @@ export function FinalCtaSection({
             {body ?? finalCta.body}
           </p>
           <div className="mt-10">
-            <Button href={href}>{cta ?? "Iniziamo a parlarne"}</Button>
+            <Button href={href}>{cta ?? finalCta.cta}</Button>
           </div>
         </Reveal>
       </div>

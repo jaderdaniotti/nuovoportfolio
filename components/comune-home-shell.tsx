@@ -12,6 +12,7 @@ import {
   comuneServicePath,
   getComuneSiloLinks,
 } from "@/lib/comune-paths";
+import { getLocalLandingByComuneSlug } from "@/lib/local-landings";
 import { serviceIndexItems } from "@/lib/services-content";
 
 /**
@@ -30,9 +31,33 @@ export function ComuneHomeShell({
   const label = comuneLabel(comune);
   const siloPages = getComuneSiloLinks(comune.slug);
   const topServices = serviceIndexItems.slice(0, 8);
+  const strategicLanding = getLocalLandingByComuneSlug(comune.slug);
 
   return (
     <main>
+      {strategicLanding ? (
+        <section className="border-b border-border bg-hero py-8 text-foreground">
+          <div className="page-shell flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Pagina principale
+              </p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                Per {comune.nome} c’è una guida locale completa — servizi,
+                processo e FAQ — pensata per chi cerca uno sviluppatore in
+                zona.
+              </p>
+            </div>
+            <Link
+              href={strategicLanding.path}
+              className="btn-accent inline-flex h-12 shrink-0 items-center justify-center rounded-md px-6 text-sm font-semibold uppercase tracking-[0.08em]"
+            >
+              Apri la guida locale
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
       <ComuneHeroSection comune={comune} seo={seo} />
 
       <section className="border-y border-border bg-background py-16 text-foreground lg:py-20">
@@ -138,6 +163,16 @@ export function ComuneHomeShell({
                 Pilastro Udine
               </Link>
             </li>
+            {strategicLanding ? (
+              <li>
+                <Link
+                  href={strategicLanding.path}
+                  className="underline-offset-4 transition hover:underline"
+                >
+                  Guida locale {comune.nome}
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
       </section>

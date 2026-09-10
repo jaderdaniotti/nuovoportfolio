@@ -31,4 +31,26 @@ export const LEGACY_PATH_REDIRECTS: Array<{
   { source: "/index.html", destination: "/" },
   { source: "/blog.html", destination: "/blog" },
   { source: "/sitemap-www.xml", destination: "/sitemap.xml" },
+  { source: "/siti-web/udine", destination: "/udine" },
+  {
+    source: "/siti-web-gemona-del-friuli",
+    destination: "/siti-web/gemona-del-friuli",
+  },
+  { source: "/siti-web-buja", destination: "/siti-web/buja" },
+  { source: "/siti-web-artegna", destination: "/siti-web/artegna" },
+  { source: "/siti-web-osoppo", destination: "/siti-web/osoppo" },
+  { source: "/siti-web-venzone", destination: "/siti-web/venzone" },
+  { source: "/siti-web-tarcento", destination: "/siti-web/tarcento" },
+  { source: "/siti-web-majano", destination: "/siti-web/majano" },
+  { source: "/siti-web-trasaghis", destination: "/siti-web/trasaghis" },
+  {
+    source: "/siti-web-forgaria-nel-friuli",
+    destination: "/siti-web/forgaria-nel-friuli",
+  },
+  {
+    source: "/siti-web-san-daniele-del-friuli",
+    destination: "/siti-web/san-daniele-del-friuli",
+  },
+  { source: "/siti-web-tolmezzo", destination: "/siti-web/tolmezzo" },
+  { source: "/siti-web-udine", destination: "/udine" },
 ];

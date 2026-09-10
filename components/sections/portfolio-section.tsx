@@ -80,6 +80,11 @@ export function PortfolioSection({
                   <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">
                     {project.title}
                   </h3>
+                  {"summary" in project && project.summary ? (
+                    <p className="text-sm leading-relaxed text-muted">
+                      {project.summary}
+                    </p>
+                  ) : null}
                   <a
                     href={project.url}
                     title={getLinkTitle(project.url, `Apri sito ${project.title}`)}

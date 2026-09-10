@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { HomePageShell } from "@/components/home-page-shell";
 import { JsonLd } from "@/components/json-ld";
+import { homeSeo } from "@/lib/home-content";
 import { siteRootJsonLd } from "@/lib/json-ld";
 import { pageSeo } from "@/lib/seo";
 
-const title = "Siti web a Udine | Freelance Next.js — jaderweb";
-const description =
-  "Creo siti web, landing e digitalizzazione per PMI e professionisti a Udine e in Italia. Referente unico, veloci da caricare, pensati per convertire.";
+const { title, description, keywords } = homeSeo;
 
 export const metadata: Metadata = {
   title,
   description,
+  keywords: [...keywords],
   ...pageSeo("/", { title, description }),
 };
 

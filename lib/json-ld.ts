@@ -1,4 +1,4 @@
-import { site } from "@/lib/home-content";
+import { hero, homeFaqs, homeSeo, site } from "@/lib/home-content";
 import { sameAsProfiles, siteConfig } from "@/lib/site-config";
 import { OG_SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 import type { ServicePage } from "@/lib/service-pages";
@@ -22,22 +22,24 @@ export function personNode() {
     "@id": PERSON_ID,
     name: siteConfig.personName,
     url: SITE_URL,
-    jobTitle: "Freelance web developer",
+    jobTitle: "Sviluppatore web freelance",
     description:
-      "Sviluppatore e designer freelance a Udine: siti web, SEO locale e soluzioni digitali per PMI e professionisti.",
+      "Sviluppatore web freelance a Udine e Gemona del Friuli: siti web, ecommerce e soluzioni digitali su misura per aziende e professionisti.",
     email: site.email,
     telephone: siteConfig.telephone,
     worksFor: { "@id": ORGANIZATION_ID },
     address: napAddress,
     sameAs: sameAsProfiles(),
     knowsAbout: [
-      "Web design",
-      "Sviluppo frontend",
+      "Sviluppo siti web",
+      "Realizzazione siti web",
+      "Ecommerce",
+      "Shopify",
+      "Sviluppo web su misura",
+      "Sviluppo applicazioni web",
+      "Automazioni aziendali",
       "Next.js",
-      "SEO tecnica",
       "SEO locale",
-      "UI/UX",
-      "E-commerce",
     ],
   };
 }
@@ -70,7 +72,7 @@ export function professionalServiceNode() {
   return {
     "@type": "ProfessionalService",
     "@id": PROFESSIONAL_SERVICE_ID,
-    name: "jaderweb — creazione siti web",
+    name: "jaderweb — sviluppatore web freelance",
     url: SITE_URL,
     image: absoluteUrl("/img/logo/logonerosubianco.svg"),
     description: siteConfig.description,
@@ -81,10 +83,49 @@ export function professionalServiceNode() {
       { "@type": "Country", name: "Italia" },
       { "@type": "AdministrativeArea", name: "Friuli-Venezia Giulia" },
       { "@type": "City", name: "Udine" },
+      { "@type": "City", name: "Gemona del Friuli" },
     ],
     provider: { "@id": PERSON_ID },
     brand: { "@id": ORGANIZATION_ID },
     priceRange: "$$",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Servizi jaderweb",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Realizzazione siti web",
+            url: absoluteUrl("/servizi"),
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Ecommerce e Shopify",
+            url: absoluteUrl("/servizi"),
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Sviluppo web su misura",
+            url: absoluteUrl("/servizi"),
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Automazioni aziendali",
+            url: absoluteUrl("/servizi/digitalizzazione"),
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -299,6 +340,8 @@ export function blogHubJsonLd(posts: ServiceBlogPost[]) {
 }
 
 export function siteRootJsonLd() {
+  const headline = hero.headline;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -313,6 +356,31 @@ export function siteRootJsonLd() {
         description: siteConfig.description,
         publisher: { "@id": ORGANIZATION_ID },
         author: { "@id": PERSON_ID },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/#webpage`,
+        url: SITE_URL,
+        name: homeSeo.title,
+        headline,
+        description: homeSeo.description,
+        inLanguage: "it-IT",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": PROFESSIONAL_SERVICE_ID },
+        primaryImageOfPage: absoluteUrl("/img/logo/logonerosubianco.svg"),
+        mainEntity: { "@id": `${SITE_URL}/#faq` },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE_URL}/#faq`,
+        mainEntity: homeFaqs.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
       },
     ],
   };

@@ -21,6 +21,8 @@ const CORE_PATHS = [
   "/udine",
   "/friuli",
   "/costo-sito-web",
+  "/siti-web",
+  "/siti-web/gemona-del-friuli",
   "/comuni",
   "/tools",
 ];

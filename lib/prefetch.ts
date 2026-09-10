@@ -12,6 +12,7 @@ const PREFETCH_ALLOW = new Set([
   "/udine",
   "/friuli",
   "/costo-sito-web",
+  "/siti-web",
   "/comuni",
   "/tools",
 ]);
@@ -32,6 +33,7 @@ export function shouldPrefetchHref(href: string | undefined | null): boolean {
 
   if (PREFETCH_ALLOW.has(path)) return true;
   if (path.startsWith("/servizi/")) return true;
+  if (path.startsWith("/siti-web/")) return true;
   if (path.startsWith("/blog/")) return false; // molti articoli: on-demand
   if (path.startsWith("/tools/")) return false;
 

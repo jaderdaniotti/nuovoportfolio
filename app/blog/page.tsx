@@ -85,6 +85,13 @@ export default async function BlogIndexPage({
                 </Link>
                 {" · "}
                 <Link
+                  href="/siti-web/gemona-del-friuli"
+                  className="underline-offset-4 transition hover:text-foreground hover:underline"
+                >
+                  Siti web Gemona
+                </Link>
+                {" · "}
+                <Link
                   href="/costo-sito-web"
                   className="underline-offset-4 transition hover:text-foreground hover:underline"
                 >

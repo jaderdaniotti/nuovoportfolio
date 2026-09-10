@@ -7,6 +7,7 @@ import {
   Search,
   ShoppingCart,
 } from "lucide-react";
+import { homeFaqs } from "@/lib/home-content";
 
 export type HomeService = {
   icon: LucideIcon;
@@ -119,38 +120,7 @@ export const homeValues = [
   },
 ] as const;
 
-export const homeFaq: HomeFaqItem[] = [
-  {
-    question: "Quanto costa un sito con jaderweb?",
-    answer:
-      "I pacchetti partono da 999 € (Basic) + 290 €/anno di manutenzione. Pro e Business aggiungono pagine, SEO e funzioni extra. Prima di iniziare ti mando un preventivo chiaro, senza costi nascosti.",
-  },
-  {
-    question: "Lavori solo a Udine o anche da remoto?",
-    answer:
-      "Sono a Udine ma collaboro ovunque in Italia — call, WhatsApp e consegne digitali funzionano benissimo anche a distanza.",
-  },
-  {
-    question: "Quanto ci vuole per andare online?",
-    answer:
-      "Un sito semplice può essere pronto in poche settimane se i contenuti ci sono. E-commerce, multilingua o blog richiedono più tempo — lo stabilisco prima, non a metà lavoro.",
-  },
-  {
-    question: "Perché Next.js e non WordPress?",
-    answer:
-      "Next.js è più veloce, più sicuro e non devi aggiornare plugin ogni due settimane. Per un sito su misura ha senso — per un blog personale forse no, te lo dico onestamente.",
-  },
-  {
-    question: "Il sito esce su Google?",
-    answer:
-      "Sì: meta tag, sitemap, schema markup, velocità e contenuti scritti per le ricerche giuste. La SEO la faccio durante lo sviluppo, non la aggiungo alla fine come optional.",
-  },
-  {
-    question: "Dopo il lancio resti disponibile?",
-    answer:
-      "Sì. Manutenzione annuale con aggiornamenti e supporto, così il sito non si degrada nel tempo.",
-  },
-];
+export const homeFaq: HomeFaqItem[] = [...homeFaqs];
 
 export const homeToolsHighlight = {
   title: "Toolbox gratuito",
