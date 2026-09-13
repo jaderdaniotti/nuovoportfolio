@@ -9,6 +9,7 @@ import {
   getRoutedLocalLandings,
 } from "@/lib/local-landings";
 import { pageSeo } from "@/lib/seo";
+import { noindexRobots } from "@/lib/seo-robots";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -33,6 +34,7 @@ export async function generateMetadata({
     title: page.seoTitle,
     description: page.description,
     keywords: page.keywords,
+    robots: noindexRobots,
     ...pageSeo(page.path, {
       title: page.seoTitle,
       description: page.description,

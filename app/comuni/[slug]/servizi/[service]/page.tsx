@@ -20,7 +20,7 @@ import {
 import { getServicePage } from "@/lib/service-pages";
 
 export const revalidate = 2592000;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,

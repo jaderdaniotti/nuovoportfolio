@@ -2,11 +2,9 @@ import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { Button } from "@/components/button";
 import { SectionLabel } from "@/components/section-label";
-import { TopComuniLinksSection } from "@/components/sections/top-comuni-links-section";
 import type { ServiceBlogPost } from "@/lib/blog/types";
 import { getRelatedBlogPosts } from "@/lib/blog/related-posts";
 import { blogFaqJsonLd, blogPostJsonLd } from "@/lib/json-ld";
-import { getTopComuniServiceLinks } from "@/lib/comune-internal-links";
 
 const SERVICE_LABELS: Record<string, string> = {
   matrimoni: "Matrimoni",
@@ -34,20 +32,14 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
   const serviceHref = `/servizi/${post.service}`;
   const serviceLabel = SERVICE_LABELS[post.service] ?? post.service;
   const faqSchema = blogFaqJsonLd(post);
-  const comuneLinks = getTopComuniServiceLinks(
-    post.service,
-    serviceLabel,
-    6,
-  );
   const relatedLinks =
     post.related && post.related.length > 0
       ? post.related
       : [
           { label: serviceLabel, href: serviceHref },
-          { label: "Siti web a Udine", href: "/udine" },
-          { label: "Sviluppatore web a Gemona", href: "/siti-web/gemona-del-friuli" },
-          { label: "Quanto costa un sito web", href: "/costo-sito-web" },
-          ...comuneLinks.slice(0, 3),
+          { label: "Tutti i servizi", href: "/servizi" },
+          { label: "Portfolio", href: "/portfolio" },
+          { label: "Contatti", href: "/contatti" },
         ];
   const relatedPosts = getRelatedBlogPosts(post);
 
@@ -210,13 +202,6 @@ export function ServiceBlogArticle({ post }: { post: ServiceBlogPost }) {
           </aside>
         </div>
       </div>
-
-      <TopComuniLinksSection
-        serviceSlug={post.service}
-        serviceName={serviceLabel}
-        title={`${serviceLabel}: pagine locali`}
-        limit={8}
-      />
     </article>
   );
 }

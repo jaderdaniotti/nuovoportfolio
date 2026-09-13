@@ -9,7 +9,7 @@ export const LEGACY_BLOG_REDIRECTS: Array<{ source: string; destination: string 
   { source: "/blog/costi-sito-web-2026-quanto-spendere-a-udine-per-risultati-top", destination: "/costo-sito-web" },
   { source: "/blog/ecommerce-dropshipping-lancia-negozio-online-da-gemona-facile", destination: "/servizi" },
   { source: "/blog/freelance-vs-agenzia-e-wordpress-perche-scegliere-sito-custom", destination: "/perche-noi" },
-  { source: "/blog/google-my-business-sito-web-visibilita-gratuita-gemona-friuli", destination: "/comuni" },
+  { source: "/blog/google-my-business-sito-web-visibilita-gratuita-gemona-friuli", destination: "/siti-web/gemona-del-friuli" },
   { source: "/blog/integrazione-whatsapp-su-sito-contatti-facili-per-negozi-milano", destination: "/servizi" },
   { source: "/blog/landing-responsive-tailwind-nextjs-esempi-solaro-udine", destination: "/servizi/landing-ads" },
   { source: "/blog/marketing-digitale-pmi-sito-social-per-crescere-solaro", destination: "/blog" },

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { ComuneHomeShell } from "@/components/comune-home-shell";
 import { getNearbyComuni, getPreRenderComuniItaliaSlugs } from "@/lib/comuni";
+import { COMUNI_SILO_ENABLED } from "@/lib/comune-paths";
 import { comuneServiceJsonLd } from "@/lib/comune-json-ld";
 import {
   comunePageMetadata,
@@ -11,9 +12,11 @@ import {
 } from "@/lib/comune-page";
 
 export const revalidate = 2592000;
-export const dynamicParams = true;
+/** Silo Italia spento: nessun prerender e nessun param on-demand. Deve essere un booleano letterale. */
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  if (!COMUNI_SILO_ENABLED) return [];
   return getPreRenderComuniItaliaSlugs().map((slug) => ({ slug }));
 }
 

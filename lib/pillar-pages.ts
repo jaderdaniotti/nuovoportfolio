@@ -82,7 +82,7 @@ export const pillarPages: PillarPage[] = [
     related: [
       { label: "Freelance web in Friuli Venezia Giulia", href: "/friuli" },
       { label: "Quanto costa un sito web", href: "/costo-sito-web" },
-      { label: "Pagina locale Udine (silo comuni)", href: "/comuni/udine-ud" },
+      { label: "Sviluppatore web a Gemona del Friuli", href: "/siti-web/gemona-del-friuli" },
       { label: "Tutti i servizi", href: "/servizi" },
     ],
     ctaTitle: "Hai un’attività a Udine o in zona?",
@@ -118,7 +118,7 @@ export const pillarPages: PillarPage[] = [
         heading: "Regione + Italia: come gestisco i progetti",
         paragraphs: [
           "Essere in FVG non limita il raggio. Molti lavori sono remoti: call, Figma o bozze, deploy, assistenza. La differenza è avere un interlocutore unico che conosce anche il mercato regionale.",
-          "Per chi vuole copertura locale ampia, esiste anche il silo comuni: pagine geografiche che puntano a servizi reali. Le uso dove hanno senso SEO, non come spam.",
+          "Per Gemona del Friuli e l’Alto Friuli ci sono landing scritte a mano, non directory clonate. Udine ha la pagina città; il resto del territorio passa da /siti-web.",
         ],
       },
       {
@@ -152,7 +152,6 @@ export const pillarPages: PillarPage[] = [
       { label: "Siti web a Udine", href: "/udine" },
       { label: "Quanto costa un sito web", href: "/costo-sito-web" },
       { label: "Servizi", href: "/servizi" },
-      { label: "Directory comuni", href: "/comuni" },
     ],
     ctaTitle: "Cerchi un freelance web in FVG?",
     ctaBody:

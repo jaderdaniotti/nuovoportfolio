@@ -7,7 +7,7 @@ import { absoluteUrl, OG_SITE_NAME, SITE_URL, pageSeo } from "@/lib/seo";
 
 const title = "Contatti e preventivo sito web | Udine — jaderweb";
 const description =
-  "Scrivimi o WhatsApp: preventivo chiaro per sito, landing o digitalizzazione. Rispondo io, Jader Daniotti — Udine e tutta Italia.";
+  "Richiedi un preventivo sito web o un’indicazione sul costo sito web. Scrivimi o WhatsApp: rispondo io, Jader Daniotti — Udine e tutta Italia.";
 
 export const metadata: Metadata = {
   title,

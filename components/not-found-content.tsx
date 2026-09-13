@@ -77,18 +77,18 @@ export function NotFoundContent() {
               </li>
               <li>
                 <Link
-                  href="/comuni"
+                  href="/portfolio"
                   className="block rounded-[1.25rem] border border-border px-5 py-4 transition hover:border-foreground/40"
                 >
-                  Comuni
+                  Portfolio
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/costo-sito-web"
+                  href="/processo"
                   className="block rounded-[1.25rem] border border-border px-5 py-4 transition hover:border-foreground/40"
                 >
-                  Costo sito web
+                  Processo
                 </Link>
               </li>
             </ul>

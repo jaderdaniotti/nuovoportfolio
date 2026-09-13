@@ -85,7 +85,7 @@ export const eventiLocaliPosts = [
     related: [
       { label: "Portali per eventi locali", href: "/servizi/eventi-locali" },
       { label: "Contattami", href: "/contatti" },
-      { label: "Pagine per i comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -138,7 +138,7 @@ export const eventiLocaliPosts = [
         heading: "Come lo collego al resto del sito",
         paragraphs: [
           "Home con «in evidenza» + «questo weekend», pagina calendario con filtri, scheda evento con mappa del punto e ritorno all’elenco filtrato. Il breadcrumb e i link interni contano quanto il pin.",
-          "Sul servizio eventi locali progetto mappa e filtri insieme ai contenuti: senza schede aggiornate, l’interfaccia più bella del mondo resta vuota. Da /comuni vedi come lavoro anche con le amministrazioni; da /contatti partiamo dal tuo territorio.",
+          "Sul servizio eventi locali progetto mappa e filtri insieme ai contenuti: senza schede aggiornate, l’interfaccia più bella del mondo resta vuota. Da /servizi vedi l’offerta; da /contatti partiamo dal tuo territorio.",
         ],
       },
     ],
@@ -167,7 +167,7 @@ export const eventiLocaliPosts = [
     related: [
       { label: "Servizio eventi locali", href: "/servizi/eventi-locali" },
       { label: "Scrivimi", href: "/contatti" },
-      { label: "Comuni e territorio", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -249,7 +249,7 @@ export const eventiLocaliPosts = [
     related: [
       { label: "Eventi locali e portali", href: "/servizi/eventi-locali" },
       { label: "Parliamone", href: "/contatti" },
-      { label: "SEO per i comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -331,7 +331,7 @@ export const eventiLocaliPosts = [
     related: [
       { label: "Siti e portali eventi", href: "/servizi/eventi-locali" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Progetti per i comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -384,7 +384,7 @@ export const eventiLocaliPosts = [
         heading: "Cosa costruisco io sul pezzo tecnico",
         paragraphs: [
           "Form sul sito, double opt-in se ha senso, integrazione con un CRM o tool mail leggero, testi di consenso e pagine privacy allineate. Niente plugin che esportano contatti chissà dove.",
-          "Lavoro con organizzatori e comuni: sulla pagina eventi locali vedi l’approccio; su /comuni il contesto PA; da /contatti raccontami come raccogliete oggi i contatti — spesso basta ripulire il flusso, non comprare un software nuovo.",
+          "Lavoro con organizzatori e comuni: sulla pagina eventi locali vedi l’approccio; da /contatti raccontami come raccogliete oggi i contatti — spesso basta ripulire il flusso, non comprare un software nuovo.",
         ],
       },
     ],
@@ -413,7 +413,7 @@ export const eventiLocaliPosts = [
     related: [
       { label: "Servizio eventi locali", href: "/servizi/eventi-locali" },
       { label: "Richiedi una chiacchierata", href: "/contatti" },
-      { label: "Comuni italiani", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
 ] as const satisfies readonly ServiceBlogPost[];

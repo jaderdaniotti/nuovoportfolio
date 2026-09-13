@@ -111,14 +111,7 @@ export function LocalLandingsHubContent() {
                 Tutti i servizi
               </Link>
             </li>
-            <li>
-              <Link
-                href="/comuni"
-                className="text-muted underline-offset-4 transition hover:text-foreground hover:underline"
-              >
-                Directory comuni d’Italia
-              </Link>
-            </li>
+            {/* Silo /comuni disattivato */}
           </ul>
         </aside>
       </div>

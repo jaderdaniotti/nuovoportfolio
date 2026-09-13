@@ -87,7 +87,7 @@ export const bbCaseVacanzaPosts = [
         href: "/servizi/bb-case-vacanza",
       },
       { label: "Scrivimi per un progetto", href: "/contatti" },
-      { label: "Pagine locali per comune", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -172,7 +172,7 @@ export const bbCaseVacanzaPosts = [
         href: "/servizi/bb-case-vacanza",
       },
       { label: "Parliamone", href: "/contatti" },
-      { label: "SEO per comune", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -257,7 +257,7 @@ export const bbCaseVacanzaPosts = [
         href: "/servizi/bb-case-vacanza",
       },
       { label: "Contatti", href: "/contatti" },
-      { label: "Comuni e SEO locale", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -342,7 +342,7 @@ export const bbCaseVacanzaPosts = [
         href: "/servizi/bb-case-vacanza",
       },
       { label: "Scrivimi", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -427,7 +427,7 @@ export const bbCaseVacanzaPosts = [
         href: "/servizi/bb-case-vacanza",
       },
       { label: "Contatti", href: "/contatti" },
-      { label: "Hub comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
 ] as const satisfies readonly ServiceBlogPost[];

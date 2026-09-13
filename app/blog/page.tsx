@@ -78,24 +78,17 @@ export default async function BlogIndexPage({
                 </a>
                 {" · "}
                 <Link
-                  href="/udine"
+                  href="/servizi"
                   className="underline-offset-4 transition hover:text-foreground hover:underline"
                 >
-                  Siti web Udine
+                  Servizi
                 </Link>
                 {" · "}
                 <Link
-                  href="/siti-web/gemona-del-friuli"
+                  href="/contatti"
                   className="underline-offset-4 transition hover:text-foreground hover:underline"
                 >
-                  Siti web Gemona
-                </Link>
-                {" · "}
-                <Link
-                  href="/costo-sito-web"
-                  className="underline-offset-4 transition hover:text-foreground hover:underline"
-                >
-                  Costo sito web
+                  Contatti
                 </Link>
               </p>
             </Reveal>

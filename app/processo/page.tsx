@@ -3,9 +3,9 @@ import { InnerPageShell } from "@/components/inner-page-shell";
 import { ProcessPageContent } from "@/components/sections/process-page-content";
 import { pageSeo } from "@/lib/seo";
 
-const title = "Come lavoro su un sito web | Processo chiaro — jaderweb";
+const title = "Realizzazione sito web: come lavoro | jaderweb";
 const description =
-  "Dal brief al go-live: discovery, design, sviluppo e supporto. Ti dico tempi, perimetro e cosa serve da te — senza agenzia a strati.";
+  "Realizzazione sito web dal brief al go-live: discovery, design, sviluppo e supporto. Ti dico tempi, perimetro e cosa serve da te — senza agenzia a strati.";
 
 export const metadata: Metadata = {
   title,

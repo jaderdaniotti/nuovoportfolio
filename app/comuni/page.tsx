@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { ComuniHubContent } from "@/components/comuni-hub-content";
 import { InnerPageShell } from "@/components/inner-page-shell";
@@ -12,6 +13,7 @@ import {
   toComuneListItem,
 } from "@/lib/comuni";
 import { comuniHubJsonLd } from "@/lib/comune-json-ld";
+import { COMUNI_SILO_ENABLED } from "@/lib/comune-paths";
 import { HUB_SEO } from "@/lib/comuni-seo";
 import { pageSeo } from "@/lib/seo";
 import { indexableRobots } from "@/lib/seo-robots";
@@ -41,6 +43,10 @@ export default async function ComuniHubPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  if (!COMUNI_SILO_ENABLED) {
+    permanentRedirect("/servizi");
+  }
+
   const params = await searchParams;
   const query = typeof params.q === "string" ? params.q.trim() : "";
   const regione = typeof params.regione === "string" ? params.regione : "";

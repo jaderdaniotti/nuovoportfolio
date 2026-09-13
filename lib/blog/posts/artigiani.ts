@@ -84,7 +84,7 @@ export const artigianiPosts = [
     related: [
       { label: "Siti per artigiani", href: "/servizi/artigiani" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -166,7 +166,7 @@ export const artigianiPosts = [
     related: [
       { label: "Siti per artigiani", href: "/servizi/artigiani" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -248,7 +248,7 @@ export const artigianiPosts = [
     related: [
       { label: "Siti per artigiani", href: "/servizi/artigiani" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -330,7 +330,7 @@ export const artigianiPosts = [
     related: [
       { label: "Siti per artigiani", href: "/servizi/artigiani" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -412,7 +412,7 @@ export const artigianiPosts = [
     related: [
       { label: "Siti per artigiani", href: "/servizi/artigiani" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
 ] as const satisfies readonly ServiceBlogPost[];

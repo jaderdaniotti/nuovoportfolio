@@ -13,7 +13,7 @@ import { comuneContattiPath, comuneServicePath } from "@/lib/comune-paths";
 import { serviceIndexItems } from "@/lib/services-content";
 
 export const revalidate = 2592000;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,

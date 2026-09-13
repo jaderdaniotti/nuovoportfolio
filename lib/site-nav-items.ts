@@ -20,10 +20,10 @@ export const siteNavItems: SiteNavItem[] = [
     match: (pathname) => pathname === HOME_PATH,
   },
   {
-    label: "Tariffe",
-    href: "/costo-sito-web",
-    ariaLabel: "Vai alla pagina costi sito web",
-    match: (pathname) => pathname === "/costo-sito-web",
+    label: "Servizi",
+    href: "/servizi",
+    ariaLabel: "Vai ai servizi",
+    match: (pathname) => pathname.startsWith("/servizi"),
   },
   {
     label: "Blog",

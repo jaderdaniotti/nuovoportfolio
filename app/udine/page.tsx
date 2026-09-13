@@ -5,6 +5,7 @@ import { LocalLandingContent } from "@/components/sections/local-landing-content
 import { localLandingJsonLd } from "@/lib/local-landing-json-ld";
 import { requireLocalLanding } from "@/lib/local-landings";
 import { pageSeo } from "@/lib/seo";
+import { noindexRobots } from "@/lib/seo-robots";
 
 const page = requireLocalLanding("udine");
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
   title: page.seoTitle,
   description: page.description,
   keywords: page.keywords,
+  robots: noindexRobots,
   ...pageSeo(page.path, { title: page.seoTitle, description: page.description }),
 };
 

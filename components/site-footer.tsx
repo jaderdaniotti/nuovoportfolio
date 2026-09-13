@@ -3,16 +3,12 @@ import { BrandLogo } from "@/components/brand-logo";
 import { CookieManageButton } from "@/components/cookie-consent";
 import { footerLegal, footerNavItems, site } from "@/lib/home-content";
 import { getLinkTitle } from "@/lib/link-titles";
-import { getLocalLandingNavItems } from "@/lib/local-landings";
-import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
 import { siteConfig } from "@/lib/site-config";
 
 export function SiteFooter() {
-  const localLandings = getLocalLandingNavItems();
-
   return (
     <footer className="border-t border-border bg-background py-16 text-foreground">
-      <div className="page-shell grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="page-shell grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <Link
             href="/"
@@ -79,36 +75,6 @@ export function SiteFooter() {
             <li>P.IVA {siteConfig.vatNumber}</li>
           </ul>
         </div>
-
-        <nav aria-label="Alto Friuli">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-            Alto Friuli
-          </p>
-          <ul className="mt-4 space-y-2">
-            {localLandings.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  prefetch={false}
-                  title={getLinkTitle(item.href, item.label)}
-                  className="text-sm transition hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href={COMUNI_HUB_PATH}
-                prefetch
-                title={getLinkTitle(COMUNI_HUB_PATH, "Tutti i comuni d’Italia")}
-                className="text-sm font-medium transition hover:text-foreground"
-              >
-                Tutti i comuni d’Italia
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </div>
 
       <div className="page-shell mt-12 flex flex-col gap-3 border-t border-border pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">

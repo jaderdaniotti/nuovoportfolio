@@ -19,32 +19,22 @@ export const navItems = [
   { label: "Contatti", href: "/contatti" },
 ] as const;
 
-export const footerNavItems = [
-  ...navItems,
-  { label: "Comuni", href: "/comuni" },
-  { label: "Tools", href: "/tools" },
-  { label: "Siti web Udine", href: "/udine" },
-  { label: "Siti web Gemona", href: "/siti-web/gemona-del-friuli" },
-  { label: "Alto Friuli", href: "/siti-web" },
-  { label: "Freelance FVG", href: "/friuli" },
-  { label: "Costo sito web", href: "/costo-sito-web" },
-] as const;
+export const footerNavItems = navItems;
 
 export const homeSeo = {
-  title: "Sviluppatore Web Freelance Udine e Gemona | jaderweb",
+  title: "Sviluppatore sito web freelance Udine e Gemona | jaderweb",
   description:
-    "Sviluppatore web freelance a Udine e Gemona del Friuli. Realizzo siti web, ecommerce e soluzioni digitali su misura per aziende e professionisti.",
+    "Sviluppatore sito web freelance a Udine e Gemona del Friuli. Realizzazione sito web, ecommerce e soluzioni digitali su misura per aziende e professionisti.",
   keywords: [
+    "sviluppatore sito web freelance",
+    "realizzazione sito web",
     "sviluppatore web Udine",
     "sviluppatore web freelance Udine",
     "sviluppatore web Gemona del Friuli",
-    "sviluppatore web freelance Gemona del Friuli",
     "realizzazione siti web Udine",
     "siti web Udine",
     "siti web Gemona del Friuli",
     "ecommerce Udine",
-    "Shopify Udine",
-    "sviluppo web su misura",
     "jaderweb",
   ],
 } as const;
@@ -53,7 +43,7 @@ export const hero = {
   eyebrow: "Sviluppatore web freelance · Udine · Gemona",
   headline: "Siti web, ecommerce e soluzioni digitali su misura",
   subheadline:
-    "Sviluppatore web freelance a Udine e Gemona del Friuli. Progetto e realizzo siti web professionali, ecommerce e applicazioni web su misura per aziende, professionisti e attività locali.",
+    "Sviluppatore sito web freelance a Udine e Gemona del Friuli. Mi occupo di realizzazione sito web, ecommerce e applicazioni su misura per aziende, professionisti e attività locali.",
   ctaPrimary: "Richiedi un preventivo",
   ctaSecondary: "Vedi i lavori",
   ctaSecondaryHref: "/portfolio",
@@ -92,9 +82,9 @@ export const homeFaqs = [
       "Sì. Sono un sviluppatore web freelance con base a Udine e seguo Gemona del Friuli e l’Alto Friuli. Il lavoro avviene in call e WhatsApp; un confronto in zona si organizza quando serve.",
   },
   {
-    question: "Quanto costa realizzare un sito web?",
+    question: "Quanto costa creare un sito web?",
     answer:
-      "Dipende da pagine, contenuti e se serve un ecommerce o solo una vetrina. Ti mando un preventivo scritto sul tuo caso. I range li spiego nella pagina sul costo del sito, senza listino uguale per tutti.",
+      "Il costo sito web dipende da pagine, contenuti e se serve un ecommerce o solo una vetrina. Ti mando un preventivo sito web scritto sul tuo caso, senza listino uguale per tutti.",
   },
   {
     question: "Realizzi ecommerce con Shopify?",
@@ -474,9 +464,9 @@ export const localSection = {
 export const founderSection = {
   eyebrow: "Il referente",
   title: "Chi c’è dietro i lavori del web",
-  body: "Sono Jader, sviluppatore web freelance. Aiuto aziende, professionisti e attività locali a realizzare siti web, ecommerce e soluzioni digitali su misura. Opero principalmente tra Udine, Gemona del Friuli e il resto del Friuli Venezia Giulia.",
+  body: "Sono Jader, web designer freelance e sviluppatore. Aiuto aziende, professionisti e attività locali a realizzare siti web, ecommerce e soluzioni digitali su misura. Se cerchi uno sviluppatore web vicino a me, lavoro da Udine e Gemona del Friuli, in Friuli Venezia Giulia.",
   name: "Jader",
-  titleRole: "Sviluppatore web freelance",
+  titleRole: "Web designer freelance",
   handle: "jaderweb",
   status: "jaderweb.com",
   contactText: "Visita il sito",
@@ -487,7 +477,7 @@ export const founderSection = {
 
 export const finalCta = {
   title: "Hai un progetto in mente?",
-  body: "Se sei a Udine, Gemona del Friuli o in Friuli Venezia Giulia, scrivimi cosa ti serve. Ti rispondo io, con una prima valutazione e un preventivo chiaro.",
+  body: "Se sei a Udine, Gemona del Friuli o in Friuli Venezia Giulia, scrivimi cosa ti serve. Ti rispondo io, con una prima valutazione e un preventivo sito web chiaro.",
   cta: "Richiedi un preventivo",
   alt: "Oppure scrivici direttamente",
 } as const;

@@ -6,7 +6,7 @@ function toIsoDate(date: Date) {
   return date.toISOString().slice(0, 10);
 }
 
-/** Sitemap index unico: core + chunk comuni (entry point GSC). */
+/** Sitemap index: solo core se il silo comuni è spento. */
 export function buildSitemapIndexXml() {
   const lastCore = toIsoDate(CORE_CONTENT_LASTMOD);
   const lastComuni = toIsoDate(COMUNI_CONTENT_LASTMOD);

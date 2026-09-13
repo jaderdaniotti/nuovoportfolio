@@ -2,7 +2,7 @@ export const servicesPage = {
   eyebrow: "Servizi",
   title: "Non ti vendo un sito.",
   titleLine2: "Costruisco la soluzione giusta per il tuo mestiere.",
-  body: "Template verticali, prodotti rapidi e sistemi su misura: dal matrimonio al ristorante, dalla palestra all’artigiano. Ogni progetto parte da un modello già pensato per il tuo settore.",
+  body: "Creazione sito web, template verticali e sistemi su misura: dal matrimonio al ristorante, dalla palestra all’artigiano. Per un’azienda faccio anche creazione sito internet aziendale e realizzazione sito web professionale, partendo da un modello già pensato per il tuo settore.",
   cta: "Parliamo del tuo progetto",
 } as const;
 

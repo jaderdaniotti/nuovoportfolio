@@ -83,7 +83,7 @@ export const sagreEventiPosts = [
     related: [
       { label: "Servizio siti sagre e eventi", href: "/servizi/sagre-eventi" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
   {
@@ -244,7 +244,7 @@ export const sagreEventiPosts = [
     ],
     related: [
       { label: "Servizio siti sagre e eventi", href: "/servizi/sagre-eventi" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
       { label: "Contatti", href: "/contatti" },
     ],
   },
@@ -407,7 +407,7 @@ export const sagreEventiPosts = [
     related: [
       { label: "Servizio siti sagre e eventi", href: "/servizi/sagre-eventi" },
       { label: "Contatti", href: "/contatti" },
-      { label: "Pagine comuni", href: "/comuni" },
+      { label: "Tutti i servizi", href: "/servizi" },
     ],
   },
 ] as const satisfies readonly ServiceBlogPost[];

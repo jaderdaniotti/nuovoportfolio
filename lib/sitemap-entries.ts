@@ -4,6 +4,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { getIndexableComuniItalia, type ComuneData } from "@/lib/comuni";
 import { COMUNI_CONTENT_LASTMOD } from "@/lib/sitemap-dates";
 import {
+  COMUNI_SILO_ENABLED,
   comuneBasePath,
   comuneContattiPath,
   comunePercheNoiPath,
@@ -121,6 +122,8 @@ function comuneEntries(): SitemapEntry[] {
 let cachedEntries: SitemapEntry[] | null = null;
 
 export function getComuniSitemapEntries() {
+  // Silo disattivato: non esporre ~190k URL duplicate a Google.
+  if (!COMUNI_SILO_ENABLED) return [];
   if (!cachedEntries) {
     cachedEntries = comuneEntries();
   }
@@ -128,6 +131,7 @@ export function getComuniSitemapEntries() {
 }
 
 export function getComuniSitemapChunkCount() {
+  if (!COMUNI_SILO_ENABLED) return 0;
   return Math.max(1, Math.ceil(getComuniSitemapEntries().length / SITEMAP_CHUNK_SIZE));
 }
 

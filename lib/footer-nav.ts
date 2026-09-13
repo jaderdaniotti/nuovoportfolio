@@ -1,4 +1,5 @@
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
+import { COMUNI_SILO_ENABLED } from "@/lib/comune-paths";
 import { comuniItalia } from "@/lib/comuni";
 import { toolCategoryLabels, toolsCatalog, type ToolCategory } from "@/lib/tools-catalog";
 
@@ -50,7 +51,7 @@ export const footerHomeLinks: FooterLink[] = [
 export const footerServiceLinks: FooterLink[] = [
   { label: "Tariffe e pacchetti", href: "/costo-sito-web", title: "Prezzi siti web e servizi digitali" },
   { label: "Contatti e preventivi", href: "/contatti", title: "Richiedi un preventivo personalizzato" },
-  { label: "Siti web per comune", href: "/comuni", title: "Creazione siti web in tutta Italia" },
+  { label: "Siti web in Alto Friuli", href: "/siti-web", title: "Landing locali Gemona, Udine e comuni vicini" },
   { label: "Toolbox SEO e utility", href: "/tools", title: "Strumenti gratuiti per siti web" },
   { label: "Blog", href: "/blog", title: "Guide su siti web, SEO e conversioni" },
 ];
@@ -74,6 +75,7 @@ export function getFooterRecentBlogLinks(limit = FOOTER_RECENT_BLOG_LIMIT): Foot
 }
 
 export function getFooterFeaturedComuniLinks(limit = FOOTER_FEATURED_COMUNI_LIMIT): FooterLink[] {
+  if (!COMUNI_SILO_ENABLED) return [];
   return [...comuniItalia]
     .filter((comune) => comune.indexable !== false)
     .sort((a, b) => (b.popolazione ?? 0) - (a.popolazione ?? 0))
@@ -86,6 +88,7 @@ export function getFooterFeaturedComuniLinks(limit = FOOTER_FEATURED_COMUNI_LIMI
 }
 
 export function getFooterComuniLinks(): FooterLink[] {
+  if (!COMUNI_SILO_ENABLED) return [];
   return [
     {
       label: "Directory comuni italiani",
@@ -127,7 +130,9 @@ export function getFooterToolCategories(): FooterToolCategory[] {
 export function getFooterSitemapGroups(): FooterSitemapGroup[] {
   return [
     { id: "blog-index", title: "Blog", links: getFooterBlogLinks() },
-    { id: "comuni-index", title: "Comuni", links: getFooterComuniLinks() },
+    ...(COMUNI_SILO_ENABLED
+      ? [{ id: "comuni-index", title: "Comuni", links: getFooterComuniLinks() }]
+      : []),
     ...getFooterToolCategories().map((category) => ({
       id: `tools-${category.id}`,
       title: category.title,

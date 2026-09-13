@@ -3,7 +3,7 @@ export const contactPage = {
   title: "Hai un'idea?",
   titleLine2: "Parliamone.",
   subtitle:
-    "Che tu abbia già un progetto definito o solamente un'idea, raccontaci cosa hai in mente. Troveremo insieme il modo migliore per trasformarla in qualcosa di reale.",
+    "Che tu abbia già un progetto definito o solamente un’idea, raccontami cosa hai in mente. Ti mando un preventivo sito web e, se serve, ti spiego il costo sito web sul tuo caso — senza listino uguale per tutti.",
   stack: ["WEB", "E-COMMERCE", "AUTOMATION", "DIGITAL"] as const,
 } as const;
 
@@ -43,15 +43,15 @@ export const contactAfter = {
   steps: [
     {
       number: "01",
-      title: "Riceviamo la tua richiesta",
+      title: "Ricevo la tua richiesta",
       description:
-        "Leggiamo il progetto e analizziamo quello che ci hai raccontato.",
+        "Leggo il progetto e analizzo quello che mi hai raccontato.",
     },
     {
       number: "02",
       title: "Ci conosciamo",
       description:
-        "Ti ricontattiamo per capire meglio esigenze, obiettivi e funzionalità.",
+        "Ti ricontatto per capire meglio esigenze, obiettivi e funzionalità.",
     },
     {
       number: "03",
@@ -69,11 +69,11 @@ export const contactAfter = {
 } as const;
 
 export const contactDirect = {
-  title: "Preferisci scriverci direttamente?",
+  title: "Preferisci scrivermi direttamente?",
   emailLabel: "Email",
   whatsappLabel: "WhatsApp",
-  whatsappCta: "Scrivici su WhatsApp",
-  whereLabel: "Dove siamo",
+  whatsappCta: "Scrivimi su WhatsApp",
+  whereLabel: "Dove lavoro",
 } as const;
 
 export const contactClose = {
@@ -87,7 +87,7 @@ export const contactFormCopy = {
   next: "Avanti",
   back: "Indietro",
   submit: "Iniziamo a parlarne",
-  success: "Grazie. Ti ricontattiamo a breve.",
+  success: "Grazie. Ti ricontatto a breve.",
   error: "Completa i campi obbligatori per continuare.",
   steps: {
     who: {
@@ -101,7 +101,7 @@ export const contactFormCopy = {
     },
     project: {
       number: "03",
-      title: "Parlaci del progetto",
+      title: "Parlami del progetto",
       hint: "Raccontami cosa hai in mente, cosa vorresti ottenere e qualsiasi informazione che pensi possa essere utile.",
     },
     website: {

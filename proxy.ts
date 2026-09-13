@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { resolveDisabledComuneSiloPath } from "./lib/comune-paths";
 
 /** Query che creano URL duplicate / non-canoniche → noindex,follow via header. */
 const TRACKING_PARAM_KEYS = [
@@ -31,6 +32,13 @@ function isAlwaysNoindexPath(pathname: string) {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const comuniRedirect = resolveDisabledComuneSiloPath(pathname);
+  if (comuniRedirect) {
+    const url = request.nextUrl.clone();
+    url.pathname = comuniRedirect;
+    return NextResponse.redirect(url, 308);
+  }
+
   const needsNoindex =
     isAlwaysNoindexPath(pathname) || hasTrackingParams(request.nextUrl);
 

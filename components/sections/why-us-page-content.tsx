@@ -283,9 +283,9 @@ export function WhyUsPageContent({
         <div className="page-shell">
           <Reveal className="mx-auto max-w-3xl text-center">
             <h2 className="font-display text-[clamp(2rem,5.5vw,4rem)] font-semibold leading-[1.04] tracking-tight">
-              Facciamo questo{" "}
+              Faccio questo{" "}
               <mark className="bg-accent box-decoration-clone px-[0.12em] text-ink">
-                perché ci piace farlo
+                {whyUsPassion.highlight}
               </mark>
               .
             </h2>

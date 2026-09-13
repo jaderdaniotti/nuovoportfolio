@@ -6,9 +6,9 @@ import { serviziHubJsonLd } from "@/lib/json-ld";
 import { pageSeo } from "@/lib/seo";
 import { servicePages } from "@/lib/service-pages";
 
-const title = "Servizi siti web verticali | Udine — jaderweb";
+const title = "Creazione sito web e siti aziendali | jaderweb";
 const description =
-  "Siti per matrimoni, ristoranti, B&B, artigiani e professionisti: prenotazioni, preventivi, landing ads e digitalizzazione. Scegli il verticale e partiamo.";
+  "Creazione sito web per matrimoni, ristoranti, B&B, artigiani e professionisti. Anche creazione sito internet aziendale e realizzazione sito web professionale.";
 
 export const metadata: Metadata = {
   title,

@@ -13,7 +13,7 @@ const PREFETCH_ALLOW = new Set([
   "/friuli",
   "/costo-sito-web",
   "/siti-web",
-  "/comuni",
+  // "/comuni",
   "/tools",
 ]);
 

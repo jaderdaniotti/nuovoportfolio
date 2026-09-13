@@ -1,8 +1,8 @@
 export const whyUsPage = {
   eyebrow: "Perché me",
   title: "Perché jaderweb?",
-  subtitle: "Tecnologia moderna. Codice proprietario. Un approccio diverso al web.",
-  body: "Costruisco esperienze digitali moderne utilizzando la tecnologia più adatta al progetto, privilegiando quando possibile soluzioni sviluppate su misura.",
+  subtitle: "Tecnologia moderna. Codice proprietario. Un approccio da web designer freelance.",
+  body: "Come sviluppatore sito web freelance costruisco esperienze digitali moderne, con la tecnologia più adatta al progetto e, quando serve, codice su misura.",
 } as const;
 
 export const whyUsCompare = {
@@ -98,7 +98,7 @@ export const whyUsVersus = {
     },
   ],
   note: "Non significa che uso sempre codice custom.",
-  closing: "Significa che sappiamo scegliere quando conviene usarlo.",
+  closing: "Significa che so scegliere quando conviene usarlo.",
 } as const;
 
 export const whyUsModern = {
@@ -118,11 +118,12 @@ export const whyUsModern = {
 } as const;
 
 export const whyUsPassion = {
-  title: "Facciamo questo perché ci piace farlo.",
+  title: "Faccio questo perché mi piace farlo.",
+  highlight: "perché mi piace farlo",
   body: "Studiare nuove tecnologie, progettare interfacce, scrivere codice e trasformare idee in prodotti reali non è semplicemente il mio lavoro. È quello che mi appassiona.",
 } as const;
 
 export const whyUsCta = {
   title: "Non cercare un fornitore. Trova qualcuno che costruisca con te.",
-  body: "Hai un progetto? Raccontacelo.",
+  body: "Hai un progetto? Raccontamelo.",
 } as const;

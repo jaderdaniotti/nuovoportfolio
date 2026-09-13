@@ -16,13 +16,9 @@ const SAMPLE_PATHS = [
   "/blog",
   "/blog/sito-matrimonio-vs-instagram-whatsapp",
   "/contatti",
-  "/udine",
-  "/siti-web",
-  "/siti-web/gemona-del-friuli",
-  "/siti-web/buja",
-  "/comuni",
-  "/comuni/udine-ud",
-  "/comuni/gemona-del-friuli-ud",
+  "/processo",
+  "/perche-noi",
+  "/portfolio",
   "/robots.txt",
   "/sitemap.xml",
 ];
@@ -84,10 +80,7 @@ async function checkPath(path: string): Promise<CheckResult> {
       // local smoke: allow localhost canonical only if BASE is local
       (base.includes("localhost") && canonical.length > 0);
 
-    const jsonLdOk =
-      path === "/comuni" || path.startsWith("/comuni/")
-        ? html.includes("application/ld+json") || html.includes("@context")
-        : html.includes("application/ld+json");
+    const jsonLdOk = html.includes("application/ld+json");
 
     // Home/core should have ld+json; robots/sitemap skipped above
     const needsJsonLd = ![

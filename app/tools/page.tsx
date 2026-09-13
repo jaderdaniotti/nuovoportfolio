@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ToolsIndex } from "@/components/tools/tools-index";
-import { indexableRobots } from "@/lib/seo-robots";
+import { noindexRobots } from "@/lib/seo-robots";
 import { pageSeo } from "@/lib/seo";
 
 const title = "Tools SEO gratuiti e utility web — jaderweb";
@@ -10,7 +10,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  robots: indexableRobots,
+  robots: noindexRobots,
   ...pageSeo("/tools", { title, description }),
 };
 

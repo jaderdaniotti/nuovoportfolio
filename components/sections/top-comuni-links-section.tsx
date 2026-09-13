@@ -5,7 +5,7 @@ import {
   getTopComuniLinks,
   getTopComuniServiceLinks,
 } from "@/lib/comune-internal-links";
-import { COMUNI_HUB_PATH } from "@/lib/comune-paths";
+import { COMUNI_HUB_PATH, COMUNI_SILO_ENABLED } from "@/lib/comune-paths";
 import { shouldPrefetchHref } from "@/lib/prefetch";
 
 export function TopComuniLinksSection({
@@ -19,6 +19,8 @@ export function TopComuniLinksSection({
   title?: string;
   limit?: number;
 }) {
+  if (!COMUNI_SILO_ENABLED) return null;
+
   const links =
     serviceSlug && serviceName
       ? getTopComuniServiceLinks(serviceSlug, serviceName, limit)

@@ -1,12 +1,6 @@
 import { SITE_URL, absoluteUrl } from "@/lib/seo";
-import { getFeaturedComuni } from "@/lib/comuni";
-import { comuneBasePath } from "@/lib/comune-paths";
 import { SERVICE_BLOG_POSTS } from "@/lib/blog/posts";
 import { servicePages } from "@/lib/service-pages";
-import {
-  LOCAL_LANDINGS_HUB_PATH,
-  getLocalLandingPages,
-} from "@/lib/local-landings";
 
 /** Chiave IndexNow pubblica (file in /public/{key}.txt). */
 export const INDEXNOW_KEY = "65b9b0e3cda1f55c78d585dbd033293e";
@@ -29,22 +23,10 @@ export function getIndexNowCoreUrls(): string[] {
     "/contatti",
     "/processo",
     "/perche-noi",
-    "/udine",
-    "/friuli",
-    "/costo-sito-web",
-    LOCAL_LANDINGS_HUB_PATH,
-    "/comuni",
-    "/tools",
   ].map((path) => absoluteUrl(path));
-
-  const landings = getLocalLandingPages().map((page) => absoluteUrl(page.path));
 
   const services = servicePages.map((page) =>
     absoluteUrl(`/servizi/${page.slug}`),
-  );
-
-  const topComuni = getFeaturedComuni(12).map((comune) =>
-    absoluteUrl(comuneBasePath(comune.slug)),
   );
 
   const recentBlog = [...SERVICE_BLOG_POSTS]
@@ -52,7 +34,7 @@ export function getIndexNowCoreUrls(): string[] {
     .slice(0, 20)
     .map((post) => absoluteUrl(`/blog/${post.slug}`));
 
-  return [...new Set([...core, ...landings, ...services, ...topComuni, ...recentBlog])];
+  return [...new Set([...core, ...services, ...recentBlog])];
 }
 
 export function getIndexNowHost(): string {

@@ -9,6 +9,7 @@ import {
   getLocalLandingPages,
 } from "@/lib/local-landings";
 import { pageSeo } from "@/lib/seo";
+import { noindexRobots } from "@/lib/seo-robots";
 
 const title = LOCAL_LANDINGS_HUB_SEO.title;
 const description = LOCAL_LANDINGS_HUB_SEO.description;
@@ -16,6 +17,7 @@ const description = LOCAL_LANDINGS_HUB_SEO.description;
 export const metadata: Metadata = {
   title,
   description,
+  robots: noindexRobots,
   ...pageSeo(LOCAL_LANDINGS_HUB_PATH, { title, description }),
 };
 

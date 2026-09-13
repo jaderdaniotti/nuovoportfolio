@@ -152,7 +152,7 @@ export const localLandingPages: LocalLandingPage[] = [
       { label: "Siti web a Udine", href: "/udine" },
       { label: "Freelance in Friuli Venezia Giulia", href: "/friuli" },
       { label: "Quanto costa un sito web", href: "/costo-sito-web" },
-      { label: "Pagina comune Gemona", href: "/comuni/gemona-del-friuli-ud" },
+      // { label: "Pagina comune Gemona", href: "/comuni/gemona-del-friuli-ud" },
     ],
     faqs: [
       {
@@ -1528,7 +1528,7 @@ export const localLandingPages: LocalLandingPage[] = [
       { label: "Freelance in Friuli Venezia Giulia", href: "/friuli" },
       { label: "Quanto costa un sito web", href: "/costo-sito-web" },
       { label: "Tutti i servizi", href: "/servizi" },
-      { label: "Pagina silo Comune di Udine", href: "/comuni/udine-ud" },
+      // { label: "Pagina silo Comune di Udine", href: "/comuni/udine-ud" },
     ],
     faqs: [
       {

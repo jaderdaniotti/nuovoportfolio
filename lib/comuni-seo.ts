@@ -2,6 +2,7 @@ import { getServicePage } from "@/lib/service-pages";
 import { getServiceSeo } from "@/lib/service-seo";
 import {
   COMUNI_HUB_PATH,
+  COMUNI_SILO_ENABLED,
   comuneBasePath,
   comuneContattiPath,
   comunePercheNoiPath,
@@ -10,6 +11,7 @@ import {
   comuneServiziPath,
 } from "@/lib/comune-paths";
 
+/** Soglia storica del silo. Con `COMUNI_SILO_ENABLED = false` non si indicizza nulla. */
 export const INDEXABLE_POPULATION_THRESHOLD = 0;
 export const PRERENDER_POPULATION_THRESHOLD = 20_000;
 export const COMUNE_REVALIDATE_SECONDS = 2_592_000;
@@ -251,10 +253,12 @@ const serviceLead = [
 ] as const;
 
 export function isIndexablePopulation(popolazione: number) {
+  if (!COMUNI_SILO_ENABLED) return false;
   return popolazione >= INDEXABLE_POPULATION_THRESHOLD;
 }
 
 export function isPreRenderPopulation(popolazione: number) {
+  if (!COMUNI_SILO_ENABLED) return false;
   return popolazione >= PRERENDER_POPULATION_THRESHOLD;
 }
 

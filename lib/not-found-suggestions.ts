@@ -23,7 +23,7 @@ const CORE_PATHS = [
   "/costo-sito-web",
   "/siti-web",
   "/siti-web/gemona-del-friuli",
-  "/comuni",
+  // "/comuni",
   "/tools",
 ];
 

@@ -2,7 +2,7 @@ export const processPage = {
   eyebrow: "Processo",
   title: "Da un'idea a qualcosa di reale.",
   subtitle: "Ogni progetto parte da un'idea.",
-  body: "La trasformo in una soluzione digitale attraverso un processo chiaro, condiviso e costruito intorno ai tuoi obiettivi.",
+  body: "Nella realizzazione sito web la trasformo in una soluzione digitale, con un processo chiaro e costruito intorno ai tuoi obiettivi.",
   thread: "Prima capiamo. Poi progetto. Poi costruisco.",
   stack: [
     "DISCOVERY",
@@ -18,9 +18,9 @@ export const processPhases = [
   {
     number: "01",
     title: "Discovery",
-    headline: "Prima di costruire, ascoltiamo.",
-    body: "Prima di parlare di codice, design o tecnologia, vogliamo capire il progetto.",
-    intro: "Analizziamo:",
+    headline: "Prima di costruire, ascolto.",
+    body: "Prima di parlare di codice, design o tecnologia, voglio capire il progetto.",
+    intro: "Guardo:",
     items: [
       "cosa fai",
       "chi sono i tuoi clienti",
@@ -34,9 +34,9 @@ export const processPhases = [
   {
     number: "02",
     title: "Strategy",
-    headline: "Diamo una direzione all'idea.",
-    body: "Una volta capito il progetto, definiamo come trasformarlo in qualcosa di concreto.",
-    intro: "Decidiamo:",
+    headline: "Do una direzione all'idea.",
+    body: "Una volta capito il progetto, definisco come trasformarlo in qualcosa di concreto.",
+    intro: "Decido:",
     items: [
       "struttura",
       "funzionalità",
@@ -52,7 +52,7 @@ export const processPhases = [
     title: "Design",
     headline: "Prima lo immaginiamo insieme. Poi lo costruisco.",
     body: "Trasformo la strategia in un'esperienza visiva.",
-    intro: "Ci occupiamo di:",
+    intro: "Mi occupo di:",
     items: ["UI", "UX", "Responsive", "Interazioni", "Identità visiva"],
     note: "L'obiettivo non è semplicemente creare qualcosa di bello.",
     closing: "Deve essere bello da vedere e semplice da utilizzare.",
@@ -79,9 +79,9 @@ export const processPhases = [
   {
     number: "05",
     title: "Test & Launch",
-    headline: "Prima di pubblicare, controlliamo tutto.",
+    headline: "Prima di pubblicare, controllo tutto.",
     body: "Il progetto viene testato su dispositivi e situazioni diverse.",
-    intro: "Controlliamo:",
+    intro: "Controllo:",
     items: [
       "Responsive",
       "Performance",

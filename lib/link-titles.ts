@@ -9,7 +9,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/#chi-siamo": "Chi sono — freelance web a Udine",
   "/blog": "Blog su siti web, SEO e digitalizzazione",
   "/contatti": "Contatti e preventivo per un sito web",
-  "/comuni": "Siti web per tutti i comuni d’Italia",
+  // "/comuni": "Siti web per tutti i comuni d’Italia",
   "/tools": "Tools SEO e utility web gratuite",
   "/privacy": "Informativa sulla privacy",
   "/cookie": "Informativa sui cookie",

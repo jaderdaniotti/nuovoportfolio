@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { getDisabledComuneSiloRedirects } from "./lib/comune-paths";
 import { LEGACY_BLOG_REDIRECTS } from "./lib/legacy-blog-redirects";
 import { LEGACY_PATH_REDIRECTS } from "./lib/legacy-path-redirects";
 
@@ -14,6 +15,7 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      ...getDisabledComuneSiloRedirects(),
       ...LEGACY_PATH_REDIRECTS.map((rule) => ({
         source: rule.source,
         destination: rule.destination,

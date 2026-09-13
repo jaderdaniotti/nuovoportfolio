@@ -28,7 +28,7 @@ export function PortfolioPageContent() {
               Risultati online.
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-muted">
-              Una selezione dei siti che ho progettato e sviluppato: fotografi, hospitality,
+              Una selezione di realizzazione sito web professionale: fotografi, hospitality,
               retail, ristorazione e siti aziendali. Dove possibile vedi l&apos;anteprima live.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
