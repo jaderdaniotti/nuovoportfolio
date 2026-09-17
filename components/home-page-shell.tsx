@@ -10,14 +10,12 @@ import { ServicesFlowingMenuSection } from "@/components/sections/services-flowi
 import { ServicesSection } from "@/components/sections/services-section";
 import { TechSection } from "@/components/sections/tech-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import { IntroSplash } from "@/components/intro-splash";
 import { ScrollToTopOnLoad } from "@/components/scroll-to-top-on-load";
 
 export function HomePageShell() {
   return (
     <>
       <ScrollToTopOnLoad />
-      <IntroSplash />
       <main>
         <HeroSection />
         <AuthorityStripSection />

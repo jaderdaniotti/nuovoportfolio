@@ -199,6 +199,13 @@ export const serviceCategories = [
 
 export const portfolioProjects = [
   {
+    title: "Archeologa del gusto",
+    tags: "Azienda agricola",
+    summary:
+      "Sito web per un’azienda agricola in Carnia: ortaggi, laboratorio artigianale, prodotti e contatti.",
+    url: "https://archeologadelgusto.vercel.app/",
+  },
+  {
     title: "Eleonora Politi Photographer",
     tags: "Fotografia",
     summary:

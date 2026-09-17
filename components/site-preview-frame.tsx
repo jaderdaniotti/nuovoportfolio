@@ -12,6 +12,8 @@ type SitePreviewFrameProps = {
   sizes?: string;
   lazy?: boolean;
   fetchPriority?: "high" | "low" | "auto";
+  /** Carica subito l’iframe (es. hero). Nel portfolio resta off: niente animazioni finché non passi sopra. */
+  autoLive?: boolean;
 };
 
 export function SitePreviewFrame({
@@ -23,20 +25,20 @@ export function SitePreviewFrame({
   sizes,
   lazy = false,
   fetchPriority = "auto",
+  autoLive = false,
 }: SitePreviewFrameProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.2);
   const [inView, setInView] = useState(!lazy);
-  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
-  const [iframeDelayElapsed, setIframeDelayElapsed] = useState(false);
+  const [livePreview, setLivePreview] = useState(autoLive && !fallbackSrc);
   const [iframeFailed, setIframeFailed] = useState(false);
 
-  const imageReady = !fallbackSrc || loadedSrc === fallbackSrc;
   const showIframe =
     Boolean(url) &&
-    inView &&
     !iframeFailed &&
-    (!fallbackSrc || imageReady || iframeDelayElapsed);
+    !fallbackSrc &&
+    livePreview &&
+    (autoLive ? inView : true);
 
   useEffect(() => {
     const el = ref.current;
@@ -51,7 +53,7 @@ export function SitePreviewFrame({
   }, [viewportWidth]);
 
   useEffect(() => {
-    if (!lazy) return;
+    if (!lazy || !autoLive) return;
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -61,20 +63,25 @@ export function SitePreviewFrame({
           io.disconnect();
         }
       },
-      { rootMargin: "280px" },
+      { rootMargin: "200px" },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [lazy]);
+  }, [lazy, autoLive]);
 
-  useEffect(() => {
-    if (!url || !inView || !fallbackSrc || imageReady) return;
-    const timeout = window.setTimeout(() => setIframeDelayElapsed(true), 2500);
-    return () => window.clearTimeout(timeout);
-  }, [url, inView, fallbackSrc, imageReady]);
+  const enableLive = () => {
+    if (!url || fallbackSrc) return;
+    setLivePreview(true);
+  };
 
   return (
-    <div ref={ref} className="absolute inset-0 overflow-hidden bg-cream/5">
+    <div
+      ref={ref}
+      className="absolute inset-0 overflow-hidden bg-cream/5"
+      onMouseEnter={autoLive ? undefined : enableLive}
+      onFocus={autoLive ? undefined : enableLive}
+      onTouchStart={autoLive ? undefined : enableLive}
+    >
       {fallbackSrc ? (
         <Image
           src={fallbackSrc}
@@ -85,8 +92,21 @@ export function SitePreviewFrame({
           fetchPriority={fetchPriority}
           decoding="async"
           className="object-cover object-top"
-          onLoad={() => setLoadedSrc(fallbackSrc)}
         />
+      ) : null}
+
+      {!fallbackSrc && !showIframe && url ? (
+        <button
+          type="button"
+          onClick={enableLive}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-foreground/[0.04] px-4 text-center"
+          aria-label={`Carica anteprima di ${alt}`}
+        >
+          <span className="font-display text-sm font-semibold tracking-tight text-foreground">
+            {alt}
+          </span>
+          <span className="text-xs text-muted">Tocca per l’anteprima</span>
+        </button>
       ) : null}
 
       {showIframe ? (

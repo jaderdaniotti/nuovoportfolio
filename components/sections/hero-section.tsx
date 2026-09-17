@@ -44,6 +44,7 @@ function MockupSlide({
             viewportHeight={900}
             sizes="(min-width: 1024px) 55vw, 90vw"
             fetchPriority={lcp ? "high" : "auto"}
+            autoLive
           />
         </div>
       </div>
@@ -59,6 +60,7 @@ function MockupSlide({
             viewportHeight={844}
             sizes="280px"
             lazy
+            autoLive
           />
         </div>
       </div>

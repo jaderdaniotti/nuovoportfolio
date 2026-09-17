@@ -47,9 +47,11 @@ export function PortfolioSection({
         </Reveal>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {portfolioProjects.map((project, index) => (
-            <Reveal key={project.url} delay={0.08 + (index % 3) * 0.05}>
-              <article className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-foreground/[0.03]">
+          {portfolioProjects.map((project) => (
+            <article
+              key={project.url}
+              className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-foreground/[0.03]"
+            >
                 <div className="flex items-center gap-1.5 border-b border-border px-3 py-2.5">
                   <span className="h-2 w-2 rounded-full bg-accent" />
                   <span className="h-2 w-2 rounded-full bg-foreground/20" />
@@ -96,8 +98,7 @@ export function PortfolioSection({
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
-              </article>
-            </Reveal>
+            </article>
           ))}
         </div>
       </div>
