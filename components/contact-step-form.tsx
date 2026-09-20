@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/button";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/cn";
@@ -110,10 +110,16 @@ function ChoiceCard({
 
 export function ContactStepForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { theme } = useTheme();
-  const [mode, setMode] = useState<ContactMode | null>(null);
+  const [mode, setMode] = useState<ContactMode | null>(() =>
+    searchParams.get("progetto")?.trim() ? "quick" : null,
+  );
   const [step, setStep] = useState(0);
-  const [data, setData] = useState<FormData>(emptyForm);
+  const [data, setData] = useState<FormData>(() => {
+    const progetto = searchParams.get("progetto")?.trim() ?? "";
+    return progetto ? { ...emptyForm, message: progetto } : emptyForm;
+  });
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);

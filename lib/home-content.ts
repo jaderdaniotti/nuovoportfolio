@@ -47,6 +47,16 @@ export const hero = {
   ctaPrimary: "Richiedi un preventivo",
   ctaSecondary: "Vedi i lavori",
   ctaSecondaryHref: "/portfolio",
+  leadCta: {
+    placeholder: "Di cosa tratta la tua attività o il tuo progetto?",
+    button: "Richiedi un preventivo",
+    hint: "Scrivi due righe: ti porto al form contatti con il messaggio già pronto.",
+    proofs: [
+      "Un referente solo, dalla call al go-live",
+      "Preventivo scritto, senza listino uguale per tutti",
+      "Base a Udine · progetti anche a Gemona",
+    ],
+  },
 } as const;
 
 export const homeLocalIntent = {

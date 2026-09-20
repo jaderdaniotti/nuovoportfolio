@@ -1,4 +1,5 @@
 import SplitText from "@/components/split-text";
+import { Suspense } from "react";
 import { Button } from "@/components/button";
 import { ContactStepForm } from "@/components/contact-step-form";
 import { ProcessTimeline } from "@/components/process-timeline";
@@ -101,7 +102,9 @@ export function ContactPageContent({
       >
         <div className="page-shell">
           <div className="mx-auto max-w-3xl">
-            <ContactStepForm />
+            <Suspense fallback={<div className="min-h-80" aria-hidden />}>
+              <ContactStepForm />
+            </Suspense>
           </div>
         </div>
       </section>

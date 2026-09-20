@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import { Button } from "@/components/button";
 import { Reveal } from "@/components/reveal";
 import { SitePreviewFrame } from "@/components/site-preview-frame";
+import { HeroLeadCta } from "@/components/sections/hero-lead-cta";
 import { hero, heroMockups } from "@/lib/home-content";
 import { getLinkTitle } from "@/lib/link-titles";
 
@@ -189,12 +189,7 @@ export function HeroSection() {
             {hero.subheadline}
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button href="/contatti">{hero.ctaPrimary}</Button>
-            <Button href={hero.ctaSecondaryHref} variant="outline">
-              {hero.ctaSecondary}
-            </Button>
-          </div>
+          <HeroLeadCta />
         </Reveal>
 
         <Reveal delay={0.2} className="min-w-0 w-full">
