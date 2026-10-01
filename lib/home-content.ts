@@ -131,6 +131,7 @@ export const heroMockups = [
   },
   {
     name: "Spazio AC",
+    url: "https://spazioac.it/",
     desktopSrc: "/img/projects/spazioacpc.png",
     mobileSrc: "/img/projects/spazioacmobile.png",
   },
@@ -235,6 +236,14 @@ export const portfolioProjects = [
     tags: "Attività commerciale",
     summary: "Sito web per un’attività retail, con presentazione e contatti.",
     url: "https://gioiacapelli.it/",
+  },
+  {
+    title: "Spazio AC",
+    tags: "Ecommerce",
+    summary:
+      "Ecommerce Shopify di abbigliamento donna Made in Italy: catalogo, collezioni e checkout.",
+    url: "https://spazioac.it/",
+    desktopSrc: "/img/projects/spazioacpc.png",
   },
   {
     title: "Pompe Funebri Tortarolo e Conti",

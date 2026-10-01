@@ -23,21 +23,59 @@ const BRAND = {
 } as const;
 
 function requireEnv(name: string): string {
-  const value = process.env[name]?.trim();
-  if (!value) {
+  const raw = process.env[name]?.trim();
+  if (!raw) {
     throw new Error(`Missing environment variable: ${name}`);
   }
-  return value;
+  // Rimuove virgolette accidentali da .env / Vercel dashboard.
+  if (
+    (raw.startsWith('"') && raw.endsWith('"')) ||
+    (raw.startsWith("'") && raw.endsWith("'"))
+  ) {
+    return raw.slice(1, -1).trim();
+  }
+  return raw;
+}
+
+function optionalEnv(name: string): string | undefined {
+  const raw = process.env[name]?.trim();
+  if (!raw) return undefined;
+  if (
+    (raw.startsWith('"') && raw.endsWith('"')) ||
+    (raw.startsWith("'") && raw.endsWith("'"))
+  ) {
+    return raw.slice(1, -1).trim();
+  }
+  return raw;
 }
 
 export function createMailTransport() {
   const user = requireEnv("SMTP_USER");
-  const pass = requireEnv("SMTP_PASS").replace(/\s+/g, "");
+  // Accetta SMTP_PASS oppure GOOGLE_APP_PASSWORD (nome usato in .env.local).
+  const pass = (
+    optionalEnv("SMTP_PASS") ||
+    optionalEnv("GOOGLE_APP_PASSWORD") ||
+    ""
+  ).replace(/\s+/g, "");
+
+  if (!pass) {
+    throw new Error(
+      "Missing environment variable: SMTP_PASS (oppure GOOGLE_APP_PASSWORD)",
+    );
+  }
+
+  const host = optionalEnv("SMTP_HOST") || "smtp.gmail.com";
+  const port = Number(optionalEnv("SMTP_PORT")) || 465;
+  const secureRaw = optionalEnv("SMTP_SECURE");
+  const secure =
+    secureRaw === undefined
+      ? port === 465
+      : secureRaw === "true" || secureRaw === "1";
 
   return nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    host,
+    port,
+    secure,
     auth: { user, pass },
   });
 }
@@ -201,7 +239,7 @@ function emailShell({
 }
 
 export function buildContactEmail(payload: ContactPayload) {
-  const to = process.env.CONTACT_TO?.trim() || requireEnv("SMTP_USER");
+  const to = optionalEnv("CONTACT_TO") || requireEnv("SMTP_USER");
   const from = requireEnv("SMTP_USER");
   const name = displayName(payload);
   const rows = buildDetailRows(payload);
