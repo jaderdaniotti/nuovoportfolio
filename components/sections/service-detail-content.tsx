@@ -84,30 +84,6 @@ export function ServiceDetailContent({
             ) : null}
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Button href={contactHref}>{page.heroCta}</Button>
-              <Link
-                href={`/demo/${page.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold tracking-wide text-foreground transition hover:border-foreground/40 hover:bg-foreground/5"
-              >
-                Vedi la demo live
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </Link>
             </div>
           </Reveal>
         </div>
